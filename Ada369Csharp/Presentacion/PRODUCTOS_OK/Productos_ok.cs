@@ -1141,7 +1141,7 @@ namespace Ada369Csharp.Presentacion.PRODUCTOS_OK
             {
 
                 Panel25.Enabled = true;
-                DATALISTADO_PRODUCTOS_OKA.Visible = false;
+                //DATALISTADO_PRODUCTOS_OKA.Visible = false;
 
                 Panel6.Visible = false;
                 TGUARDAR.Visible = false;
@@ -1157,6 +1157,8 @@ namespace Ada369Csharp.Presentacion.PRODUCTOS_OK
                 btnGuardar_grupo.Visible = false;
                 BtnCancelar.Visible = false;
                 btnNuevoGrupo.Visible = true;
+                datalistado.Visible = false;
+                DATALISTADO_PRODUCTOS_OKA.Visible = false;
 
             }
             catch (Exception ex)

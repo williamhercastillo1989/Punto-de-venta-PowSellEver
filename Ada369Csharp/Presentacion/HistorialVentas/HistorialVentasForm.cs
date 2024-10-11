@@ -388,5 +388,10 @@ namespace Ada369Csharp.Presentacion.HistorialVentas
         {
 
         }
+
+        private void lblpagocon_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

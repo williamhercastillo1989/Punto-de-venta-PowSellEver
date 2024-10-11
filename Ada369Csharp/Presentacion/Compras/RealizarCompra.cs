@@ -10,6 +10,7 @@ using Ada369Csharp.Datos;
 using Ada369Csharp.Logica;
 using Ada369Csharp.Presentacion.CLIENTES_PROVEEDORES;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
 
 namespace Ada369Csharp.Presentacion.Compras
 {
@@ -23,12 +24,13 @@ namespace Ada369Csharp.Presentacion.Compras
         int idproducto;
         Panel panel_mostrador_de_productos = new Panel();
         string Tipo_de_busqueda;
-        int idcompra = 0;
+        public static int idcompra = 0;
         int idproveedor;
         string sevendePor;
         double txtpantalla;
         int iddetallecompra;
         bool SECUENCIA = true;
+        public static bool ESTADO_EDICION = false;
 
         private void txtbuscar_TextChanged(object sender, EventArgs e)
         {
@@ -50,7 +52,7 @@ namespace Ada369Csharp.Presentacion.Compras
                 }
                 BuscarProductos();
             }
-
+          
         }
 
         private void ValidarTiposBusqueda()
@@ -143,6 +145,13 @@ namespace Ada369Csharp.Presentacion.Compras
                     dgProductos.Visible = true;
                     lbltipodebusqueda2.Visible = false;
                     BuscarProductos();
+
+                    txtbuscar.Text = dgProductos.SelectedCells[9].Value.ToString();
+                    idproducto = Convert.ToInt32(dgProductos.SelectedCells[1].Value);
+                    panel_mostrador_de_productos.Visible = false;
+                    insertarCompra();
+                    txtbuscar.Text = "";
+                    txtbuscar.Focus();
                 }
             }
             catch (Exception)
@@ -227,6 +236,8 @@ namespace Ada369Csharp.Presentacion.Compras
             idproducto = Convert.ToInt32(dgProductos.SelectedCells[1].Value);
             panel_mostrador_de_productos.Visible = false;
             insertarCompra();
+            txtbuscar.Text = "";
+            txtbuscar.Focus();
         }
         private void insertarCompra()
         {
@@ -258,7 +269,7 @@ namespace Ada369Csharp.Presentacion.Compras
             var funcion = new Dcompras();
             funcion.MostrarUltimoIdcompra(ref idcompra);
         }
-        private void mostrarDetallecompra()
+        public  void mostrarDetallecompra()
         {
             var dt = new DataTable();
             var funcion = new Ddetallecompra();
@@ -266,11 +277,12 @@ namespace Ada369Csharp.Presentacion.Compras
             parametros.IdCompra = idcompra;
             funcion.mostrar_DetalleCompra(ref dt, parametros);
             dgDetallecompra.DataSource = dt;
-            dgDetallecompra.Columns[1].Visible = false;
             dgDetallecompra.Columns[2].Visible = false;
             dgDetallecompra.Columns[3].Visible = false;
+            dgDetallecompra.Columns[4].Visible = false;
             dgDetallecompra.Columns[8].Visible = false;
             dgDetallecompra.Columns[9].Visible = false;
+            dgDetallecompra.Columns[10].Visible = false;
             Bases.Multilinea(ref dgDetallecompra);
             sumar();
 
@@ -304,14 +316,28 @@ namespace Ada369Csharp.Presentacion.Compras
 
         private void dgDetallecompra_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            iddetallecompra = Convert.ToInt32(dgDetallecompra.SelectedCells[1].Value);
-            idproducto = Convert.ToInt32(dgDetallecompra.SelectedCells[3].Value);
-            sevendePor = (dgDetallecompra.SelectedCells[8].Value.ToString());
+            iddetallecompra = Convert.ToInt32(dgDetallecompra.SelectedCells[2].Value);
+            int id_compra = Convert.ToInt32(dgDetallecompra.SelectedCells[3].Value);
+            idproducto = Convert.ToInt32(dgDetallecompra.SelectedCells[4].Value);
+            sevendePor = (dgDetallecompra.SelectedCells[9].Value.ToString());
+            string precioCompra = (dgDetallecompra.SelectedCells[11].Value.ToString());
+            string precioVenta = (dgDetallecompra.SelectedCells[12].Value.ToString());
             if (e.ColumnIndex == dgDetallecompra.Columns["EL"].Index)
             {
                 eliminar_detalle_compra();
+            } 
+            else if(e.ColumnIndex == dgDetallecompra.Columns["editPrice"].Index)
+            {
+                editarPriceProduct(idproducto, precioCompra, precioVenta, id_compra);
             }
 
+        }
+
+        private void editarPriceProduct(int idproducto, string precioCompra , string precioVenta, int iddetallecompra) 
+        {
+            PowSellEver frm  = new PowSellEver(idproducto, precioCompra, precioVenta, iddetallecompra);
+            frm.FormClosed += new FormClosedEventHandler(frm_FormClosed);
+            frm.ShowDialog();
         }
         private void eliminar_detalle_compra()
         {
@@ -450,9 +476,9 @@ namespace Ada369Csharp.Presentacion.Compras
         {
             txtpantalla = Convert.ToDouble(txtmonto.Text);
             double Cantidad;
-            Cantidad = Convert.ToDouble(dgDetallecompra.SelectedCells[5].Value);
+            Cantidad = Convert.ToDouble(dgDetallecompra.SelectedCells[6].Value);
             string ControlStock;
-            ControlStock = dgDetallecompra.SelectedCells[9].Value.ToString();
+            ControlStock = dgDetallecompra.SelectedCells[10].Value.ToString();
             if (ControlStock == "SI")
             {
                 editar_detalle_compra_Cantidad();
@@ -484,7 +510,6 @@ namespace Ada369Csharp.Presentacion.Compras
                 txtmonto.Focus();
             }
         }
-
 
 
         private void editar_detalle_compra_Precio()
@@ -520,6 +545,14 @@ namespace Ada369Csharp.Presentacion.Compras
             if (ValidarCompraPrecios()) 
             {
                 confirmarCompra();
+            }
+        }
+
+        private void frm_FormClosed(Object sender, FormClosedEventArgs e)
+        {
+            if (ESTADO_EDICION == true)
+            {
+                mostrarDetallecompra();
             }
         }
 
@@ -642,99 +675,11 @@ namespace Ada369Csharp.Presentacion.Compras
             ModoTeclado();
         }
 
-        private void btnVenta_Click(object sender, EventArgs e)
+        private void dgDetallecompra_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            DialogResult result;
-            if (dgDetallecompra.RowCount > 0)
-            {
-                if (txtmonto.Text != "")
-                {
-                    result = MessageBox.Show("¿Esta seguro que quiere actualizar Precio Venta?", "Actualizar Precio Venta", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                    if (result == DialogResult.Yes)
-                    {
-                        //crear funcion actualizar y esta todo listo
-                        editarPreciosCompraVenta();
-                        mostrarDetallecompra();
-                        txtmonto.Clear();
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Ingrese Precio Venta a Actualizar", "Precio  Vacio", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
-                }
-            } 
-            else
-            {
-                MessageBox.Show("Sin productos en lista de compra", "Sin Producto", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                txtmonto.Clear();
-                txtmonto.Focus();
-
-            }
         }
 
-
-        private void editarPreciosCompraVenta() 
-        {
-            double precioCompra = Convert.ToDouble(dgDetallecompra.SelectedCells[10].Value);
-
-            Lproductos parametros = new Lproductos();
-            Editar_datos funcion = new Editar_datos();
-            parametros.Id_Producto1 = idproducto;
-            parametros.Precio_de_venta = Convert.ToDouble(txtmonto.Text); 
-            parametros.Precio_de_compra = precioCompra;
-            funcion.EditarPreciosProductosCompras(parametros);
-        }
-
-        private void editarPreciosCompra()
-        {
-            double precioVenta = Convert.ToDouble(dgDetallecompra.SelectedCells[11].Value);
-
-            Lproductos parametros = new Lproductos();
-            Editar_datos funcion = new Editar_datos();
-            parametros.Id_Producto1 = idproducto;
-            parametros.Precio_de_venta = precioVenta;
-            parametros.Precio_de_compra = Convert.ToDouble(txtmonto.Text);
-            funcion.EditarPreciosProductosCompras(parametros);
-        }
-
-        private void btnCompra_Click(object sender, EventArgs e)
-        {
-            DialogResult result;
-            if (dgDetallecompra.RowCount > 0)
-            {
-                if (txtmonto.Text != "")
-                {
-                    result = MessageBox.Show("¿Esta seguro que quiere actualizar Precio Compra?", "Actualizar Precio Compra", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                    if (result == DialogResult.Yes)
-                    {
-                        //crear funcion actualizar y esta todo listo
-                        editarPreciosCompra();
-                        mostrarDetallecompra();
-                        txtmonto.Clear();
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Ingrese Precio Compra a Actualizar", "Precio  Vacio", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-                }
-            }
-            else
-            {
-                MessageBox.Show("Sin productos en lista de compra", "Sin Producto", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                txtmonto.Clear();
-                txtmonto.Focus();
-
-            }
-        }
+    
     }
 }

@@ -30098,18 +30098,14 @@ ALTER DATABASE [POWSELLEVER] SET TARGET_RECOVERY_TIME = 0 SECONDS
 GO
 ALTER DATABASE [POWSELLEVER] SET DELAYED_DURABILITY = DISABLED 
 GO
-ALTER DATABASE [POWSELLEVER] SET ACCELERATED_DATABASE_RECOVERY = OFF  
-GO
-ALTER DATABASE [POWSELLEVER] SET QUERY_STORE = OFF
-GO
 USE [POWSELLEVER]
 GO
-/****** Object:  User [WILL_NAN_LIA]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  User [WILL_NAN_LIA]    Script Date: 10/10/2024 01:10:14 p. m. ******/
 CREATE USER [WILL_NAN_LIA] FOR LOGIN [WILL_NAN_LIA] WITH DEFAULT_SCHEMA=[dbo]
 GO
 ALTER ROLE [db_owner] ADD MEMBER [WILL_NAN_LIA]
 GO
-/****** Object:  Table [dbo].[Caja]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[Caja]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30128,10 +30124,10 @@ CREATE TABLE [dbo].[Caja](
  CONSTRAINT [PK_Caja_1] PRIMARY KEY CLUSTERED 
 (
 	[Id_Caja] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[clientes]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[clientes]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30147,10 +30143,10 @@ CREATE TABLE [dbo].[clientes](
  CONSTRAINT [PK_clientes] PRIMARY KEY CLUSTERED 
 (
 	[idclientev] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Compras]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[Compras]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30165,10 +30161,10 @@ CREATE TABLE [dbo].[Compras](
  CONSTRAINT [PK_Compras] PRIMARY KEY CLUSTERED 
 (
 	[Idcompra] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Conceptos]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[Conceptos]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30179,10 +30175,10 @@ CREATE TABLE [dbo].[Conceptos](
  CONSTRAINT [PK_Conceptos] PRIMARY KEY CLUSTERED 
 (
 	[Id_concepto] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ControlCobros]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[ControlCobros]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30201,10 +30197,10 @@ CREATE TABLE [dbo].[ControlCobros](
  CONSTRAINT [PK_ControlCobros] PRIMARY KEY CLUSTERED 
 (
 	[IdcontrolCobro] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[CorreoBase]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[CorreoBase]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30217,10 +30213,10 @@ CREATE TABLE [dbo].[CorreoBase](
  CONSTRAINT [PK_CorreoBase] PRIMARY KEY CLUSTERED 
 (
 	[IdCorreo] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[CreditoPorCobrar]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[CreditoPorCobrar]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30238,10 +30234,10 @@ CREATE TABLE [dbo].[CreditoPorCobrar](
  CONSTRAINT [PK_CreditoPorCobrar] PRIMARY KEY CLUSTERED 
 (
 	[Id_credito] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[CreditoPorPagar]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[CreditoPorPagar]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30259,10 +30255,10 @@ CREATE TABLE [dbo].[CreditoPorPagar](
  CONSTRAINT [PK_CreditoPorPagar] PRIMARY KEY CLUSTERED 
 (
 	[Id_credito] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[detalle_venta]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[detalle_venta]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30288,10 +30284,10 @@ CREATE TABLE [dbo].[detalle_venta](
  CONSTRAINT [PK_detalle_venta] PRIMARY KEY CLUSTERED 
 (
 	[iddetalle_venta] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[DetalleCompra]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[DetalleCompra]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30308,10 +30304,10 @@ CREATE TABLE [dbo].[DetalleCompra](
  CONSTRAINT [PK_DetalleCompra] PRIMARY KEY CLUSTERED 
 (
 	[IdDetallecompra] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[EMPRESA]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[EMPRESA]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30337,10 +30333,10 @@ CREATE TABLE [dbo].[EMPRESA](
  CONSTRAINT [PK_EMPRESA] PRIMARY KEY CLUSTERED 
 (
 	[Id_empresa] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Gastos_varios]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[Gastos_varios]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30357,10 +30353,10 @@ CREATE TABLE [dbo].[Gastos_varios](
  CONSTRAINT [PK_Gastos_varios] PRIMARY KEY CLUSTERED 
 (
 	[Id_gasto] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Grupo_de_Productos]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[Grupo_de_Productos]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30372,10 +30368,10 @@ CREATE TABLE [dbo].[Grupo_de_Productos](
  CONSTRAINT [PK_linea] PRIMARY KEY CLUSTERED 
 (
 	[Idline] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Ingresos_varios]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[Ingresos_varios]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30391,10 +30387,10 @@ CREATE TABLE [dbo].[Ingresos_varios](
  CONSTRAINT [PK_Ingresos_varios] PRIMARY KEY CLUSTERED 
 (
 	[Id_ingreso] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Inicios_de_sesion_por_caja]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[Inicios_de_sesion_por_caja]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30406,10 +30402,10 @@ CREATE TABLE [dbo].[Inicios_de_sesion_por_caja](
  CONSTRAINT [PK_Inicios_de_sesion] PRIMARY KEY CLUSTERED 
 (
 	[Id_inicio_sesion] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[KARDEX]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[KARDEX]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30431,10 +30427,10 @@ CREATE TABLE [dbo].[KARDEX](
  CONSTRAINT [PK_KARDEX] PRIMARY KEY CLUSTERED 
 (
 	[Id_kardex] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Marcan]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[Marcan]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30442,16 +30438,16 @@ GO
 CREATE TABLE [dbo].[Marcan](
 	[Id_marca] [int] IDENTITY(1,1) NOT NULL,
 	[S] [varchar](max) NULL,
-	[F] [varchar](max) NULL,
+	[F] [datetime] NULL,
 	[E] [varchar](max) NULL,
-	[FA] [varchar](max) NULL,
+	[FA] [datetime] NULL,
  CONSTRAINT [PK_Licencias] PRIMARY KEY CLUSTERED 
 (
 	[Id_marca] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[MOVIMIENTOCAJACIERRE]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[MOVIMIENTOCAJACIERRE]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30473,10 +30469,10 @@ CREATE TABLE [dbo].[MOVIMIENTOCAJACIERRE](
  CONSTRAINT [PK_MOVIMIENTOCAJACIERRE] PRIMARY KEY CLUSTERED 
 (
 	[idcierrecaja] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Producto1]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[Producto1]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30502,10 +30498,10 @@ CREATE TABLE [dbo].[Producto1](
  CONSTRAINT [PK_Producto1] PRIMARY KEY CLUSTERED 
 (
 	[Id_Producto1] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Proveedores]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[Proveedores]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30521,10 +30517,10 @@ CREATE TABLE [dbo].[Proveedores](
  CONSTRAINT [PK_Proveedores] PRIMARY KEY CLUSTERED 
 (
 	[IdProveedor] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Serializacion]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[Serializacion]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30540,10 +30536,10 @@ CREATE TABLE [dbo].[Serializacion](
  CONSTRAINT [PK_Serializacion] PRIMARY KEY CLUSTERED 
 (
 	[Id_serializacion] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Ticket]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[Ticket]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30563,10 +30559,10 @@ CREATE TABLE [dbo].[Ticket](
  CONSTRAINT [PK_Ticket] PRIMARY KEY CLUSTERED 
 (
 	[Id_ticket] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[USUARIO2]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[USUARIO2]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30584,10 +30580,10 @@ CREATE TABLE [dbo].[USUARIO2](
  CONSTRAINT [PK_USUARIO2] PRIMARY KEY CLUSTERED 
 (
 	[idUsuario] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ventas]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  Table [dbo].[ventas]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30617,7 +30613,7 @@ CREATE TABLE [dbo].[ventas](
  CONSTRAINT [PK_ventas] PRIMARY KEY CLUSTERED 
 (
 	[idventa] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[ControlCobros]  WITH CHECK ADD  CONSTRAINT [FK_ControlCobros_Caja] FOREIGN KEY([IdCaja])
@@ -30718,7 +30714,7 @@ REFERENCES [dbo].[USUARIO2] ([idUsuario])
 GO
 ALTER TABLE [dbo].[ventas] CHECK CONSTRAINT [FK_ventas_USUARIO2]
 GO
-/****** Object:  StoredProcedure [dbo].[actualizar_serializacion_mas_uno]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[actualizar_serializacion_mas_uno]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30742,8 +30738,11 @@ where Id_serializacion=@idserie
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[aplicar_precio_mayoreo]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[aplicar_precio_mayoreo]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30766,8 +30765,11 @@ where Id_producto =@idproducto and detalle_venta.iddetalle_venta =@iddetallevent
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[aumentar_saldo_a_cliente]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[aumentar_saldo_a_cliente]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30796,8 +30798,11 @@ where idclientev =@idcliente
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[aumentar_stock_en_detalle_de_venta]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[aumentar_stock_en_detalle_de_venta]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30821,8 +30826,11 @@ update detalle_venta   set Stock=Stock+@cantidad where Id_producto   =@Id_Produc
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[aumentarStock]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[aumentarStock]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30839,8 +30847,11 @@ where Id_Producto1=@idproducto and Usa_inventarios = 'SI'
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[buscar_clientes]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[buscar_clientes]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30862,8 +30873,11 @@ where Nombre+IdentificadorFiscal+Celular   Like '%' + @letra + '%'  AND Nombre&l
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[buscar_conceptos]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[buscar_conceptos]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30886,8 +30900,30 @@ where Descripcion  Like '%' + @letra + '%'
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[Buscar_id_GRUPOS]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[buscar_credito_activo]    Script Date: 10/10/2024 01:10:15 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[buscar_credito_activo]
+@idcliente int
+As
+SELECT Id_cliente ,  Estado, Saldo
+FROM    dbo.CreditoPorCobrar
+where CreditoPorCobrar.Id_cliente=@idcliente AND CreditoPorCobrar.Estado ='DEBE'
+
+
+
+
+
+
+
+GO
+/****** Object:  StoredProcedure [dbo].[Buscar_id_GRUPOS]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30903,8 +30939,11 @@ order by Idline desc
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[Buscar_id_USUARIOS]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[Buscar_id_USUARIOS]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30938,8 +30977,11 @@ order by idUsuario desc
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[buscar_MOVIMIENTOS_DE_KARDEX]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[buscar_MOVIMIENTOS_DE_KARDEX]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30979,8 +31021,11 @@ END
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[buscar_MOVIMIENTOS_DE_KARDEX_filtros ]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[buscar_MOVIMIENTOS_DE_KARDEX_filtros ]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31019,8 +31064,11 @@ END
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[buscar_MOVIMIENTOS_DE_KARDEX_filtros_acumulado]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[buscar_MOVIMIENTOS_DE_KARDEX_filtros_acumulado]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31060,8 +31108,11 @@ END
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[buscar_producto_por_descripcion]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[buscar_producto_por_descripcion]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31101,8 +31152,11 @@ END
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[BUSCAR_PRODUCTOS_KARDEX]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[BUSCAR_PRODUCTOS_KARDEX]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31141,8 +31195,11 @@ Grupo_de_Productos.Idline=Producto1.Id_grupo
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[BUSCAR_PRODUCTOS_oka]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[BUSCAR_PRODUCTOS_oka]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31181,8 +31238,11 @@ end
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[buscar_productos_vencidos]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[buscar_productos_vencidos]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31221,8 +31281,11 @@ order by (datediff(day,Fecha_de_vencimiento,CONVERT(DATE,GETDATE ()))) asc
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[buscar_Proveedores]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[buscar_Proveedores]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31244,8 +31307,11 @@ where Nombre+IdentificadorFiscal+Celular   Like '%' + @letra + '%' and Nombre &l
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[buscar_Tipo_de_documentos_para_insertar_en_ventas]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[buscar_Tipo_de_documentos_para_insertar_en_ventas]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31280,8 +31346,11 @@ FROM            dbo.Serializacion
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[buscar_usuario]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[buscar_usuario]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31316,8 +31385,11 @@ where Nombres_y_Apellidos + Login      LIKE '%'+ @letra +'%' AND Estado='ACTIVO'
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[buscar_USUARIO_por_correo]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[buscar_USUARIO_por_correo]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31352,8 +31424,11 @@ WHEre Correo =@correo
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[buscarCompras]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[buscarCompras]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31369,8 +31444,11 @@ where Comprobante  Like '%' + @buscar + '%'
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[buscarVentas]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[buscarVentas]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31393,8 +31471,11 @@ FROM            dbo.ventas INNER JOIN
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[buscarVentasPorFechas]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[buscarVentasPorFechas]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31418,8 +31499,11 @@ FROM            dbo.ventas INNER JOIN
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[cambio_de_Caja]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[cambio_de_Caja]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31444,8 +31528,11 @@ where idventa=@idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[cerrarCaja]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[cerrarCaja]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31486,8 +31573,11 @@ Where Id_caja =@Id_caja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[Confirmar_venta]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[Confirmar_venta]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31551,8 +31641,11 @@ END
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[confirmarCompra]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[confirmarCompra]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31580,8 +31673,11 @@ where Idcompra=@Idcompra and Idcaja =@Idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[contar_productos_vencidos]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[contar_productos_vencidos]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31610,8 +31706,11 @@ from Producto1 where Fecha_de_vencimiento &lt;&gt;'NO APLICA' and Fecha_de_venci
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[contarVentasEspera]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[contarVentasEspera]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31626,8 +31725,11 @@ where Estado='EN ESPERA'
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[DetalleventaDevolucion]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[DetalleventaDevolucion]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31646,8 +31748,11 @@ delete from detalle_venta where iddetalle_venta = @iddetalle and cantidad=0
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[disminuir_stock]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[disminuir_stock]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31672,8 +31777,11 @@ where Id_Producto1=@idproducto and Usa_inventarios ='SI' and Stock &gt;=@cantida
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[disminuir_stock_en_detalle_de_venta]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[disminuir_stock_en_detalle_de_venta]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31697,8 +31805,11 @@ update detalle_venta   set Stock=Stock-@cantidad where Id_producto   =@Id_Produc
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[disminuirSaldocliente]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[disminuirSaldocliente]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -31715,8 +31826,11 @@ where idclientev=@idcliente
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_caja]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_caja]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31755,8 +31869,11 @@ where Id_Caja    =@idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_caja_impresoras]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_caja_impresoras]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31784,8 +31901,11 @@ where Id_Caja    =@idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_clientes]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_clientes]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31819,8 +31939,11 @@ Where idclientev =@Idcliente
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_Conceptos]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_Conceptos]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31849,8 +31972,11 @@ Where Id_concepto=@Id_concepto
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_correo_base]    Script Date: 9/26/2024 8:48:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_correo_base]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31872,8 +31998,11 @@ Password=@Password,EstadoEnvio=@Estado_De_envio
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_CreditoPorPagar]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_CreditoPorPagar]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -31912,8 +32041,11 @@ Where Id_credito=@Id_credito
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_detalle_compra_Cantidad]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_detalle_compra_Cantidad]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31944,8 +32076,11 @@ where DetalleCompra.IdProducto = @Id_producto and DetalleCompra.IdCompra=@Idcomp
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_detalle_compra_Precio]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_detalle_compra_Precio]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31976,8 +32111,11 @@ where DetalleCompra.IdProducto = @Id_producto and DetalleCompra.IdCompra=@Idcomp
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_detalle_compra_restar]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_detalle_compra_restar]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32013,8 +32151,11 @@ delete from DetalleCompra where  DetalleCompra.IdCompra =@Idcompra and cantidad 
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_detalle_compra_sumar]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_detalle_compra_sumar]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32032,8 +32173,11 @@ where DetalleCompra.IdProducto =@Id_producto and DetalleCompra.IdCompra =@Idcomp
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_detalle_venta_CANTIDAD]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_detalle_venta_CANTIDAD]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32103,8 +32247,11 @@ end
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_detalle_venta_restar]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_detalle_venta_restar]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32178,8 +32325,11 @@ end
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_detalle_venta_sumar]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_detalle_venta_sumar]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32249,8 +32399,11 @@ end
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_dinero_caja_inicial]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_dinero_caja_inicial]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32286,8 +32439,11 @@ where Id_caja =@Id_caja AND Estado ='CAJA APERTURADA'
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_eleccion_impresoras]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_eleccion_impresoras]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32316,8 +32472,11 @@ where Id_Caja    =@idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_Empresa]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_Empresa]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32357,8 +32516,11 @@ Porcentaje_impuesto=@Porcentaje_impuesto,Moneda=@Moneda,Trabajas_con_impuestos=@
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_FORMATO_TICKET]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_FORMATO_TICKET]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32414,8 +32576,11 @@ CREATE procedure [dbo].[editar_FORMATO_TICKET]
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_Gastos_varios]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_Gastos_varios]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -32453,8 +32618,11 @@ Where Id_gasto=@Id_gasto
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_Grupo]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_Grupo]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32493,8 +32661,11 @@ where Idline=@id
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_inicio_De_sesion]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_inicio_De_sesion]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32517,8 +32688,11 @@ where Id_serial_Pc=@Id_serial_Pc
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[EDITAR_marcan_a]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[EDITAR_marcan_a]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32526,8 +32700,8 @@ GO
 CREATE procedure [dbo].[EDITAR_marcan_a]
 
 	@e varchar(max),
-	@fa varchar(max),
-	@f  varchar(max),
+	@fa datetime,
+	@f  datetime,
 	@s varchar(max)
     as
 	
@@ -32540,8 +32714,11 @@ CREATE procedure [dbo].[EDITAR_marcan_a]
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_Producto1]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_Producto1]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32621,8 +32798,11 @@ where id_Producto1=@Id_Producto1
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_Proveedores]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_Proveedores]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -32656,8 +32836,11 @@ Where IdProveedor=@IdProveedor
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_serializacion]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_serializacion]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32694,8 +32877,11 @@ where Id_serializacion=@Id_serie
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_serializacion_POR_DEFECTO]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_serializacion_POR_DEFECTO]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32736,8 +32922,11 @@ END
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editar_usuario]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editar_usuario]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32784,8 +32973,11 @@ update USUARIO2 set Nombres_y_Apellidos=@nombres ,Password =@Password , Icono=@I
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[EditarBascula]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[EditarBascula]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32804,8 +32996,11 @@ where Id_Caja = @idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[EditarPreciosProductos]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[EditarPreciosProductos]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32830,8 +33025,11 @@ where Id_Producto1=@idproducto and Usa_inventarios = 'SI'
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[EditarPreciosProductosCompra]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[EditarPreciosProductosCompra]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32846,8 +33044,11 @@ Precio_de_venta=@precioventa ,
 Precio_de_compra = @costo 
 where Id_Producto1=@idproducto and Usa_inventarios = 'SI'
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editarPrecioVenta]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editarPrecioVenta]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32864,8 +33065,11 @@ where iddetalle_venta=@iddetalleventa
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editarRespaldos]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editarRespaldos]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32889,8 +33093,11 @@ Carpeta_para_copias_de_seguridad =@Carpeta_para_copias_de_seguridad ,Ultima_fech
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[EditarserializacionInc]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[EditarserializacionInc]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32904,8 +33111,11 @@ where Serie='TC'
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[EditarTemaCaja]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[EditarTemaCaja]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32922,8 +33132,11 @@ where Id_Caja=@idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[editarVenta]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[editarVenta]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32944,8 +33157,11 @@ where idventa = @idventa
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[eliminar_caja]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[eliminar_caja]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32975,8 +33191,11 @@ where Id_Caja    =@idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[eliminar_clientes]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[eliminar_clientes]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32999,8 +33218,11 @@ WHERE idclientev =@Idcliente
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[eliminar_CreditoPorPagar]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[eliminar_CreditoPorPagar]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -33022,8 +33244,11 @@ WHERE Id_credito=@Id_credito
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[eliminar_detalle_compra]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[eliminar_detalle_compra]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33051,8 +33276,11 @@ delete DetalleCompra where IdDetallecompra=@iddetallecompra
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[eliminar_detalle_venta]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[eliminar_detalle_venta]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33080,8 +33308,11 @@ delete detalle_venta where iddetalle_venta=@iddetalleventa
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[eliminar_gasto]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[eliminar_gasto]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33101,8 +33332,11 @@ delete from Gastos_varios   where Id_gasto  =@idgasto
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[eliminar_ingreso]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[eliminar_ingreso]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33123,8 +33357,11 @@ delete from Ingresos_varios    where Id_ingreso  =@idingreso
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[eliminar_Producto1]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[eliminar_Producto1]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33155,8 +33392,11 @@ delete from Producto1  where Id_Producto1 =@id
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[eliminar_Proveedores]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[eliminar_Proveedores]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33179,8 +33419,11 @@ WHERE IdProveedor=@IdProveedor
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[eliminar_Serializacion]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[eliminar_Serializacion]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33215,8 +33458,11 @@ delete from Serializacion   where Id_serializacion   =@id and Destino='OTROS'
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[eliminar_usuario]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[eliminar_usuario]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33254,8 +33500,11 @@ UPDATE  USUARIO2 SET Estado='ELIMINADO'
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[eliminar_venta]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[eliminar_venta]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33283,8 +33532,11 @@ delete from ventas where idventa=@idventa
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[eliminarComprasvacias]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[eliminarComprasvacias]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33298,8 +33550,11 @@ delete from Compras where Idcaja =@Idcaja and Total=0
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[eliminarControlCobro]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[eliminarControlCobro]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33315,8 +33570,11 @@ where IdcontrolCobro=@idcontrol
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[imprimir_inventarios_todos]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[imprimir_inventarios_todos]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33353,8 +33611,11 @@ FROM
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[ingresar_nombre_a_venta_en_espera]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[ingresar_nombre_a_venta_en_espera]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33377,8 +33638,11 @@ update ventas set Comprobante =@nombre , Estado='EN ESPERA' where idventa = @idv
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[Insertar_caja]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[Insertar_caja]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33419,8 +33683,11 @@ set @Estado ='RECIEN CREADA'
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_clientes]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_clientes]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33455,8 +33722,11 @@ Values (
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_Compras]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_Compras]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -33520,8 +33790,11 @@ Values (
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_Conceptos]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_Conceptos]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33548,8 +33821,11 @@ Values (
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_ControlCobros]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_ControlCobros]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -33582,8 +33858,11 @@ Values (
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_CreditoPorCobrar]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_CreditoPorCobrar]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33619,8 +33898,11 @@ Values (
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_CreditoPorPagar]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_CreditoPorPagar]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -33657,8 +33939,11 @@ Values (
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_DETALLE_cierre_de_caja]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_DETALLE_cierre_de_caja]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33726,8 +34011,11 @@ BEGIN
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_detalle_venta]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_detalle_venta]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33791,8 +34079,11 @@ END
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_DetalleCompra]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_DetalleCompra]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33826,8 +34117,11 @@ Values (
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_Empresa]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_Empresa]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33883,8 +34177,11 @@ VALUES (@Nombre_Empresa,@logo,@Impuesto,@Porcentaje_impuesto,@Moneda ,@Trabajas_
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[Insertar_FORMATO_TICKET]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[Insertar_FORMATO_TICKET]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33940,8 +34237,11 @@ create procedure [dbo].[Insertar_FORMATO_TICKET]
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_Gastos_varios]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_Gastos_varios]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -33977,8 +34277,11 @@ Values (
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_Grupo]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_Grupo]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34014,8 +34317,11 @@ insert into Grupo_de_Productos  values (@Grupo, @Por_defecto)
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_Ingresos_varios]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_Ingresos_varios]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -34049,8 +34355,11 @@ Values (
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_inicio_De_sesion]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_inicio_De_sesion]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34088,8 +34397,11 @@ values (@Id_serial_Pc,@id_usuario_nuevo )
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_KARDEX_Entrada]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_KARDEX_Entrada]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34125,8 +34437,11 @@ CREATE proc [dbo].[insertar_KARDEX_Entrada]
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_KARDEX_SALIDA]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_KARDEX_SALIDA]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34173,8 +34488,11 @@ CREATE proc [dbo].[insertar_KARDEX_SALIDA]
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[Insertar_marcan]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[Insertar_marcan]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34183,9 +34501,9 @@ create procedure [dbo].[Insertar_marcan]
 
 	
 	@s varchar(MAX),
-	@f varchar(MAX),
+	@f datetime,
 	@e varchar(MAX),
-	@fa varchar(MAX)
+	@fa datetime
     as
 	
     INSERT INTO Marcan values 
@@ -34211,8 +34529,11 @@ create procedure [dbo].[Insertar_marcan]
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_Producto]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_Producto]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34323,8 +34644,11 @@ END
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_Producto_Importacion]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_Producto_Importacion]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34453,8 +34777,11 @@ END
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_Proveedores]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_Proveedores]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34489,8 +34816,11 @@ Values (
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_Serializacion]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_Serializacion]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34533,8 +34863,11 @@ insert into Serializacion  values (@Serie ,
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_usuario]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_usuario]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34578,8 +34911,11 @@ values(@nombres,@Login,@Password,@Icono,@Nombre_de_icono,@Correo,@Rol,@Estado  )
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertar_venta]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertar_venta]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34639,8 +34975,11 @@ values (@idcliente,@fecha_venta,@nume_documento ,@montototal ,@Tipo_de_pago,@est
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[insertarCorreoBase]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[insertarCorreoBase]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34659,8 +34998,11 @@ Insert into CorreoBase values(@Correo,@Password,@Estado_De_envio)
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[M_ventas_credito_por_turno]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[M_ventas_credito_por_turno]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34683,8 +35025,11 @@ where (fecha_venta &gt;=@fi and fecha_venta &lt;=@ff) and Id_caja=@idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[M_ventas_Tarjeta_por_turno]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[M_ventas_Tarjeta_por_turno]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34707,8 +35052,11 @@ where (fecha_venta &gt;=@fi and fecha_venta &lt;=@ff) and Id_caja=@idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[MarcanVencidas]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[MarcanVencidas]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34723,8 +35071,11 @@ update Marcan set E=@E
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[Mostrar_caja_principal]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[Mostrar_caja_principal]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34754,8 +35105,11 @@ cross join USUARIO2
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[Mostrar_caja_remota]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[Mostrar_caja_remota]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34799,8 +35153,11 @@ cross join USUARIO2
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_cajas_por_Serial_de_DiscoDuro]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_cajas_por_Serial_de_DiscoDuro]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34820,8 +35177,11 @@ where Serial_PC =@Serial
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_cierre_de_caja_pendiente]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_cierre_de_caja_pendiente]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34842,8 +35202,46 @@ where Id_caja=@idcaja and Estado='CAJA APERTURADA'
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_clientes]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_cliente_por_id_cliente]    Script Date: 10/10/2024 01:10:15 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[mostrar_cliente_por_id_cliente]
+@idclientev int
+as
+select Saldo from clientes 
+where idclientev=@idclientev 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GO
+/****** Object:  StoredProcedure [dbo].[mostrar_clientes]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34863,8 +35261,11 @@ FROM            dbo.clientes where Nombre&lt;&gt;'GENERICO'
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_cobros_en_efectivo_por_turno]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_cobros_en_efectivo_por_turno]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34883,8 +35284,11 @@ where (Fecha &gt;=@fi and Fecha &lt;=@ff) and IdCaja =@idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_cobros_tarjeta_por_turno]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_cobros_tarjeta_por_turno]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34902,8 +35306,34 @@ where (Fecha &gt;=@fi and Fecha &lt;=@ff) and IdCaja =@idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_ControlCobros]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_compras_por_turno]    Script Date: 10/10/2024 01:10:15 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[mostrar_compras_por_turno]
+@idcaja int, 
+@fi datetime,
+@ff datetime
+as
+select sum(Total ) from Compras  
+where (fechacompra &gt;=@fi and fechacompra &lt;=@ff) and IdCaja =@idcaja 
+
+
+
+
+
+
+
+
+
+
+GO
+/****** Object:  StoredProcedure [dbo].[mostrar_ControlCobros]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -34918,8 +35348,11 @@ Select * FROM ControlCobros
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_CreditoPorPagar]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_CreditoPorPagar]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -34940,8 +35373,11 @@ Select * FROM CreditoPorPagar
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_descripcion_produco_sin_repetir]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_descripcion_produco_sin_repetir]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34975,8 +35411,11 @@ end
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_DetalleCompra]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_DetalleCompra]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -34996,8 +35435,11 @@ where IdCompra=@Idcompra
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_Empresa]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_Empresa]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35029,8 +35471,11 @@ from Empresa
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[Mostrar_formato_ticket]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[Mostrar_formato_ticket]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35059,8 +35504,11 @@ INNER JOIN EMPRESA ON EMPRESA.Id_empresa=Ticket.Id_Empresa
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_gastos_por_turnos]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_gastos_por_turnos]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35086,8 +35534,11 @@ FROM            dbo.Conceptos INNER JOIN
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_grupos]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_grupos]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35120,8 +35571,11 @@ end
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_id_venta_por_Id_caja]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_id_venta_por_Id_caja]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35150,8 +35604,11 @@ where Id_caja=@Id_caja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_impresoras_por_caja]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_impresoras_por_caja]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35182,8 +35639,11 @@ where Serial_PC =@Serial
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_ingresos_por_turnos]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_ingresos_por_turnos]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35209,8 +35669,11 @@ where Id_caja = @idcaja and (Fecha &gt;=@fi and Fecha &lt;=@ff)
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_inicio_De_sesion]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_inicio_De_sesion]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35230,8 +35693,11 @@ where Id_serial_Pc =@id_serial_pc
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[MOSTRAR_Inventarios_bajo_minimo]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[MOSTRAR_Inventarios_bajo_minimo]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35265,8 +35731,11 @@ select  Codigo,Descripcion,Precio_de_compra AS [Precio_de_Compra],Grupo_de_Produ
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_inventarios_todos]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_inventarios_todos]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35305,8 +35774,11 @@ where Descripcion+Codigo   LIKE  '%' + @letra+'%' AND Producto1.Usa_inventarios 
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[MOSTRAR_MOVIMIENTOS_DE_CAJA_POR_SERIAL]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[MOSTRAR_MOVIMIENTOS_DE_CAJA_POR_SERIAL]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35332,8 +35804,11 @@ inner join USUARIO2 on USUARIO2.idUsuario=MOVIMIENTOCAJACIERRE.Id_usuario
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[MOSTRAR_MOVIMIENTOS_DE_CAJA_POR_SERIAL_y_usuario]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[MOSTRAR_MOVIMIENTOS_DE_CAJA_POR_SERIAL_y_usuario]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35371,8 +35846,11 @@ SELECT USUARIO2.Login,USUARIO2.Nombres_y_Apellidos    FROM MOVIMIENTOCAJACIERRE 
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[MOSTRAR_MOVIMIENTOS_DE_KARDEX]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[MOSTRAR_MOVIMIENTOS_DE_KARDEX]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35412,8 +35890,11 @@ FROM            dbo.KARDEX INNER JOIN Producto1 on Producto1.Id_Producto1=KARDEX
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_notas_por_alumno]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_notas_por_alumno]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35446,8 +35927,11 @@ where NOTAS.Id_alumno =@Id_alumno  order by NOTAS.Id_notas  desc
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_permisos_por_usuario_ROL_UNICO]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_permisos_por_usuario_ROL_UNICO]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35471,8 +35955,11 @@ where USUARIO2.idUsuario  =@idusario and USUARIO2.Estado ='ACTIVO'
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_productos_agregados_a_venta]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_productos_agregados_a_venta]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35511,8 +35998,11 @@ detalle_venta.iddetalle_venta desc
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_productos_agregados_a_ventas_en_espera]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_productos_agregados_a_ventas_en_espera]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35538,8 +36028,11 @@ FROM            dbo.ventas INNER JOIN
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_productos_vencidos]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_productos_vencidos]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35577,8 +36070,11 @@ where   Fecha_de_vencimiento &lt;&gt;'NO APLICA' AND Fecha_de_vencimiento &lt;= 
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_productos_vencidos_en_menos_de_30_dias]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_productos_vencidos_en_menos_de_30_dias]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35617,8 +36113,11 @@ order by (datediff(day,Fecha_de_vencimiento,CONVERT(DATE,GETDATE ())))*(-1) asc
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_Proveedores]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_Proveedores]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35638,8 +36137,11 @@ FROM            dbo.Proveedores
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_stock_de_detalle_de_ventas]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_stock_de_detalle_de_ventas]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35669,8 +36171,11 @@ where ventas.Estado ='EN ESPERA' and detalle_venta.Id_producto =@Id_producto and
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_ticket_impreso]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_ticket_impreso]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35718,8 +36223,11 @@ where detalle_venta.idventa= @Id_venta and ventas.Monto_total &gt;0 order by det
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_Tipo_de_documentos_para_insertar_estos_mismos]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_Tipo_de_documentos_para_insertar_estos_mismos]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35749,8 +36257,11 @@ FROM            dbo.Serializacion where destino='VENTAS' OR destino='OTROS'
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_usuario]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_usuario]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35783,8 +36294,11 @@ select  idUsuario,Nombres_y_Apellidos AS Nombres,Login,Password
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_ventas_en_efectivo_por_turno]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_ventas_en_efectivo_por_turno]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35807,8 +36321,11 @@ where (fecha_venta &gt;=@fi and fecha_venta &lt;=@ff) and Id_caja=@idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrar_ventas_en_espera_con_fecha_y_monto]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrar_ventas_en_espera_con_fecha_y_monto]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35830,8 +36347,11 @@ where Estado='EN ESPERA'
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrarEstadosCuentaCliente]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrarEstadosCuentaCliente]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35852,8 +36372,11 @@ FROM            dbo.detalle_venta INNER JOIN
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrarPmasVendidos]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrarPmasVendidos]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35869,8 +36392,11 @@ group by Producto1.Descripcion
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrarPuertos]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrarPuertos]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35886,8 +36412,11 @@ where Id_Caja=@idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrarTemaCaja]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrarTemaCaja]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35903,8 +36432,11 @@ where Id_Caja=@idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[MostrarUltimoIdcompra]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[MostrarUltimoIdcompra]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35919,8 +36451,11 @@ where Idcaja =@Idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrarVentasGrafica]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrarVentasGrafica]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35940,8 +36475,11 @@ group by datename(MONTH , fecha_venta), DATENAME (YEAR ,fecha_venta )
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[mostrarVentasGraficaFechas]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[mostrarVentasGraficaFechas]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35961,8 +36499,11 @@ group by datename(MONTH , fecha_venta), DATENAME (YEAR ,fecha_venta )
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[ReporteCuestasPorCobrar]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[ReporteCuestasPorCobrar]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35977,8 +36518,11 @@ where Saldo &gt; 0
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[ReporteCuestasPorPagar]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[ReporteCuestasPorPagar]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35993,8 +36537,11 @@ where Saldo &gt; 0
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[ReporteGanancias]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[ReporteGanancias]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36008,8 +36555,11 @@ select convert(numeric(18,2), sum(Ganancia )) from detalle_venta
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[ReporteGananciasFecha]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[ReporteGananciasFecha]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36027,8 +36577,11 @@ where CONVERT (date,fecha_venta)&gt;=@fi and CONVERT(date,fecha_venta)&lt;=@ff
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[ReporteGastosAnioCombo]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[ReporteGastosAnioCombo]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36044,8 +36597,11 @@ select Distinct DATEPART (year,Fecha) as anio from Gastos_varios
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[ReporteGastosAnioGrafica]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[ReporteGastosAnioGrafica]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36064,8 +36620,11 @@ Order by SUM (Importe) desc
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[ReporteGastosAnioMesGrafica]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[ReporteGastosAnioMesGrafica]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36085,8 +36644,11 @@ Order by SUM (Importe) desc
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[ReporteGastosMesCombo]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[ReporteGastosMesCombo]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36103,8 +36665,11 @@ where datepart(year, Fecha) = @anio
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[ReportePorCobrar]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[ReportePorCobrar]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36118,8 +36683,11 @@ select sum(Saldo) from clientes
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[ReportePorPagar]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[ReportePorPagar]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36133,8 +36701,11 @@ select sum(Saldo) from Proveedores
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[ReporteProductoBajoMinimo]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[ReporteProductoBajoMinimo]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36149,8 +36720,11 @@ Where Stock&lt;=Stock_minimo and Usa_inventarios ='SI'
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[ReporteResumenVentasEmpleadoFechas]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[ReporteResumenVentasEmpleadoFechas]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36176,8 +36750,11 @@ group by convert(date, ventas.fecha_venta),USUARIO2.Nombres_y_Apellidos
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[ReporteResumenVentasFechas]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[ReporteResumenVentasFechas]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36201,8 +36778,11 @@ group by convert(date, ventas.fecha_venta)
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[ReporteResumenVentasHoy]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[ReporteResumenVentasHoy]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36229,8 +36809,11 @@ group by convert(date, ventas.fecha_venta)
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[ReporteResumenVentasHoyEmpleado]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[ReporteResumenVentasHoyEmpleado]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36258,8 +36841,11 @@ group by convert(date, ventas.fecha_venta),USUARIO2.Nombres_y_Apellidos
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[ReporteTotalVentas]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[ReporteTotalVentas]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36273,8 +36859,11 @@ select sum( Monto_total) FROM dbo.ventas
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[ReporteTotalVentasFechas]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[ReporteTotalVentasFechas]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36291,8 +36880,11 @@ where CONVERT (date,fecha_venta)&gt;=@fi and CONVERT(date,fecha_venta)&lt;=@ff
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[restaurar_caja]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[restaurar_caja]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36322,8 +36914,11 @@ where Id_Caja    =@idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[restaurar_clientes]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[restaurar_clientes]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36346,8 +36941,11 @@ WHERE idclientev =@Idcliente
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[restaurar_Proveedores]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[restaurar_Proveedores]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36370,8 +36968,11 @@ WHERE IdProveedor=@IdProveedor
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[sumar_CreditoPorCobrar]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[sumar_CreditoPorCobrar]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36394,8 +36995,11 @@ where (Fecha_registro &gt;=@fi and Fecha_registro &lt;=@ff) and Id_caja=@idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[sumar_CreditoPorPagar]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[sumar_CreditoPorPagar]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36418,8 +37022,11 @@ where (Fecha_registro &gt;=@fi and Fecha_registro &lt;=@ff) and Id_caja=@idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[sumar_gastos_por_turno]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[sumar_gastos_por_turno]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36442,8 +37049,11 @@ where (Fecha &gt;=@fi and Fecha &lt;=@ff) and Id_caja=@idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[sumar_ingresos_por_turno]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[sumar_ingresos_por_turno]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36466,8 +37076,11 @@ where (Fecha &gt;=@fi and Fecha &lt;=@ff) and Id_caja=@idcaja
 
 
 
+
+
+
 GO
-/****** Object:  StoredProcedure [dbo].[validar_usuario]    Script Date: 9/26/2024 8:48:55 PM ******/
+/****** Object:  StoredProcedure [dbo].[validar_usuario]    Script Date: 10/10/2024 01:10:15 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36479,6 +37092,9 @@ create proc [dbo].[validar_usuario]
 as
 select * from USUARIO2
 where  Password   = @password and Login=@Login and Estado ='ACTIVO'
+
+
+
 
 
 
@@ -36521,7 +37137,7 @@ GO</value>
     <value>278, 17</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>82</value>
+    <value>25</value>
   </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

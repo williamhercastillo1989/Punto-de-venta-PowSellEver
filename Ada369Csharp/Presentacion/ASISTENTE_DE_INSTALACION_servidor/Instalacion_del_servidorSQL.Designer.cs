@@ -384,10 +384,10 @@
             this.Panel3.Controls.Add(this.lblBasededatos);
             this.Panel3.Controls.Add(this.Label6);
             this.Panel3.Controls.Add(this.Label8);
-            this.Panel3.Location = new System.Drawing.Point(1340, 128);
+            this.Panel3.Location = new System.Drawing.Point(988, 128);
             this.Panel3.Margin = new System.Windows.Forms.Padding(4);
             this.Panel3.Name = "Panel3";
-            this.Panel3.Size = new System.Drawing.Size(981, 742);
+            this.Panel3.Size = new System.Drawing.Size(1333, 742);
             this.Panel3.TabIndex = 619;
             this.Panel3.Visible = false;
             // 
@@ -400,6 +400,7 @@
             this.txtusuario.Size = new System.Drawing.Size(177, 22);
             this.txtusuario.TabIndex = 635;
             this.txtusuario.Text = "WILL_NAN_LIA";
+            this.txtusuario.TextChanged += new System.EventHandler(this.txtusuario_TextChanged);
             // 
             // Label15
             // 
@@ -435,6 +436,7 @@
             this.txtCrearUsuarioDb.Size = new System.Drawing.Size(303, 354);
             this.txtCrearUsuarioDb.TabIndex = 629;
             this.txtCrearUsuarioDb.Text = resources.GetString("txtCrearUsuarioDb.Text");
+            this.txtCrearUsuarioDb.TextChanged += new System.EventHandler(this.txtCrearUsuarioDb_TextChanged);
             // 
             // txtArgumentosini
             // 
@@ -631,6 +633,7 @@
             this.TXTbasededatos.Size = new System.Drawing.Size(177, 22);
             this.TXTbasededatos.TabIndex = 621;
             this.TXTbasededatos.Text = "POWSELLEVER";
+            this.TXTbasededatos.TextChanged += new System.EventHandler(this.TXTbasededatos_TextChanged);
             // 
             // lblcontraseña
             // 
@@ -639,6 +642,7 @@
             this.lblcontraseña.Name = "lblcontraseña";
             this.lblcontraseña.Size = new System.Drawing.Size(177, 22);
             this.lblcontraseña.TabIndex = 621;
+            this.lblcontraseña.Text = "powsellever2024";
             // 
             // lblnombredeservicio
             // 
@@ -648,7 +652,8 @@
             this.lblnombredeservicio.Name = "lblnombredeservicio";
             this.lblnombredeservicio.Size = new System.Drawing.Size(177, 22);
             this.lblnombredeservicio.TabIndex = 621;
-            this.lblnombredeservicio.Text = "SQLEXPRESS";
+            this.lblnombredeservicio.Text = "SQLEXPRESStest";
+            this.lblnombredeservicio.TextChanged += new System.EventHandler(this.lblnombredeservicio_TextChanged);
             // 
             // Label11
             // 

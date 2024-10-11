@@ -97,10 +97,7 @@ namespace Ada369Csharp.Presentacion.ASISTENTE_DE_INSTALACION_servidor
             FECHA_FINAL = this.txtfechaFinalOK.Text.Trim();
             string estado;
             estado = Bases.Encriptar("?ACTIVO?");
-            string fecha_activacion;
-            fecha_activacion = DateTime.Now.ToString();
-
-
+          
             try
             {
 
@@ -112,9 +109,9 @@ namespace Ada369Csharp.Presentacion.ASISTENTE_DE_INSTALACION_servidor
                 cmd = new SqlCommand("Insertar_marcan", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@s", SERIALpC);
-                cmd.Parameters.AddWithValue("@f", FECHA_FINAL);
+                cmd.Parameters.AddWithValue("@f", fechaFinal);
                 cmd.Parameters.AddWithValue("@e", estado);
-                cmd.Parameters.AddWithValue("@fa", fecha_activacion);
+                cmd.Parameters.AddWithValue("@fa", DateTime.Now);
                 cmd.ExecuteNonQuery();
                 con.Close();
 

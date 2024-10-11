@@ -233,7 +233,9 @@
             // 
             // btncambioUsuario
             // 
-            this.btncambioUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(65)))), ((int)(((byte)(181)))));
+            this.btncambioUsuario.BackColor = System.Drawing.Color.Transparent;
+            this.btncambioUsuario.BackgroundImage = global::Ada369Csharp.Properties.Resources.verde;
+            this.btncambioUsuario.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btncambioUsuario.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btncambioUsuario.FlatAppearance.BorderSize = 0;
             this.btncambioUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -250,7 +252,9 @@
             // 
             // Button2
             // 
-            this.Button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(65)))), ((int)(((byte)(181)))));
+            this.Button2.BackColor = System.Drawing.Color.Transparent;
+            this.Button2.BackgroundImage = global::Ada369Csharp.Properties.Resources.amarillo;
+            this.Button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Button2.FlatAppearance.BorderSize = 0;
             this.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

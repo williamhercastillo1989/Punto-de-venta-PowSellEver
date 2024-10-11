@@ -20,8 +20,9 @@ namespace Ada369Csharp.Presentacion.CopiasBd
         {
             InitializeComponent();
         }
-        string txtsoftware = "ada369";
-        string Base_De_datos = "BASEADACURSO";
+        
+        string txtsoftware = "PowSellEver";
+        string Base_De_datos = "POWSELLEVER";
         private Thread Hilo;
         private bool acaba = false;
         private void CrearCopiaBd_Load(object sender, EventArgs e)
@@ -37,7 +38,7 @@ namespace Ada369Csharp.Presentacion.CopiasBd
                 txtRuta.Text = row["Carpeta_para_copias_de_seguridad"].ToString();
                 lblfecha.Text = row["Ultima_fecha_de_copia_de_seguridad"].ToString();
                 lblfrecuencia.Text = row["Frecuencia_de_copias"].ToString();
-                lbldirectorio.Text = "Copia Guardada en: " + txtRuta.Text  + "BASEADACURSO.bak";
+                lbldirectorio.Text = "Copia Guardada en: " + txtRuta.Text  + "POWSELLEVER.bak";
 
 
             }
@@ -93,7 +94,7 @@ namespace Ada369Csharp.Presentacion.CopiasBd
             {
                 System.IO.Directory.CreateDirectory(txtRuta.Text + miCarpeta);
             }
-            string ruta_completa = txtRuta.Text + miCarpeta;
+            string ruta_completa = txtRuta.Text + "\\" + miCarpeta;
             string SubCarpeta = ruta_completa + @"\Respaldo_al_" + DateTime.Now.Day + "_" + (DateTime.Now.Month) + "_" + DateTime.Now.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute;
             try
             {
@@ -127,7 +128,7 @@ namespace Ada369Csharp.Presentacion.CopiasBd
                 timer1.Stop();
                 Pcargando.Visible = false;
                 lbldirectorio.Visible = true;
-                lbldirectorio.Text = "Copia Guardada en: " + txtRuta.Text + @"\" + "BASEADACURSO.bak";
+                lbldirectorio.Text = "Copia Guardada en: " + txtRuta.Text + @"\" + "POWSELLEVER.bak";
                 editarRespaldos();
 
             }

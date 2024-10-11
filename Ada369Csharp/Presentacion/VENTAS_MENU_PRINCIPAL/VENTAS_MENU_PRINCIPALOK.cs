@@ -326,6 +326,8 @@ namespace Ada369Csharp.Presentacion.VENTAS_MENU_PRINCIPAL
                 }
                 else if (txtbuscar.Text != "")
                 {
+
+
                     mostrar_productos();
                 }
                 LISTAR_PRODUCTOS_Abuscador();
@@ -993,6 +995,8 @@ namespace Ada369Csharp.Presentacion.VENTAS_MENU_PRINCIPAL
 
         private void datalistadoDetalleVenta_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //aqui areglamos focus
+            txtbuscar.Focus();
             if (dgDetalleventa.RowCount > 0)
             {
                 Obtener_datos_del_detalle_de_venta();

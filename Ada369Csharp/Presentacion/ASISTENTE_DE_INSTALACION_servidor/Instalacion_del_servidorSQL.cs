@@ -305,7 +305,7 @@ namespace Ada369Csharp.Presentacion.ASISTENTE_DE_INSTALACION_servidor
             try
             {
                 Process Pross = new Process();
-                Pross.StartInfo.FileName = "SQLEXPR_x86_ESN.exe";
+                Pross.StartInfo.FileName = "SQLEXPR_x86_ENU.exe";
                 Pross.StartInfo.Arguments = "/ConfigurationFile=ConfigurationFile.ini /ACTION=Install /IACCEPTSQLSERVERLICENSETERMS /SECURITYMODE=SQL /SAPWD=" + lblcontraseña.Text + " /SQLSYSADMINACCOUNTS=" + nombre_del_equipo_usuario;
 
                 Pross.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
@@ -326,7 +326,7 @@ namespace Ada369Csharp.Presentacion.ASISTENTE_DE_INSTALACION_servidor
             string rutaPREPARAR;
             StreamWriter sw;
             rutaPREPARAR = Path.Combine(Directory.GetCurrentDirectory(), "ConfigurationFile.ini");
-            rutaPREPARAR = rutaPREPARAR.Replace("ConfigurationFile.ini", @"SQLEXPR_x86_ESN\ConfigurationFile.ini");
+            rutaPREPARAR = rutaPREPARAR.Replace("ConfigurationFile.ini", @"SQLEXPR_x86_ENU\ConfigurationFile.ini");
 
 
             if (File.Exists(rutaPREPARAR) == true)
@@ -429,6 +429,26 @@ namespace Ada369Csharp.Presentacion.ASISTENTE_DE_INSTALACION_servidor
         }
 
         private void txtCrear_procedimientos_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TXTbasededatos_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblnombredeservicio_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtusuario_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCrearUsuarioDb_TextChanged(object sender, EventArgs e)
         {
 
         }

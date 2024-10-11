@@ -35,6 +35,8 @@ namespace Ada369Csharp.Presentacion.VENTAS_MENU_PRINCIPAL
         string TXTTOTAL_STRING;
         string lblproceso;
         double credito = 0;
+        double saldo = 0;
+        double saldoActual = 0;
         int idcomprobante;
         string lblSerialPC;
         decimal porcentaje_impuesto;
@@ -141,7 +143,15 @@ namespace Ada369Csharp.Presentacion.VENTAS_MENU_PRINCIPAL
                 {
                     if (efectivo > total)
                     {
+                        //efectivo_calculado = efectivo - (total + credito + tarjeta);
+                        double efectivo_cal= efectivo - (total + credito + tarjeta);
                         efectivo_calculado = efectivo - (total + credito + tarjeta);
+                        //validamos
+                        if(efectivo_calculado > 0)
+                        {
+                            efectivo_calculado = total;
+                        }
+
                         if (efectivo_calculado < 0)
                         {
                             vuelto = 0;
@@ -153,7 +163,8 @@ namespace Ada369Csharp.Presentacion.VENTAS_MENU_PRINCIPAL
                         {
                             vuelto = efectivo - (total - credito - tarjeta);
                             TXTVUELTO.Text = Convert.ToString(vuelto);
-                            restante = efectivo - (total + credito + tarjeta + efectivo_calculado);
+                            //restante = efectivo - (total + credito + tarjeta + efectivo_calculado);
+                            restante = efectivo - (total + credito + tarjeta + efectivo_cal);
                             txtrestante.Text = Convert.ToString(restante);
                             txtrestante.Text = decimal.Parse(txtrestante.Text).ToString("##0.00");
                         }
@@ -871,18 +882,29 @@ namespace Ada369Csharp.Presentacion.VENTAS_MENU_PRINCIPAL
             // condicional para creditos
             if (txttipo == "CREDITO" && datalistadoclientes2.Visible == false)
             {
-                vender_en_efectivo();
+                double disponible = saldo_disponible_credito_activo(idcliente) - obtener_credito_disponible(idcliente);
+                if (total > disponible)
+                {
+                    MessageBox.Show($"Limite de crédito es insuficiente para realizar esta venta  Saldo ${disponible}", "Limite Disponible", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                }
+                else
+                {
+                    vender_en_efectivo();
+                }
             }
             else if (txttipo == "CREDITO" && datalistadoclientes2.Visible == true)
             {
                 MessageBox.Show("Seleccione un Cliente para Activar Pago a Credito", "Datos Incorrectos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
+            
+
             if (txttipo == "TARJETA")
             {
                 DialogResult result;
 
-                result = MessageBox.Show("Ingrese la tarjeta ala terminal y cobre" + " " + "$"+ txttarjeta2.Text + " " + "Si la tarjeta fue aceptada presione Aceptar para continuar", "Pago con tarjeta", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                result = MessageBox.Show("Ingrese la tarjeta a la terminal y cobre" + " " + "$"+ txttarjeta2.Text + " " + "Si la tarjeta fue aceptada presione Aceptar para continuar", "Pago con tarjeta", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (result == DialogResult.Yes)
                 {
                     vender_en_efectivo();
@@ -895,12 +917,12 @@ namespace Ada369Csharp.Presentacion.VENTAS_MENU_PRINCIPAL
             }
 
 
-            if (txttipo == "MIXTO")
+            if (txttipo == "MIXTOET")
             {
                 DialogResult result;
 
-                result = MessageBox.Show("Ingrese la tarjeta ala terminal y cobre" + " " + "$" + txttarjeta2.Text + " " + "Si la tarjeta fue aceptada presione Aceptar para continuar", "Pago con tarjeta", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (result == DialogResult.Yes)
+                result = MessageBox.Show("Ingrese la tarjeta a la terminal y cobre" + " " + "$" + txttarjeta2.Text + " " + "Si la tarjeta fue aceptada presione Aceptar para continuar", "Pago con tarjeta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (result == DialogResult.OK)
                 {
                     vender_en_efectivo();
                 }
@@ -909,6 +931,37 @@ namespace Ada369Csharp.Presentacion.VENTAS_MENU_PRINCIPAL
                     return;
                 }
             }
+
+            if (txttipo == "MIXTOTC" &&  datalistadoclientes2.Visible == false)
+            {
+                DialogResult result;
+
+                result = MessageBox.Show("Ingrese la tarjeta a la terminal y cobre" + " " + "$" + txttarjeta2.Text + " " + "Si la tarjeta fue aceptada presione Aceptar para continuar", "Pago con tarjeta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (result == DialogResult.OK)
+                {
+                    vender_en_efectivo();
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else if (txttipo == "MIXTOTC" && datalistadoclientes2.Visible == true)
+            {
+                MessageBox.Show("Seleccione un Cliente para Activar Pago a Credito", "Datos Incorrectos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+            if (txttipo == "MIXTOEC" && datalistadoclientes2.Visible == false)
+            {
+
+                vender_en_efectivo();
+
+            }
+            else if (txttipo == "MIXTOEC" && datalistadoclientes2.Visible == true)
+            {
+                MessageBox.Show("Seleccione un Cliente para Activar Pago a Credito", "Datos Incorrectos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
 
         }
         void vender_en_efectivo()
@@ -1322,9 +1375,17 @@ namespace Ada369Csharp.Presentacion.VENTAS_MENU_PRINCIPAL
             {
                 indicador_de_tipo_de_pago_string = "TARJETA";
             }
-            if (calculo_identificacion > 4)
+            if (calculo_identificacion == 7)
             {
-                indicador_de_tipo_de_pago_string = "MIXTO";
+                indicador_de_tipo_de_pago_string = "MIXTOET";
+            }
+            if (calculo_identificacion == 5)
+            {
+                indicador_de_tipo_de_pago_string = "MIXTOTC";
+            }
+            if (calculo_identificacion == 6)
+            {
+                indicador_de_tipo_de_pago_string = "MIXTOEC";
             }
             txttipo = indicador_de_tipo_de_pago_string;
 
@@ -1403,6 +1464,31 @@ namespace Ada369Csharp.Presentacion.VENTAS_MENU_PRINCIPAL
                 MessageBox.Show("El restante debe ser 0", "Datos incorrectos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
+
+        private double saldo_disponible_credito_activo(int idcliente)
+        {
+            DataTable dt = new DataTable();
+            Obtener_datos.BuscarCreditoActivo(ref dt, idcliente);
+            foreach (DataRow row in dt.Rows)
+            {
+                saldo = Convert.ToDouble(row["Saldo"].ToString());
+                
+            }
+            return saldo;
+        }
+
+        private double obtener_credito_disponible(int idcliente)
+        {
+            DataTable dt = new DataTable();
+            Obtener_datos.obtener_credito_cliente(ref dt, idcliente);
+            foreach (DataRow row in dt.Rows)
+            {
+                saldoActual = Convert.ToDouble(row["Saldo"].ToString());
+
+            }
+            return saldoActual;
+        }
+
         private void txtefectivo2_KeyPress(object sender, KeyPressEventArgs e)
         {
             Bases.Separador_de_Numeros(txtefectivo2, e);

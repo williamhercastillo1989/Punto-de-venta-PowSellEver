@@ -180,5 +180,10 @@ namespace Ada369Csharp.Presentacion.Cobros
                 buscar();
             }
         }
+
+        private void datalistadoHistorial_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

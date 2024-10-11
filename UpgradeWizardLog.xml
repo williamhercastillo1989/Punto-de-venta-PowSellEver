@@ -39,6 +39,7 @@
   <event action="Analyze" type="Success" name="CobrosForm.resx" path="C:\Users\William\source\repos\final 2 ventas\Ada369Csharp\Ada369Csharp\Presentacion\Cobros\CobrosForm.resx" />
   <event action="Analyze" type="Success" name="MediosCobros.resx" path="C:\Users\William\source\repos\final 2 ventas\Ada369Csharp\Ada369Csharp\Presentacion\Cobros\MediosCobros.resx" />
   <event action="Analyze" type="Success" name="Admincompras.resx" path="C:\Users\William\source\repos\final 2 ventas\Ada369Csharp\Ada369Csharp\Presentacion\Compras\Admincompras.resx" />
+  <event action="Analyze" type="Success" name="CompraPriceEdit.resx" path="C:\Users\William\source\repos\final 2 ventas\Ada369Csharp\Ada369Csharp\Presentacion\Compras\CompraPriceEdit.resx" />
   <event action="Analyze" type="Success" name="HistorialCompras.resx" path="C:\Users\William\source\repos\final 2 ventas\Ada369Csharp\Ada369Csharp\Presentacion\Compras\HistorialCompras.resx" />
   <event action="Analyze" type="Success" name="RealizarCompra.resx" path="C:\Users\William\source\repos\final 2 ventas\Ada369Csharp\Ada369Csharp\Presentacion\Compras\RealizarCompra.resx" />
   <event action="Analyze" type="Success" name="Caja_secundaria.resx" path="C:\Users\William\source\repos\final 2 ventas\Ada369Csharp\Ada369Csharp\Presentacion\Conexion_remota\Caja_secundaria.resx" />
@@ -91,7 +92,6 @@
   <event action="Analyze" type="Success" name="Ada369Csharp" path="C:\Users\William\source\repos\final 2 ventas\Ada369Csharp\Ada369Csharp\Ada369Csharp.csproj" />
   <event action="Analyze" type="Success" name="Ada369Csharp" path="C:\Users\William\source\repos\final 2 ventas\Ada369Csharp\Ada369Csharp.sln" />
   <event action="Backup" type="Success" name="Ada369Csharp" path="C:\Users\William\source\repos\final 2 ventas\Ada369Csharp\Ada369Csharp\Ada369Csharp.csproj" />
-  <event action="Upgrade" type="Success" name="Assembly References" path="C:\Users\William\source\repos\final 2 ventas\Ada369Csharp\Ada369Csharp\Ada369Csharp.csproj" />
   <event action="Upgrade" type="Success" name="Reporte_Movimientos_con_filtros.resx" path="C:\Users\William\source\repos\final 2 ventas\Ada369Csharp\Ada369Csharp\Presentacion\REPORTES\REPORTES_DE_KARDEX_listo\REPORTES_DE_INVENTARIOS_todos\Reporte_Movimientos_con_filtros.resx" />
   <event action="Upgrade" type="Success" name="ReportMovimientosBuscar.resx" path="C:\Users\William\source\repos\final 2 ventas\Ada369Csharp\Ada369Csharp\Presentacion\REPORTES\REPORTES_DE_KARDEX_listo\REPORTES_DE_INVENTARIOS_todos\ReportMovimientosBuscar.resx" />
   <event action="Upgrade" type="Success" name="Ada369Csharp" path="C:\Users\William\source\repos\final 2 ventas\Ada369Csharp\Ada369Csharp\Ada369Csharp.csproj" />

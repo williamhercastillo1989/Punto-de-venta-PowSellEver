@@ -786,6 +786,7 @@
             this.lblpagocon.Size = new System.Drawing.Size(23, 20);
             this.lblpagocon.TabIndex = 460;
             this.lblpagocon.Text = "--";
+            this.lblpagocon.Click += new System.EventHandler(this.lblpagocon_Click);
             // 
             // lbltotal
             // 

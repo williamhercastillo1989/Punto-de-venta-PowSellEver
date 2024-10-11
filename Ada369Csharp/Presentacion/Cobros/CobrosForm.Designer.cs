@@ -89,7 +89,7 @@
             this.PanelContenedor.Controls.Add(this.txtclientesolicitante);
             this.PanelContenedor.Controls.Add(this.Label14);
             this.PanelContenedor.Location = new System.Drawing.Point(52, 50);
-            this.PanelContenedor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PanelContenedor.Margin = new System.Windows.Forms.Padding(4);
             this.PanelContenedor.Name = "PanelContenedor";
             this.PanelContenedor.Padding = new System.Windows.Forms.Padding(10);
             this.PanelContenedor.Size = new System.Drawing.Size(1120, 618);
@@ -117,7 +117,7 @@
             this.Eliminar});
             this.datalistadoClientes.EnableHeadersVisualStyles = false;
             this.datalistadoClientes.Location = new System.Drawing.Point(772, 28);
-            this.datalistadoClientes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.datalistadoClientes.Margin = new System.Windows.Forms.Padding(4);
             this.datalistadoClientes.Name = "datalistadoClientes";
             this.datalistadoClientes.ReadOnly = true;
             this.datalistadoClientes.RowHeadersVisible = false;
@@ -157,7 +157,7 @@
             this.panelRegistros.Controls.Add(this.txttotal_saldo);
             this.panelRegistros.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelRegistros.Location = new System.Drawing.Point(10, 114);
-            this.panelRegistros.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelRegistros.Margin = new System.Windows.Forms.Padding(4);
             this.panelRegistros.Name = "panelRegistros";
             this.panelRegistros.Size = new System.Drawing.Size(1100, 494);
             this.panelRegistros.TabIndex = 614;
@@ -185,7 +185,7 @@
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 229);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1100, 265);
             this.panel1.TabIndex = 613;
@@ -194,7 +194,7 @@
             // 
             this.panelMovimientos.Controls.Add(this.datalistadoMovimientos);
             this.panelMovimientos.Location = new System.Drawing.Point(535, 79);
-            this.panelMovimientos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelMovimientos.Margin = new System.Windows.Forms.Padding(4);
             this.panelMovimientos.Name = "panelMovimientos";
             this.panelMovimientos.Size = new System.Drawing.Size(463, 150);
             this.panelMovimientos.TabIndex = 2;
@@ -230,7 +230,7 @@
             this.datalistadoMovimientos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.datalistadoMovimientos.EnableHeadersVisualStyles = false;
             this.datalistadoMovimientos.Location = new System.Drawing.Point(0, 0);
-            this.datalistadoMovimientos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.datalistadoMovimientos.Margin = new System.Windows.Forms.Padding(4);
             this.datalistadoMovimientos.Name = "datalistadoMovimientos";
             this.datalistadoMovimientos.ReadOnly = true;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -271,7 +271,7 @@
             // 
             this.panelHistorial.Controls.Add(this.datalistadoHistorial);
             this.panelHistorial.Location = new System.Drawing.Point(19, 79);
-            this.panelHistorial.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelHistorial.Margin = new System.Windows.Forms.Padding(4);
             this.panelHistorial.Name = "panelHistorial";
             this.panelHistorial.Size = new System.Drawing.Size(369, 150);
             this.panelHistorial.TabIndex = 1;
@@ -308,7 +308,7 @@
             this.datalistadoHistorial.Dock = System.Windows.Forms.DockStyle.Fill;
             this.datalistadoHistorial.EnableHeadersVisualStyles = false;
             this.datalistadoHistorial.Location = new System.Drawing.Point(0, 0);
-            this.datalistadoHistorial.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.datalistadoHistorial.Margin = new System.Windows.Forms.Padding(4);
             this.datalistadoHistorial.Name = "datalistadoHistorial";
             this.datalistadoHistorial.ReadOnly = true;
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -329,6 +329,7 @@
             this.datalistadoHistorial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.datalistadoHistorial.Size = new System.Drawing.Size(369, 150);
             this.datalistadoHistorial.TabIndex = 411;
+            this.datalistadoHistorial.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.datalistadoHistorial_CellContentClick);
             // 
             // dataGridViewCheckBoxColumn1
             // 
@@ -346,7 +347,7 @@
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1100, 57);
             this.panel2.TabIndex = 0;
@@ -357,7 +358,7 @@
             this.panel5.Controls.Add(this.panelM);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel5.Location = new System.Drawing.Point(191, 0);
-            this.panel5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel5.Margin = new System.Windows.Forms.Padding(4);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(191, 57);
             this.panel5.TabIndex = 1;
@@ -370,7 +371,7 @@
             this.btnMovimientos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMovimientos.ForeColor = System.Drawing.Color.White;
             this.btnMovimientos.Location = new System.Drawing.Point(0, 0);
-            this.btnMovimientos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnMovimientos.Margin = new System.Windows.Forms.Padding(4);
             this.btnMovimientos.Name = "btnMovimientos";
             this.btnMovimientos.Size = new System.Drawing.Size(191, 52);
             this.btnMovimientos.TabIndex = 0;
@@ -383,7 +384,7 @@
             this.panelM.BackColor = System.Drawing.Color.White;
             this.panelM.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelM.Location = new System.Drawing.Point(0, 52);
-            this.panelM.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelM.Margin = new System.Windows.Forms.Padding(4);
             this.panelM.Name = "panelM";
             this.panelM.Size = new System.Drawing.Size(191, 5);
             this.panelM.TabIndex = 1;
@@ -395,7 +396,7 @@
             this.panel3.Controls.Add(this.panelH);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(191, 57);
             this.panel3.TabIndex = 0;
@@ -408,7 +409,7 @@
             this.btnhistorial.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnhistorial.ForeColor = System.Drawing.Color.White;
             this.btnhistorial.Location = new System.Drawing.Point(0, 0);
-            this.btnhistorial.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnhistorial.Margin = new System.Windows.Forms.Padding(4);
             this.btnhistorial.Name = "btnhistorial";
             this.btnhistorial.Size = new System.Drawing.Size(191, 52);
             this.btnhistorial.TabIndex = 0;
@@ -421,7 +422,7 @@
             this.panelH.BackColor = System.Drawing.Color.White;
             this.panelH.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelH.Location = new System.Drawing.Point(0, 52);
-            this.panelH.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelH.Margin = new System.Windows.Forms.Padding(4);
             this.panelH.Name = "panelH";
             this.panelH.Size = new System.Drawing.Size(191, 5);
             this.panelH.TabIndex = 1;
@@ -440,7 +441,7 @@
             this.btnabonar.ForeColor = System.Drawing.Color.White;
             this.btnabonar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnabonar.Location = new System.Drawing.Point(19, 21);
-            this.btnabonar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnabonar.Margin = new System.Windows.Forms.Padding(4);
             this.btnabonar.Name = "btnabonar";
             this.btnabonar.Size = new System.Drawing.Size(179, 58);
             this.btnabonar.TabIndex = 608;
@@ -454,7 +455,7 @@
             this.Panel19.BackColor = System.Drawing.Color.White;
             this.Panel19.ForeColor = System.Drawing.Color.White;
             this.Panel19.Location = new System.Drawing.Point(19, 101);
-            this.Panel19.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Panel19.Margin = new System.Windows.Forms.Padding(4);
             this.Panel19.Name = "Panel19";
             this.Panel19.Size = new System.Drawing.Size(959, 1);
             this.Panel19.TabIndex = 609;
@@ -529,7 +530,7 @@
             this.txtclientesolicitante.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.txtclientesolicitante.ForeColor = System.Drawing.Color.White;
             this.txtclientesolicitante.Location = new System.Drawing.Point(21, 64);
-            this.txtclientesolicitante.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtclientesolicitante.Margin = new System.Windows.Forms.Padding(4);
             this.txtclientesolicitante.Name = "txtclientesolicitante";
             this.txtclientesolicitante.Size = new System.Drawing.Size(569, 30);
             this.txtclientesolicitante.TabIndex = 456;
@@ -559,7 +560,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(39)))));
             this.ClientSize = new System.Drawing.Size(1201, 922);
             this.Controls.Add(this.PanelContenedor);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CobrosForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CobrosForm";
