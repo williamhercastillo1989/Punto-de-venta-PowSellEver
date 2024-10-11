@@ -962,6 +962,27 @@ namespace Ada369Csharp.Presentacion.VENTAS_MENU_PRINCIPAL
                 MessageBox.Show("Seleccione un Cliente para Activar Pago a Credito", "Datos Incorrectos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
+            if (txttipo == "MIXTOETC" && datalistadoclientes2.Visible == false)
+            {
+                DialogResult result;
+
+                result = MessageBox.Show("Ingrese la tarjeta a la terminal y cobre" + " " + "$" + txttarjeta2.Text + " " + "Si la tarjeta fue aceptada presione Aceptar para continuar", "Pago con tarjeta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (result == DialogResult.OK)
+                {
+                    vender_en_efectivo();
+                }
+                else
+                {
+                    return;
+                }
+
+            }
+            else if (txttipo == "MIXTOETC" && datalistadoclientes2.Visible == true)
+            {
+                MessageBox.Show("Seleccione un Cliente para Activar Pago a Credito", "Datos Incorrectos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+           
 
         }
         void vender_en_efectivo()
@@ -1386,6 +1407,10 @@ namespace Ada369Csharp.Presentacion.VENTAS_MENU_PRINCIPAL
             if (calculo_identificacion == 6)
             {
                 indicador_de_tipo_de_pago_string = "MIXTOEC";
+            }
+            if (calculo_identificacion == 9)
+            {
+                indicador_de_tipo_de_pago_string = "MIXTOETC";
             }
             txttipo = indicador_de_tipo_de_pago_string;
 
