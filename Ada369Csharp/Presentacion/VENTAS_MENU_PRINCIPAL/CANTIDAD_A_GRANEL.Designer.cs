@@ -47,7 +47,7 @@
             // 
             this.LblcantidadAumentar.AutoSize = true;
             this.LblcantidadAumentar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.LblcantidadAumentar.ForeColor = System.Drawing.Color.Gray;
+            this.LblcantidadAumentar.ForeColor = System.Drawing.Color.White;
             this.LblcantidadAumentar.Location = new System.Drawing.Point(19, 59);
             this.LblcantidadAumentar.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LblcantidadAumentar.Name = "LblcantidadAumentar";
@@ -72,7 +72,7 @@
             // 
             this.txtcantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Bold);
             this.txtcantidad.Location = new System.Drawing.Point(37, 144);
-            this.txtcantidad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtcantidad.Margin = new System.Windows.Forms.Padding(4);
             this.txtcantidad.Name = "txtcantidad";
             this.txtcantidad.Size = new System.Drawing.Size(216, 55);
             this.txtcantidad.TabIndex = 547;
@@ -83,7 +83,7 @@
             // 
             this.txttotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Bold);
             this.txttotal.Location = new System.Drawing.Point(301, 144);
-            this.txttotal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txttotal.Margin = new System.Windows.Forms.Padding(4);
             this.txttotal.Name = "txttotal";
             this.txttotal.Size = new System.Drawing.Size(272, 55);
             this.txttotal.TabIndex = 546;
@@ -93,7 +93,7 @@
             // 
             this.Label27.AutoSize = true;
             this.Label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.Label27.ForeColor = System.Drawing.Color.Gray;
+            this.Label27.ForeColor = System.Drawing.Color.White;
             this.Label27.Location = new System.Drawing.Point(349, 110);
             this.Label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label27.Name = "Label27";
@@ -105,7 +105,7 @@
             // 
             this.Label14.AutoSize = true;
             this.Label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.Label14.ForeColor = System.Drawing.Color.Black;
+            this.Label14.ForeColor = System.Drawing.Color.White;
             this.Label14.Location = new System.Drawing.Point(67, 110);
             this.Label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label14.Name = "Label14";
@@ -149,7 +149,7 @@
             this.BtnCerrar_turno.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnCerrar_turno.ForeColor = System.Drawing.Color.White;
             this.BtnCerrar_turno.Location = new System.Drawing.Point(599, 87);
-            this.BtnCerrar_turno.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BtnCerrar_turno.Margin = new System.Windows.Forms.Padding(4);
             this.BtnCerrar_turno.Name = "BtnCerrar_turno";
             this.BtnCerrar_turno.Size = new System.Drawing.Size(165, 53);
             this.BtnCerrar_turno.TabIndex = 601;
@@ -169,7 +169,7 @@
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Location = new System.Drawing.Point(599, 151);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(165, 53);
             this.button1.TabIndex = 602;
@@ -184,6 +184,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(36)))), ((int)(((byte)(100)))));
             this.ClientSize = new System.Drawing.Size(837, 282);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.BtnCerrar_turno);
@@ -197,7 +198,7 @@
             this.Controls.Add(this.txtProducto);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CANTIDAD_A_GRANEL";

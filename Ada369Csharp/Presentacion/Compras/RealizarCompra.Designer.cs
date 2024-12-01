@@ -30,10 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RealizarCompra));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.PanelOperaciones = new System.Windows.Forms.Panel();
-            this.btnVenta = new System.Windows.Forms.Button();
             this.btnguardar = new System.Windows.Forms.Button();
             this.btncantidad = new System.Windows.Forms.Button();
             this.Panel15 = new System.Windows.Forms.Panel();
@@ -62,6 +61,7 @@
             this.txtBuscarproveedores = new System.Windows.Forms.TextBox();
             this.dgDetallecompra = new System.Windows.Forms.DataGridView();
             this.EL = new System.Windows.Forms.DataGridViewImageColumn();
+            this.editPrice = new System.Windows.Forms.DataGridViewImageColumn();
             this.txtbuscar = new System.Windows.Forms.TextBox();
             this.btnteclado = new System.Windows.Forms.Button();
             this.lbltipodebusqueda2 = new System.Windows.Forms.Label();
@@ -69,7 +69,6 @@
             this.panelC2 = new System.Windows.Forms.Panel();
             this.BTNLECTORA = new System.Windows.Forms.Button();
             this.TimerBUSCADORcodigodebarras = new System.Windows.Forms.Timer(this.components);
-            this.btnCompra = new System.Windows.Forms.Button();
             this.PanelOperaciones.SuspendLayout();
             this.Panel15.SuspendLayout();
             this.FlowLayoutPanel2.SuspendLayout();
@@ -82,8 +81,6 @@
             // PanelOperaciones
             // 
             this.PanelOperaciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(243)))), ((int)(((byte)(245)))));
-            this.PanelOperaciones.Controls.Add(this.btnCompra);
-            this.PanelOperaciones.Controls.Add(this.btnVenta);
             this.PanelOperaciones.Controls.Add(this.btnguardar);
             this.PanelOperaciones.Controls.Add(this.btncantidad);
             this.PanelOperaciones.Controls.Add(this.Panel15);
@@ -99,28 +96,6 @@
             this.PanelOperaciones.Name = "PanelOperaciones";
             this.PanelOperaciones.Size = new System.Drawing.Size(387, 801);
             this.PanelOperaciones.TabIndex = 621;
-            // 
-            // btnVenta
-            // 
-            this.btnVenta.BackColor = System.Drawing.Color.Transparent;
-            this.btnVenta.BackgroundImage = global::Ada369Csharp.Properties.Resources.amarillo;
-            this.btnVenta.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnVenta.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnVenta.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnVenta.FlatAppearance.BorderSize = 0;
-            this.btnVenta.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btnVenta.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.btnVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVenta.Font = new System.Drawing.Font("Calibri", 20F, System.Drawing.FontStyle.Bold);
-            this.btnVenta.ForeColor = System.Drawing.Color.White;
-            this.btnVenta.Location = new System.Drawing.Point(256, 286);
-            this.btnVenta.Margin = new System.Windows.Forms.Padding(4);
-            this.btnVenta.Name = "btnVenta";
-            this.btnVenta.Size = new System.Drawing.Size(131, 68);
-            this.btnVenta.TabIndex = 608;
-            this.btnVenta.Text = "VENTA";
-            this.btnVenta.UseVisualStyleBackColor = false;
-            this.btnVenta.Click += new System.EventHandler(this.btnVenta_Click);
             // 
             // btnguardar
             // 
@@ -622,17 +597,18 @@
             this.dgDetallecompra.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgDetallecompra.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dgDetallecompra.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgDetallecompra.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgDetallecompra.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgDetallecompra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgDetallecompra.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.EL});
+            this.EL,
+            this.editPrice});
             this.dgDetallecompra.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgDetallecompra.EnableHeadersVisualStyles = false;
             this.dgDetallecompra.GridColor = System.Drawing.Color.Gainsboro;
@@ -652,17 +628,18 @@
             this.dgDetallecompra.Size = new System.Drawing.Size(916, 516);
             this.dgDetallecompra.TabIndex = 624;
             this.dgDetallecompra.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgDetallecompra_CellClick);
+            this.dgDetallecompra.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgDetallecompra_CellContentClick);
             // 
             // EL
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.NullValue = null;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
-            this.EL.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.NullValue = null;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            this.EL.DefaultCellStyle = dataGridViewCellStyle2;
             this.EL.HeaderText = "";
             this.EL.Image = ((System.Drawing.Image)(resources.GetObject("EL.Image")));
             this.EL.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
@@ -672,6 +649,16 @@
             this.EL.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.EL.ToolTipText = "Opcional \"Supr\" para Eliminar";
             this.EL.Width = 125;
+            // 
+            // editPrice
+            // 
+            this.editPrice.HeaderText = "";
+            this.editPrice.Image = ((System.Drawing.Image)(resources.GetObject("editPrice.Image")));
+            this.editPrice.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.editPrice.MinimumWidth = 6;
+            this.editPrice.Name = "editPrice";
+            this.editPrice.ReadOnly = true;
+            this.editPrice.Width = 125;
             // 
             // txtbuscar
             // 
@@ -762,28 +749,6 @@
             // 
             this.TimerBUSCADORcodigodebarras.Tick += new System.EventHandler(this.TimerBUSCADORcodigodebarras_Tick);
             // 
-            // btnCompra
-            // 
-            this.btnCompra.BackColor = System.Drawing.Color.Transparent;
-            this.btnCompra.BackgroundImage = global::Ada369Csharp.Properties.Resources.amarillo;
-            this.btnCompra.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnCompra.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCompra.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnCompra.FlatAppearance.BorderSize = 0;
-            this.btnCompra.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btnCompra.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.btnCompra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCompra.Font = new System.Drawing.Font("Calibri", 20F, System.Drawing.FontStyle.Bold);
-            this.btnCompra.ForeColor = System.Drawing.Color.White;
-            this.btnCompra.Location = new System.Drawing.Point(257, 359);
-            this.btnCompra.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCompra.Name = "btnCompra";
-            this.btnCompra.Size = new System.Drawing.Size(130, 68);
-            this.btnCompra.TabIndex = 609;
-            this.btnCompra.Text = "COMPRA";
-            this.btnCompra.UseVisualStyleBackColor = false;
-            this.btnCompra.Click += new System.EventHandler(this.btnCompra_Click);
-            // 
             // RealizarCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -841,7 +806,6 @@
         internal System.Windows.Forms.Label label1;
         internal System.Windows.Forms.TextBox txtBuscarproveedores;
         internal System.Windows.Forms.DataGridView dgDetallecompra;
-        private System.Windows.Forms.DataGridViewImageColumn EL;
         internal System.Windows.Forms.TextBox txtbuscar;
         private System.Windows.Forms.Button btnteclado;
         internal System.Windows.Forms.Label lbltipodebusqueda2;
@@ -849,7 +813,7 @@
         private System.Windows.Forms.Panel panelC2;
         private System.Windows.Forms.Button BTNLECTORA;
         private System.Windows.Forms.Timer TimerBUSCADORcodigodebarras;
-        internal System.Windows.Forms.Button btnVenta;
-        internal System.Windows.Forms.Button btnCompra;
+        private System.Windows.Forms.DataGridViewImageColumn EL;
+        private System.Windows.Forms.DataGridViewImageColumn editPrice;
     }
 }

@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HistorialVentasForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.datalistadoVentas = new System.Windows.Forms.DataGridView();
             this.Eliminar = new System.Windows.Forms.DataGridViewImageColumn();
@@ -80,7 +80,6 @@
             this.datalistadoDetalleVenta = new System.Windows.Forms.DataGridView();
             this.Devolver = new System.Windows.Forms.DataGridViewButtonColumn();
             this.lblvuelto = new System.Windows.Forms.Label();
-            this.lblpagocon = new System.Windows.Forms.Label();
             this.lbltotal = new System.Windows.Forms.Label();
             this.LBLTipodePagoOK = new System.Windows.Forms.Label();
             this.lblcajero = new System.Windows.Forms.Label();
@@ -92,10 +91,15 @@
             this.lblcliente = new System.Windows.Forms.Label();
             this.Label24 = new System.Windows.Forms.Label();
             this.Label32 = new System.Windows.Forms.Label();
-            this.Label33 = new System.Windows.Forms.Label();
+            this.lblPagoTarjeta = new System.Windows.Forms.Label();
             this.Label46 = new System.Windows.Forms.Label();
             this.Label47 = new System.Windows.Forms.Label();
             this.Label48 = new System.Windows.Forms.Label();
+            this.lblPagoEfectivo = new System.Windows.Forms.Label();
+            this.lblCredito = new System.Windows.Forms.Label();
+            this.lblefectivo = new System.Windows.Forms.Label();
+            this.lbltarjeta = new System.Windows.Forms.Label();
+            this.lblresultadocredito = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datalistadoVentas)).BeginInit();
             this.panel2.SuspendLayout();
@@ -134,52 +138,52 @@
             this.datalistadoVentas.AllowUserToAddRows = false;
             this.datalistadoVentas.AllowUserToDeleteRows = false;
             this.datalistadoVentas.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.PaleTurquoise;
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.DeepSkyBlue;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
-            this.datalistadoVentas.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.PaleTurquoise;
+            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.DeepSkyBlue;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.White;
+            this.datalistadoVentas.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle15;
             this.datalistadoVentas.BackgroundColor = System.Drawing.Color.White;
             this.datalistadoVentas.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.datalistadoVentas.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.datalistadoVentas.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.datalistadoVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.datalistadoVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.datalistadoVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datalistadoVentas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Eliminar});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.datalistadoVentas.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.datalistadoVentas.DefaultCellStyle = dataGridViewCellStyle17;
             this.datalistadoVentas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.datalistadoVentas.EnableHeadersVisualStyles = false;
             this.datalistadoVentas.Location = new System.Drawing.Point(0, 281);
             this.datalistadoVentas.Margin = new System.Windows.Forms.Padding(4);
             this.datalistadoVentas.Name = "datalistadoVentas";
             this.datalistadoVentas.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.datalistadoVentas.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.datalistadoVentas.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
             this.datalistadoVentas.RowHeadersVisible = false;
             this.datalistadoVentas.RowHeadersWidth = 9;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Gainsboro;
-            this.datalistadoVentas.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle19.BackColor = System.Drawing.Color.Gainsboro;
+            this.datalistadoVentas.RowsDefaultCellStyle = dataGridViewCellStyle19;
             this.datalistadoVentas.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.datalistadoVentas.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.datalistadoVentas.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
@@ -553,10 +557,14 @@
             this.PanelTICKET.BackColor = System.Drawing.Color.White;
             this.PanelTICKET.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("PanelTICKET.BackgroundImage")));
             this.PanelTICKET.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.PanelTICKET.Controls.Add(this.lblresultadocredito);
+            this.PanelTICKET.Controls.Add(this.lbltarjeta);
+            this.PanelTICKET.Controls.Add(this.lblefectivo);
+            this.PanelTICKET.Controls.Add(this.lblCredito);
+            this.PanelTICKET.Controls.Add(this.lblPagoEfectivo);
             this.PanelTICKET.Controls.Add(this.Panelcantidad);
             this.PanelTICKET.Controls.Add(this.datalistadoDetalleVenta);
             this.PanelTICKET.Controls.Add(this.lblvuelto);
-            this.PanelTICKET.Controls.Add(this.lblpagocon);
             this.PanelTICKET.Controls.Add(this.lbltotal);
             this.PanelTICKET.Controls.Add(this.LBLTipodePagoOK);
             this.PanelTICKET.Controls.Add(this.lblcajero);
@@ -568,7 +576,7 @@
             this.PanelTICKET.Controls.Add(this.lblcliente);
             this.PanelTICKET.Controls.Add(this.Label24);
             this.PanelTICKET.Controls.Add(this.Label32);
-            this.PanelTICKET.Controls.Add(this.Label33);
+            this.PanelTICKET.Controls.Add(this.lblPagoTarjeta);
             this.PanelTICKET.Controls.Add(this.Label46);
             this.PanelTICKET.Controls.Add(this.Label47);
             this.PanelTICKET.Controls.Add(this.Label48);
@@ -717,14 +725,14 @@
             this.datalistadoDetalleVenta.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.datalistadoDetalleVenta.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.datalistadoDetalleVenta.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.datalistadoDetalleVenta.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.datalistadoDetalleVenta.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle20;
             this.datalistadoDetalleVenta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datalistadoDetalleVenta.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Devolver});
@@ -745,13 +753,13 @@
             // 
             // Devolver
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
-            this.Devolver.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle21.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle21.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.Black;
+            this.Devolver.DefaultCellStyle = dataGridViewCellStyle21;
             this.Devolver.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.Devolver.HeaderText = "";
             this.Devolver.MinimumWidth = 6;
@@ -767,25 +775,13 @@
             this.lblvuelto.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.lblvuelto.ForeColor = System.Drawing.Color.Black;
             this.lblvuelto.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblvuelto.Location = new System.Drawing.Point(479, 455);
+            this.lblvuelto.Location = new System.Drawing.Point(459, 458);
             this.lblvuelto.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblvuelto.Name = "lblvuelto";
             this.lblvuelto.Size = new System.Drawing.Size(23, 20);
             this.lblvuelto.TabIndex = 460;
             this.lblvuelto.Text = "--";
-            // 
-            // lblpagocon
-            // 
-            this.lblpagocon.AutoSize = true;
-            this.lblpagocon.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.lblpagocon.ForeColor = System.Drawing.Color.Black;
-            this.lblpagocon.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblpagocon.Location = new System.Drawing.Point(479, 427);
-            this.lblpagocon.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblpagocon.Name = "lblpagocon";
-            this.lblpagocon.Size = new System.Drawing.Size(23, 20);
-            this.lblpagocon.TabIndex = 460;
-            this.lblpagocon.Text = "--";
+            this.lblvuelto.Click += new System.EventHandler(this.lblvuelto_Click);
             // 
             // lbltotal
             // 
@@ -793,12 +789,13 @@
             this.lbltotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.lbltotal.ForeColor = System.Drawing.Color.Black;
             this.lbltotal.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lbltotal.Location = new System.Drawing.Point(477, 396);
+            this.lbltotal.Location = new System.Drawing.Point(479, 381);
             this.lbltotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbltotal.Name = "lbltotal";
             this.lbltotal.Size = new System.Drawing.Size(23, 20);
             this.lbltotal.TabIndex = 460;
             this.lbltotal.Text = "--";
+            this.lbltotal.Click += new System.EventHandler(this.lbltotal_Click);
             // 
             // LBLTipodePagoOK
             // 
@@ -806,7 +803,7 @@
             this.LBLTipodePagoOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.LBLTipodePagoOK.ForeColor = System.Drawing.Color.Black;
             this.LBLTipodePagoOK.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.LBLTipodePagoOK.Location = new System.Drawing.Point(201, 567);
+            this.LBLTipodePagoOK.Location = new System.Drawing.Point(200, 582);
             this.LBLTipodePagoOK.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LBLTipodePagoOK.Name = "LBLTipodePagoOK";
             this.LBLTipodePagoOK.Size = new System.Drawing.Size(117, 20);
@@ -820,7 +817,7 @@
             this.lblcajero.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.lblcajero.ForeColor = System.Drawing.Color.Black;
             this.lblcajero.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblcajero.Location = new System.Drawing.Point(201, 534);
+            this.lblcajero.Location = new System.Drawing.Point(200, 552);
             this.lblcajero.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblcajero.Name = "lblcajero";
             this.lblcajero.Size = new System.Drawing.Size(70, 20);
@@ -858,19 +855,20 @@
             this.Label21.AutoSize = true;
             this.Label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.Label21.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label21.Location = new System.Drawing.Point(61, 569);
+            this.Label21.Location = new System.Drawing.Point(75, 584);
             this.Label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label21.Name = "Label21";
             this.Label21.Size = new System.Drawing.Size(124, 17);
             this.Label21.TabIndex = 2;
             this.Label21.Text = "TIPO DE PAGO:";
+            this.Label21.Click += new System.EventHandler(this.Label21_Click);
             // 
             // Label22
             // 
             this.Label22.AutoSize = true;
             this.Label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.Label22.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label22.Location = new System.Drawing.Point(115, 538);
+            this.Label22.Location = new System.Drawing.Point(125, 555);
             this.Label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label22.Name = "Label22";
             this.Label22.Size = new System.Drawing.Size(74, 17);
@@ -882,7 +880,7 @@
             this.Label23.AutoSize = true;
             this.Label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.Label23.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label23.Location = new System.Drawing.Point(109, 510);
+            this.Label23.Location = new System.Drawing.Point(122, 526);
             this.Label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label23.Name = "Label23";
             this.Label23.Size = new System.Drawing.Size(77, 17);
@@ -894,19 +892,20 @@
             this.lblcliente.AutoSize = true;
             this.lblcliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.lblcliente.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblcliente.Location = new System.Drawing.Point(201, 510);
+            this.lblcliente.Location = new System.Drawing.Point(201, 526);
             this.lblcliente.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblcliente.Name = "lblcliente";
             this.lblcliente.Size = new System.Drawing.Size(178, 17);
             this.lblcliente.TabIndex = 2;
             this.lblcliente.Text = "NOMBRE DEL CLIENTE";
+            this.lblcliente.Click += new System.EventHandler(this.lblcliente_Click);
             // 
             // Label24
             // 
             this.Label24.AutoSize = true;
             this.Label24.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
             this.Label24.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label24.Location = new System.Drawing.Point(412, 458);
+            this.Label24.Location = new System.Drawing.Point(395, 458);
             this.Label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label24.Name = "Label24";
             this.Label24.Size = new System.Drawing.Size(56, 19);
@@ -918,24 +917,24 @@
             this.Label32.AutoSize = true;
             this.Label32.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
             this.Label32.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label32.Location = new System.Drawing.Point(413, 401);
+            this.Label32.Location = new System.Drawing.Point(392, 381);
             this.Label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label32.Name = "Label32";
             this.Label32.Size = new System.Drawing.Size(54, 19);
             this.Label32.TabIndex = 2;
             this.Label32.Text = "TOTAL:";
             // 
-            // Label33
+            // lblPagoTarjeta
             // 
-            this.Label33.AutoSize = true;
-            this.Label33.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
-            this.Label33.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label33.Location = new System.Drawing.Point(392, 430);
-            this.Label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Label33.Name = "Label33";
-            this.Label33.Size = new System.Drawing.Size(76, 19);
-            this.Label33.TabIndex = 2;
-            this.Label33.Text = "Pago con:";
+            this.lblPagoTarjeta.AutoSize = true;
+            this.lblPagoTarjeta.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
+            this.lblPagoTarjeta.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblPagoTarjeta.Location = new System.Drawing.Point(392, 419);
+            this.lblPagoTarjeta.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPagoTarjeta.Name = "lblPagoTarjeta";
+            this.lblPagoTarjeta.Size = new System.Drawing.Size(126, 19);
+            this.lblPagoTarjeta.TabIndex = 2;
+            this.lblPagoTarjeta.Text = "Pago con Tarjeta:";
             // 
             // Label46
             // 
@@ -953,7 +952,7 @@
             // 
             this.Label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.Label47.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label47.Location = new System.Drawing.Point(84, 587);
+            this.Label47.Location = new System.Drawing.Point(80, 602);
             this.Label47.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label47.Name = "Label47";
             this.Label47.Size = new System.Drawing.Size(519, 31);
@@ -965,13 +964,77 @@
             // 
             this.Label48.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.Label48.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label48.Location = new System.Drawing.Point(80, 487);
+            this.Label48.Location = new System.Drawing.Point(74, 514);
             this.Label48.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label48.Name = "Label48";
             this.Label48.Size = new System.Drawing.Size(519, 12);
             this.Label48.TabIndex = 2;
             this.Label48.Text = "*****************************************************************************";
             this.Label48.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblPagoEfectivo
+            // 
+            this.lblPagoEfectivo.AutoSize = true;
+            this.lblPagoEfectivo.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
+            this.lblPagoEfectivo.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblPagoEfectivo.Location = new System.Drawing.Point(395, 400);
+            this.lblPagoEfectivo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPagoEfectivo.Name = "lblPagoEfectivo";
+            this.lblPagoEfectivo.Size = new System.Drawing.Size(133, 19);
+            this.lblPagoEfectivo.TabIndex = 531;
+            this.lblPagoEfectivo.Text = "Pago con Efectivo:";
+            this.lblPagoEfectivo.Click += new System.EventHandler(this.lblPagoEfectivo_Click);
+            // 
+            // lblCredito
+            // 
+            this.lblCredito.AutoSize = true;
+            this.lblCredito.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
+            this.lblCredito.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblCredito.Location = new System.Drawing.Point(394, 439);
+            this.lblCredito.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCredito.Name = "lblCredito";
+            this.lblCredito.Size = new System.Drawing.Size(130, 19);
+            this.lblCredito.TabIndex = 532;
+            this.lblCredito.Text = "Pago con Crédito:";
+            // 
+            // lblefectivo
+            // 
+            this.lblefectivo.AutoSize = true;
+            this.lblefectivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.lblefectivo.ForeColor = System.Drawing.Color.Black;
+            this.lblefectivo.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblefectivo.Location = new System.Drawing.Point(533, 400);
+            this.lblefectivo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblefectivo.Name = "lblefectivo";
+            this.lblefectivo.Size = new System.Drawing.Size(23, 20);
+            this.lblefectivo.TabIndex = 533;
+            this.lblefectivo.Text = "--";
+            // 
+            // lbltarjeta
+            // 
+            this.lbltarjeta.AutoSize = true;
+            this.lbltarjeta.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.lbltarjeta.ForeColor = System.Drawing.Color.Black;
+            this.lbltarjeta.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lbltarjeta.Location = new System.Drawing.Point(533, 418);
+            this.lbltarjeta.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbltarjeta.Name = "lbltarjeta";
+            this.lbltarjeta.Size = new System.Drawing.Size(23, 20);
+            this.lbltarjeta.TabIndex = 534;
+            this.lbltarjeta.Text = "--";
+            // 
+            // lblresultadocredito
+            // 
+            this.lblresultadocredito.AutoSize = true;
+            this.lblresultadocredito.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.lblresultadocredito.ForeColor = System.Drawing.Color.Black;
+            this.lblresultadocredito.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblresultadocredito.Location = new System.Drawing.Point(533, 438);
+            this.lblresultadocredito.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblresultadocredito.Name = "lblresultadocredito";
+            this.lblresultadocredito.Size = new System.Drawing.Size(23, 20);
+            this.lblresultadocredito.TabIndex = 535;
+            this.lblresultadocredito.Text = "--";
             // 
             // HistorialVentasForm
             // 
@@ -1063,7 +1126,6 @@
         internal System.Windows.Forms.Label Label9;
         internal System.Windows.Forms.DataGridView datalistadoDetalleVenta;
         internal System.Windows.Forms.Label lblvuelto;
-        internal System.Windows.Forms.Label lblpagocon;
         internal System.Windows.Forms.Label lbltotal;
         internal System.Windows.Forms.Label LBLTipodePagoOK;
         internal System.Windows.Forms.Label lblcajero;
@@ -1075,7 +1137,7 @@
         internal System.Windows.Forms.Label lblcliente;
         internal System.Windows.Forms.Label Label24;
         internal System.Windows.Forms.Label Label32;
-        internal System.Windows.Forms.Label Label33;
+        internal System.Windows.Forms.Label lblPagoTarjeta;
         internal System.Windows.Forms.Label Label46;
         internal System.Windows.Forms.Label Label47;
         internal System.Windows.Forms.Label Label48;
@@ -1083,5 +1145,10 @@
         private System.Windows.Forms.DataGridViewButtonColumn Devolver;
         private System.Windows.Forms.Panel panelReporte;
         private Telerik.ReportViewer.WinForms.ReportViewer reportViewer1;
+        internal System.Windows.Forms.Label lblCredito;
+        internal System.Windows.Forms.Label lblPagoEfectivo;
+        internal System.Windows.Forms.Label lblresultadocredito;
+        internal System.Windows.Forms.Label lbltarjeta;
+        internal System.Windows.Forms.Label lblefectivo;
     }
 }

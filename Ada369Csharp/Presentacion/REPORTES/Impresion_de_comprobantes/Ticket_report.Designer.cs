@@ -66,6 +66,8 @@ namespace Ada369Csharp.Presentacion.REPORTES.Impresion_de_comprobantes
             this.txtResultTipoDePago = new Telerik.Reporting.TextBox();
             this.txtResultadoTarjeta = new Telerik.Reporting.TextBox();
             this.txtResultCambio = new Telerik.Reporting.TextBox();
+            this.txtCredito = new Telerik.Reporting.TextBox();
+            this.txtResultadoCredito = new Telerik.Reporting.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // textBox2
@@ -303,7 +305,9 @@ namespace Ada369Csharp.Presentacion.REPORTES.Impresion_de_comprobantes
             this.txtResultEmpresa,
             this.txtResultTipoDePago,
             this.txtResultadoTarjeta,
-            this.txtResultCambio});
+            this.txtResultCambio,
+            this.txtCredito,
+            this.txtResultadoCredito});
             this.reportHeaderSection1.Name = "reportHeaderSection1";
             this.reportHeaderSection1.Style.Font.Bold = true;
             // 
@@ -424,7 +428,7 @@ namespace Ada369Csharp.Presentacion.REPORTES.Impresion_de_comprobantes
             // 
             // textBox26
             // 
-            this.textBox26.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0D), Telerik.Reporting.Drawing.Unit.Cm(5.192D));
+            this.textBox26.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.019D), Telerik.Reporting.Drawing.Unit.Cm(5.5D));
             this.textBox26.Name = "textBox26";
             this.textBox26.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(8.1D), Telerik.Reporting.Drawing.Unit.Cm(0.4D));
             this.textBox26.Style.Font.Bold = false;
@@ -434,7 +438,7 @@ namespace Ada369Csharp.Presentacion.REPORTES.Impresion_de_comprobantes
             // 
             // TextBox39
             // 
-            this.TextBox39.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0D), Telerik.Reporting.Drawing.Unit.Cm(5.7D));
+            this.TextBox39.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0D), Telerik.Reporting.Drawing.Unit.Cm(5.9D));
             this.TextBox39.Name = "TextBox39";
             this.TextBox39.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(4.459D), Telerik.Reporting.Drawing.Unit.Cm(0.4D));
             this.TextBox39.Style.Font.Bold = true;
@@ -446,7 +450,7 @@ namespace Ada369Csharp.Presentacion.REPORTES.Impresion_de_comprobantes
             // TextBox40
             // 
             this.TextBox40.Format = "{0:N2}";
-            this.TextBox40.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(4.478D), Telerik.Reporting.Drawing.Unit.Cm(5.7D));
+            this.TextBox40.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(4.459D), Telerik.Reporting.Drawing.Unit.Cm(5.9D));
             this.TextBox40.Name = "TextBox40";
             this.TextBox40.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(3.622D), Telerik.Reporting.Drawing.Unit.Cm(0.4D));
             this.TextBox40.Style.Font.Name = "Courier New";
@@ -456,9 +460,9 @@ namespace Ada369Csharp.Presentacion.REPORTES.Impresion_de_comprobantes
             // 
             // textBox27
             // 
-            this.textBox27.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0D), Telerik.Reporting.Drawing.Unit.Cm(6.24D));
+            this.textBox27.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0D), Telerik.Reporting.Drawing.Unit.Cm(6.3D));
             this.textBox27.Name = "textBox27";
-            this.textBox27.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(8.1D), Telerik.Reporting.Drawing.Unit.Cm(0.4D));
+            this.textBox27.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(8.1D), Telerik.Reporting.Drawing.Unit.Cm(0.34D));
             this.textBox27.Style.Font.Bold = false;
             this.textBox27.Style.Font.Size = Telerik.Reporting.Drawing.Unit.Point(8D);
             this.textBox27.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
@@ -546,7 +550,7 @@ namespace Ada369Csharp.Presentacion.REPORTES.Impresion_de_comprobantes
             // 
             // txtPago
             // 
-            this.txtPago.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(0.556D), Telerik.Reporting.Drawing.Unit.Inch(1.544D));
+            this.txtPago.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(0.556D), Telerik.Reporting.Drawing.Unit.Inch(1.765D));
             this.txtPago.Name = "txtPago";
             this.txtPago.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.244D), Telerik.Reporting.Drawing.Unit.Inch(0.2D));
             this.txtPago.Style.Visible = true;
@@ -554,7 +558,7 @@ namespace Ada369Csharp.Presentacion.REPORTES.Impresion_de_comprobantes
             // 
             // txtCambio
             // 
-            this.txtCambio.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(0.556D), Telerik.Reporting.Drawing.Unit.Inch(1.744D));
+            this.txtCambio.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(0.556D), Telerik.Reporting.Drawing.Unit.Inch(1.965D));
             this.txtCambio.Name = "txtCambio";
             this.txtCambio.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.744D), Telerik.Reporting.Drawing.Unit.Inch(0.2D));
             this.txtCambio.Value = "Cambio:";
@@ -568,7 +572,7 @@ namespace Ada369Csharp.Presentacion.REPORTES.Impresion_de_comprobantes
             // 
             // txtResultTipoDePago
             // 
-            this.txtResultTipoDePago.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(1.855D), Telerik.Reporting.Drawing.Unit.Inch(1.544D));
+            this.txtResultTipoDePago.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(1.852D), Telerik.Reporting.Drawing.Unit.Inch(1.765D));
             this.txtResultTipoDePago.Name = "txtResultTipoDePago";
             this.txtResultTipoDePago.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.2D), Telerik.Reporting.Drawing.Unit.Inch(0.2D));
             this.txtResultTipoDePago.Value = "=Fields.Tipo_de_pago";
@@ -582,10 +586,25 @@ namespace Ada369Csharp.Presentacion.REPORTES.Impresion_de_comprobantes
             // 
             // txtResultCambio
             // 
-            this.txtResultCambio.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(1.5D), Telerik.Reporting.Drawing.Unit.Inch(1.744D));
+            this.txtResultCambio.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(1.5D), Telerik.Reporting.Drawing.Unit.Inch(1.965D));
             this.txtResultCambio.Name = "txtResultCambio";
             this.txtResultCambio.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.2D), Telerik.Reporting.Drawing.Unit.Inch(0.2D));
             this.txtResultCambio.Value = "=Fields.Vuelto";
+            // 
+            // txtCredito
+            // 
+            this.txtCredito.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(0.556D), Telerik.Reporting.Drawing.Unit.Inch(1.544D));
+            this.txtCredito.Name = "txtCredito";
+            this.txtCredito.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.744D), Telerik.Reporting.Drawing.Unit.Inch(0.2D));
+            this.txtCredito.Style.Font.Bold = true;
+            this.txtCredito.Value = "Crédito";
+            // 
+            // txtResultadoCredito
+            // 
+            this.txtResultadoCredito.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(1.5D), Telerik.Reporting.Drawing.Unit.Inch(1.544D));
+            this.txtResultadoCredito.Name = "txtResultadoCredito";
+            this.txtResultadoCredito.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.2D), Telerik.Reporting.Drawing.Unit.Inch(0.2D));
+            this.txtResultadoCredito.Value = "=Fields.Credito";
             // 
             // Ticket_report
             // 
@@ -662,5 +681,7 @@ namespace Ada369Csharp.Presentacion.REPORTES.Impresion_de_comprobantes
         private Telerik.Reporting.TextBox txtResultTipoDePago;
         private Telerik.Reporting.TextBox txtResultadoTarjeta;
         private Telerik.Reporting.TextBox txtResultCambio;
+        private Telerik.Reporting.TextBox txtCredito;
+        private Telerik.Reporting.TextBox txtResultadoCredito;
     }
 }

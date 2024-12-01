@@ -114,9 +114,7 @@ namespace Ada369Csharp.Presentacion.CAJA
             foreach (DataRow dr in dt.Rows)
             {
                 idcaja = Convert.ToInt32(dr["Id_caja"]);
-                //fechaInicial = Convert.ToDateTime(dr["fechainicio"]);
-                fechaInicial = Convert.ToDateTime(dr["fechainicio"], CultureInfo.InvariantCulture);
-
+                fechaInicial = Convert.ToDateTime(dr["fechainicio"]);
                 saldoInicial = Convert.ToDouble(dr["SaldoInicial"]);
             }
         }
@@ -145,8 +143,11 @@ namespace Ada369Csharp.Presentacion.CAJA
 
         private void mostrar_Ganancias_por_turno()
         {
-            Obtener_datos.mostrar_ganancias_por_turno(idcaja, fechaInicial, fechafinal, ref ganancias);
+            //Obtener_datos.mostrar_ganancias_por_turno(idcaja, fechaInicial, fechafinal, ref ganancias);
+
+            Obtener_datos.ReporteGananciasFecha(ref ganancias, fechaInicial, fechafinal);
             lblGananciasResult.Text = ganancias.ToString();
+            lblgananciasVentas.Text = ganancias.ToString();
         }
 
         private void M_ventas_credito_por_turno()
@@ -155,11 +156,7 @@ namespace Ada369Csharp.Presentacion.CAJA
             lblVentasAcredito.Text = ventascredito.ToString ();
         }
 
-        private void Label20_Click(object sender, EventArgs e)
-        {
-
-        }
-
+  
         private void BtnCerrar_turno_Click(object sender, EventArgs e)
         {          
             CierreTurno frm = new CierreTurno();
@@ -178,5 +175,7 @@ namespace Ada369Csharp.Presentacion.CAJA
             VENTAS_MENU_PRINCIPAL.VENTAS_MENU_PRINCIPALOK frm = new VENTAS_MENU_PRINCIPAL.VENTAS_MENU_PRINCIPALOK();
             frm.ShowDialog();
         }
+
+      
     }
 }

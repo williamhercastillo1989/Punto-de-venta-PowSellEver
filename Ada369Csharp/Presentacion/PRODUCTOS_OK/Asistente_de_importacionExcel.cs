@@ -215,7 +215,7 @@ namespace Ada369Csharp.Presentacion.PRODUCTOS_OK
                 while (objReader.Peek() != -1)
                 {
                     Textlines = objReader.ReadLine();
-                    Splitline = Textlines.Split(';');
+                    Splitline = Textlines.Split(',');
                     datalistado.ColumnCount = Splitline.Length;
                     datalistado.Rows.Add(Splitline);
 
@@ -291,11 +291,11 @@ namespace Ada369Csharp.Presentacion.PRODUCTOS_OK
         {
             foreach (DataGridViewRow row in datalistado.Rows )
             {
-                if (row.Cells ["Descripcion"].Value.ToString ()=="")
+                if (row.Cells ["Descripcion"].Value.ToString()== "")
                 {
                     row.Cells["Descripcion"].Value = "VACIO@";
                 }
-                else if (row.Cells ["Codigo"].Value.ToString ()=="")
+                else if (row.Cells["Codigo"].Value.ToString() == "")
                 {
                     row.Cells["Codigo"].Value = "VACIO@";
                 }

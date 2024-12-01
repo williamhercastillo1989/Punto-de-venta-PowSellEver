@@ -56,7 +56,7 @@ namespace Ada369Csharp.Presentacion.Conexion_remota
         private void conectar_manualmente()
         {
             string IP = txtIp.Text;
-            cadena_de_conexion = "Data Source =" + IP + ";Initial Catalog=BASEADACURSO;Integrated Security=False;User Id=pruebas2020;Password=pruebas123";
+            cadena_de_conexion = "Data Source =" + IP + ";Initial Catalog=POWSELLEVER;Integrated Security=False;User Id=WILL_NAN_LIA;Password=powsellever2024";
             comprobar_conexion();
             if (indicador_de_conexion == "HAY CONEXION")
             {

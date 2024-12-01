@@ -32,14 +32,15 @@ namespace Ada369Csharp.Datos
                 foreach (DataRow rdr in dt.Rows )
                 {
                   
-                    //FechaInicial = Convert.ToDateTime(rdr["FA"].ToString());
-                    FechaInicial = Convert.ToDateTime(rdr["FA"].ToString(), CultureInfo.InvariantCulture);
+                    FechaInicial = Convert.ToDateTime(rdr["FA"].ToString());
+                    //FechaInicial = Convert.ToDateTime(rdr["FA"].ToString(), CultureInfo.InvariantCulture);
                     estado = Bases.Desencriptar ( rdr["E"].ToString());
 
-                    fechaFinal = Convert.ToDateTime(rdr["F"].ToString(), CultureInfo.InvariantCulture);
+                    //fechaFinal = Convert.ToDateTime(rdr["F"].ToString(), CultureInfo.InvariantCulture);
 
-                    //fechaFinal = Convert.ToDateTime (rdr["F"].ToString());
-                             
+                    fechaFinal = Convert.ToDateTime (rdr["F"].ToString());
+                   
+
                     SerialPcLicencia = rdr["S"].ToString();
                 }
 

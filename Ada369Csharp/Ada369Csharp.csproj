@@ -53,7 +53,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>empresa.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>D0D5B19DAFA3820460154D3A075B87FB0009CD94</ManifestCertificateThumbprint>
@@ -76,7 +77,7 @@
   <PropertyGroup />
   <PropertyGroup />
   <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <ApplicationManifest>ada369m.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DocumentFormat.OpenXml, Version=2.11.3.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
@@ -111,13 +112,14 @@
     <Reference Include="UIDC">
       <HintPath>..\UIDC.dll</HintPath>
     </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="Telerik.Reporting, Version=13.0.19.116, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
+ <Reference Include="Telerik.Reporting, Version=13.0.19.116, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
       <SpecificVersion>True</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.ReportViewer.WinForms, Version=13.0.19.116, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
       <SpecificVersion>True</SpecificVersion>
     </Reference>
+
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CONEXION\Agregar_ceros_adelante_De_numero.cs" />
@@ -265,6 +267,12 @@
     </Compile>
     <Compile Include="Presentacion\Compras\Admincompras.Designer.cs">
       <DependentUpon>Admincompras.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Compras\CompraPriceEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Compras\CompraPriceEdit.Designer.cs">
+      <DependentUpon>CompraPriceEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Compras\HistorialCompras.cs">
       <SubType>UserControl</SubType>
@@ -595,6 +603,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Compras\Admincompras.resx">
       <DependentUpon>Admincompras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Compras\CompraPriceEdit.resx">
+      <DependentUpon>CompraPriceEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Compras\HistorialCompras.resx">
       <DependentUpon>HistorialCompras.cs</DependentUpon>

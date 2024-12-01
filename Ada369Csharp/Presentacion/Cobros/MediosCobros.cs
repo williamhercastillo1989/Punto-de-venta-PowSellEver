@@ -118,11 +118,30 @@ namespace Ada369Csharp.Presentacion.Cobros
 
         private void btncobrar_Click(object sender, EventArgs e)
         {
-           montoabonado = efectivoCalculado + tarjeta;
-            if(montoabonado>0)
+            if(tarjeta > 0) 
             {
-            insertarControlCobro();
-            disminuirSaldocliente();
+                DialogResult result;
+
+                result = MessageBox.Show("Ingrese la tarjeta a la terminal y cobre" + " " + "$" + txttarjeta2.Text + " " + "Si la tarjeta fue aceptada presione Aceptar para continuar", "Pago con tarjeta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (result == DialogResult.OK)
+                {
+                    ejecutarCobro();
+                }
+            } 
+            else 
+            {
+                ejecutarCobro();
+            }
+          
+        }
+
+        private void ejecutarCobro()
+        {
+            montoabonado = efectivoCalculado + tarjeta;
+            if (montoabonado > 0)
+            {
+                insertarControlCobro();
+                disminuirSaldocliente();
             }
             else
             {

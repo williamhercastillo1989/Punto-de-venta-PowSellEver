@@ -63,6 +63,9 @@
             this.Label30 = new System.Windows.Forms.Label();
             this.Label32 = new System.Windows.Forms.Label();
             this.Panel3 = new System.Windows.Forms.Panel();
+            this.lblGananciasResult = new System.Windows.Forms.Label();
+            this.lblGanancias = new System.Windows.Forms.Label();
+            this.lblGananciasTotales = new System.Windows.Forms.Label();
             this.lblResultadoCompras = new System.Windows.Forms.Label();
             this.lblCompras1 = new System.Windows.Forms.Label();
             this.lblCompras = new System.Windows.Forms.Label();
@@ -85,9 +88,6 @@
             this.btnvolver = new System.Windows.Forms.Button();
             this.Label46 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lblGananciasTotales = new System.Windows.Forms.Label();
-            this.lblGanancias = new System.Windows.Forms.Label();
-            this.lblGananciasResult = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.Panel9.SuspendLayout();
@@ -525,6 +525,42 @@
             this.Panel3.Size = new System.Drawing.Size(485, 295);
             this.Panel3.TabIndex = 544;
             // 
+            // lblGananciasResult
+            // 
+            this.lblGananciasResult.AutoSize = true;
+            this.lblGananciasResult.BackColor = System.Drawing.Color.Transparent;
+            this.lblGananciasResult.Enabled = false;
+            this.lblGananciasResult.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.lblGananciasResult.Location = new System.Drawing.Point(289, 245);
+            this.lblGananciasResult.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lblGananciasResult.Name = "lblGananciasResult";
+            this.lblGananciasResult.Size = new System.Drawing.Size(23, 25);
+            this.lblGananciasResult.TabIndex = 199;
+            this.lblGananciasResult.Text = "0";
+            // 
+            // lblGanancias
+            // 
+            this.lblGanancias.AutoSize = true;
+            this.lblGanancias.ForeColor = System.Drawing.Color.Black;
+            this.lblGanancias.Location = new System.Drawing.Point(184, 245);
+            this.lblGanancias.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lblGanancias.Name = "lblGanancias";
+            this.lblGanancias.Size = new System.Drawing.Size(112, 25);
+            this.lblGanancias.TabIndex = 198;
+            this.lblGanancias.Text = "Ganancias:";
+            // 
+            // lblGananciasTotales
+            // 
+            this.lblGananciasTotales.AutoSize = true;
+            this.lblGananciasTotales.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.lblGananciasTotales.ForeColor = System.Drawing.Color.Black;
+            this.lblGananciasTotales.Location = new System.Drawing.Point(175, 220);
+            this.lblGananciasTotales.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lblGananciasTotales.Name = "lblGananciasTotales";
+            this.lblGananciasTotales.Size = new System.Drawing.Size(193, 25);
+            this.lblGananciasTotales.TabIndex = 197;
+            this.lblGananciasTotales.Text = "Ganancias Totales";
+            // 
             // lblResultadoCompras
             // 
             this.lblResultadoCompras.AutoSize = true;
@@ -740,7 +776,6 @@
             this.Label20.Size = new System.Drawing.Size(217, 25);
             this.Label20.TabIndex = 192;
             this.Label20.Text = "Creditos Aperturados";
-            this.Label20.Click += new System.EventHandler(this.Label20_Click);
             // 
             // BtnCerrar_turno
             // 
@@ -804,42 +839,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1238, 51);
             this.panel1.TabIndex = 0;
-            // 
-            // lblGananciasTotales
-            // 
-            this.lblGananciasTotales.AutoSize = true;
-            this.lblGananciasTotales.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lblGananciasTotales.ForeColor = System.Drawing.Color.Black;
-            this.lblGananciasTotales.Location = new System.Drawing.Point(175, 220);
-            this.lblGananciasTotales.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lblGananciasTotales.Name = "lblGananciasTotales";
-            this.lblGananciasTotales.Size = new System.Drawing.Size(193, 25);
-            this.lblGananciasTotales.TabIndex = 197;
-            this.lblGananciasTotales.Text = "Ganancias Totales";
-            // 
-            // lblGanancias
-            // 
-            this.lblGanancias.AutoSize = true;
-            this.lblGanancias.ForeColor = System.Drawing.Color.Black;
-            this.lblGanancias.Location = new System.Drawing.Point(184, 245);
-            this.lblGanancias.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lblGanancias.Name = "lblGanancias";
-            this.lblGanancias.Size = new System.Drawing.Size(112, 25);
-            this.lblGanancias.TabIndex = 198;
-            this.lblGanancias.Text = "Ganancias:";
-            // 
-            // lblGananciasResult
-            // 
-            this.lblGananciasResult.AutoSize = true;
-            this.lblGananciasResult.BackColor = System.Drawing.Color.Transparent;
-            this.lblGananciasResult.Enabled = false;
-            this.lblGananciasResult.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.lblGananciasResult.Location = new System.Drawing.Point(289, 245);
-            this.lblGananciasResult.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lblGananciasResult.Name = "lblGananciasResult";
-            this.lblGananciasResult.Size = new System.Drawing.Size(23, 25);
-            this.lblGananciasResult.TabIndex = 199;
-            this.lblGananciasResult.Text = "0";
             // 
             // CIERRE_DE_CAJA
             // 

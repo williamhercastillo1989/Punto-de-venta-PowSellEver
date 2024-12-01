@@ -17,23 +17,34 @@ namespace Ada369Csharp.Presentacion.Apertura_de_credito
             InitializeComponent();
         }
         int idcliente;
+        string estado;
+        string saldo;
         Panel p = new Panel();
         //Crud------
         private void insertarCreditos()
         {
-            LcreditoPorCobrar  parametros = new LcreditoPorCobrar();
-            Insertar_datos funcion = new Insertar_datos();
-            parametros.Descripcion = txtdetalle.Text;
-            parametros.Fecha_registro = txtfechadeventa.Value;
-            parametros.Fecha_vencimiento = txtfecha_de_pago.Value;
-            parametros.Total = Convert.ToDouble(txtsaldo.Text);
-            parametros.Saldo = Convert.ToDouble(txtsaldo.Text);
-            parametros.Id_cliente = idcliente;
-            if (funcion.insertar_CreditoPorCobrar(parametros) == true)
+            if (!buscar_credito_activo(idcliente))
             {
-                MessageBox.Show("Registrado");
-                limpiar();
-                buscar_clientes();
+                LcreditoPorCobrar parametros = new LcreditoPorCobrar();
+                Insertar_datos funcion = new Insertar_datos();
+                parametros.Descripcion = txtdetalle.Text;
+                parametros.Fecha_registro = txtfechadeventa.Value;
+                parametros.Fecha_vencimiento = txtfecha_de_pago.Value;
+                parametros.Total = Convert.ToDouble(txtsaldo.Text);
+                parametros.Saldo = Convert.ToDouble(txtsaldo.Text);
+                parametros.Id_cliente = idcliente;
+                if (funcion.insertar_CreditoPorCobrar(parametros) == true)
+                {
+                    MessageBox.Show("Registrado");
+                    limpiar();
+                    buscar_clientes();
+
+                }
+            } 
+            else 
+            {
+
+                MessageBox.Show($"El cliente tiene un crédito activo de ${saldo}. Liquidar el crédito antes de solicitar otro.");
 
             }
 
@@ -52,6 +63,25 @@ namespace Ada369Csharp.Presentacion.Apertura_de_credito
             datalistado.Columns[7].Visible = false;
             dibujarPanel();
         }
+
+        private bool buscar_credito_activo(int idcliente)
+        {
+            bool creditoActivo = false;
+            DataTable dt = new DataTable();
+            Obtener_datos.BuscarCreditoActivo(ref dt, idcliente);
+            foreach (DataRow row in dt.Rows)
+            {
+                string estado = row["Estado"].ToString();
+                saldo = row["Saldo"].ToString();
+                if (estado.Equals("DEBE"))
+                {
+                    creditoActivo = true;
+                }
+            }
+            return creditoActivo;
+           
+        }
+
         //----------
         private void dibujarPanel()
         {
@@ -74,6 +104,7 @@ namespace Ada369Csharp.Presentacion.Apertura_de_credito
         private void PorCobrarOk_Load(object sender, EventArgs e)
         {
             buscar_clientes();
+
         }
 
         private void txtcliente_TextChanged(object sender, EventArgs e)
