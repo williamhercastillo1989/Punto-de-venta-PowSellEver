@@ -240,3 +240,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/PowSellEver/Presentacion/INVENTARIOS_KARDEX/INVENTARIO_MENU.cs
+/PowSellEver/Presentacion/INVENTARIOS_KARDEX/INVENTARIO_MENU.Designer.cs
+/PowSellEver/Presentacion/INVENTARIOS_KARDEX/INVENTARIO_MENU.resx
