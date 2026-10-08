@@ -17,7 +17,8 @@ moderno, híbrido escritorio + web, en TypeScript. Ver `../MIGRACION.md` para el
 apps/
   api/     NestJS + Prisma        → lógica de negocio sobre SQL Server
   caja/    Electron + React       → caja: ventas (offline) + inventario + compras + balanza/impresora
-  web/     Next.js + React        → back-office: dashboard, inventario, compras, proveedores
+  web/     Next.js + React        → back-office: dashboard, productos, inventario, compras,
+                                     proveedores, usuarios, reportes y empresa
 packages/
   types/   contratos TypeScript compartidos (API ↔ apps)
   core/    (pendiente) reglas de negocio puras
@@ -50,6 +51,8 @@ Endpoints:
 - `GET /inventario` · `GET /inventario/bajo-minimo` · `GET /inventario/:idProducto/kardex`
 - `POST /inventario/ajuste` — ajuste manual de stock (entrada/salida con kardex)
 - `GET /reportes/ventas` (JSON) · `GET /reportes/ventas.xlsx` — **exportación Excel real** (ExcelJS)
+- `GET|POST /usuarios`, `PATCH|DELETE /usuarios/:id` — gestión de usuarios (baja lógica)
+- `GET /empresa` · `PUT /empresa/:id` — configuración de la empresa
 
 ### Proceso SQL de una venta (Fase 1)
 
@@ -97,9 +100,10 @@ npm run dev      # http://localhost:3001  (requiere la API en :3000)
 npm run build    # compila las 4 rutas
 ```
 
-Páginas: **Dashboard** (valor de inventario y productos bajo mínimo), **Inventario**
-(tabla + búsqueda + ajuste de stock), **Compras** (registrar compra + historial) y
-**Proveedores** (alta + listado). Consume la misma API que la caja (CORS habilitado).
+Páginas: **Dashboard**, **Productos** (alta/baja), **Inventario** (tabla + ajuste de stock),
+**Compras** (registrar + historial), **Proveedores** (alta), **Usuarios** (alta/baja),
+**Reportes** (Excel/PDF) y **Empresa** (configuración). Login con JWT. Consume la misma API
+que la caja (CORS habilitado).
 
 ## Cómo probar el avance
 

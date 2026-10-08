@@ -10,6 +10,8 @@ import { ProveedoresModule } from './proveedores/proveedores.module';
 import { ComprasModule } from './compras/compras.module';
 import { InventarioModule } from './inventario/inventario.module';
 import { ReportesModule } from './reportes/reportes.module';
+import { UsuariosModule } from './usuarios/usuarios.module';
+import { EmpresaModule } from './empresa/empresa.module';
 
 @Module({
   imports: [
@@ -23,6 +25,8 @@ import { ReportesModule } from './reportes/reportes.module';
     ComprasModule,
     InventarioModule,
     ReportesModule,
+    UsuariosModule,
+    EmpresaModule,
     // Próximos módulos (mapeo 1:1 con las capas Logica/Datos del sistema viejo):
     // ClientesModule, ...
   ],

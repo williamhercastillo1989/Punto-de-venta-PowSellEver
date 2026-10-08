@@ -82,10 +82,13 @@ export function AuthGate({
         <h1 className="sidebar__brand">POS Admin</h1>
         <nav className="sidebar__nav">
           <Link href="/">Dashboard</Link>
+          <Link href="/productos">Productos</Link>
           <Link href="/inventario">Inventario</Link>
           <Link href="/compras">Compras</Link>
           <Link href="/proveedores">Proveedores</Link>
+          <Link href="/usuarios">Usuarios</Link>
           <Link href="/reportes">Reportes</Link>
+          <Link href="/empresa">Empresa</Link>
         </nav>
         <div className="sidebar__user">
           <div>{usuario.nombres ?? usuario.login}</div>

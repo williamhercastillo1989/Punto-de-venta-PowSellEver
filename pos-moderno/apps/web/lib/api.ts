@@ -1,11 +1,16 @@
 import type {
+  ActualizarEmpresaDTO,
+  ActualizarUsuarioDTO,
   AjusteInventarioDTO,
   CrearProveedorDTO,
+  CrearUsuarioDTO,
+  EmpresaDTO,
   InventarioItemDTO,
   LoginDTO,
   ProveedorDTO,
   RegistrarCompraDTO,
   UsuarioAutenticadoDTO,
+  UsuarioDTO,
 } from '@pos/types';
 
 // La API NestJS corre en el puerto 3000 (con CORS habilitado).
@@ -39,11 +44,15 @@ async function get<T>(ruta: string): Promise<T> {
   return res.json() as Promise<T>;
 }
 
-async function post<T>(ruta: string, body: unknown): Promise<T> {
+async function send<T>(
+  metodo: 'POST' | 'PATCH' | 'PUT' | 'DELETE',
+  ruta: string,
+  body?: unknown,
+): Promise<T> {
   const res = await fetch(`${API_BASE}${ruta}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
+    method: metodo,
+    headers: body ? { 'Content-Type': 'application/json' } : undefined,
+    body: body ? JSON.stringify(body) : undefined,
   });
   if (!res.ok) {
     const data = (await res.json().catch(() => ({}))) as { message?: string };
@@ -55,6 +64,8 @@ async function post<T>(ruta: string, body: unknown): Promise<T> {
   }
   return res.json() as Promise<T>;
 }
+
+const post = <T>(ruta: string, body: unknown) => send<T>('POST', ruta, body);
 
 export const api = {
   login: (dto: LoginDTO) =>
@@ -68,7 +79,19 @@ export const api = {
   proveedores: () => get<ProveedorDTO[]>('/proveedores'),
   crearProveedor: (dto: CrearProveedorDTO) => post('/proveedores', dto),
   productos: () => get<Array<Record<string, unknown>>>('/productos'),
+  crearProducto: (dto: Record<string, unknown>) => post('/productos', dto),
+  actualizarProducto: (id: number, dto: Record<string, unknown>) =>
+    send('PATCH', `/productos/${id}`, dto),
+  eliminarProducto: (id: number) => send('DELETE', `/productos/${id}`),
   compras: () => get<Array<Record<string, unknown>>>('/compras'),
   registrarCompra: (dto: RegistrarCompraDTO) =>
     post<{ idCompra: number; total: number }>('/compras', dto),
+  usuarios: () => get<UsuarioDTO[]>('/usuarios'),
+  crearUsuario: (dto: CrearUsuarioDTO) => post('/usuarios', dto),
+  actualizarUsuario: (id: number, dto: ActualizarUsuarioDTO) =>
+    send('PATCH', `/usuarios/${id}`, dto),
+  eliminarUsuario: (id: number) => send('DELETE', `/usuarios/${id}`),
+  empresa: () => get<EmpresaDTO | null>('/empresa'),
+  actualizarEmpresa: (id: number, dto: ActualizarEmpresaDTO) =>
+    send<EmpresaDTO>('PUT', `/empresa/${id}`, dto),
 };
