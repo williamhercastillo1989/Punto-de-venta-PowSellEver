@@ -5,6 +5,7 @@ import type {
   ClienteDTO,
   ConceptoDTO,
   CrearClienteDTO,
+  CrearCobroDTO,
   CrearGastoDTO,
   CrearIngresoDTO,
   CrearProveedorDTO,
@@ -108,4 +109,6 @@ export const api = {
   crearGasto: (dto: CrearGastoDTO) => post('/gastos', dto),
   ingresos: () => get<Array<Record<string, unknown>>>('/ingresos'),
   crearIngreso: (dto: CrearIngresoDTO) => post('/ingresos', dto),
+  cobros: () => get<Array<Record<string, unknown>>>('/cobros'),
+  crearCobro: (dto: CrearCobroDTO) => post('/cobros', dto),
 };

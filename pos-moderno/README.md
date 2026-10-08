@@ -55,6 +55,8 @@ Endpoints:
 - `GET /empresa` · `PUT /empresa/:id` — configuración de la empresa
 - `GET|POST /clientes`, `PATCH|DELETE /clientes/:id` — clientes (baja lógica, GENERICO protegido)
 - `GET|POST /conceptos` · `GET|POST /gastos` · `GET|POST /ingresos` — movimientos de caja
+- `GET|POST /cobros` — abonos de clientes a crédito (descuenta saldo, transaccional)
+- `GET /caja/:idCaja/arqueo` — efectivo esperado del turno (inicial + ventas + ingresos − gastos)
 
 ### Proceso SQL de una venta (Fase 1)
 
@@ -213,6 +215,9 @@ Con la app abierta, **detén la API** (Ctrl-C) y haz una venta: queda guardada y
       - `VENTAS_NATIVO` — flujo de venta completo (cabecera + detalle + inventario)
       - `COMPRAS_NATIVO` — flujo de compra completo (+ numeración de comprobante serie 'TC')
       - `AUTH_NATIVO` — login (`validar_usuario`)
-      Cubre ~11 SPs. La lógica de inventario vive en `src/common/movimientos-inventario.ts`.
-- [ ] Fase 4 (resto): migrar caja (apertura/cierre), reportes y SPs restantes
+      - `CAJA_NATIVO` — apertura/cierre de turno (MOVIMIENTOCAJACIERRE)
+      Cubre ~14 SPs. La lógica de inventario vive en `src/common/movimientos-inventario.ts`.
+- [x] Módulos adicionales: clientes, conceptos, gastos/ingresos, **cobros** (abono con
+      descuento de saldo) y **arqueo de caja** (efectivo esperado del turno).
+- [ ] Fase 4 (resto): reportes avanzados, serialización de comprobantes, SPs restantes
 - [ ] Pendientes menores: proteger endpoints con el JWT (guard), reportes PDF server-side

@@ -23,6 +23,11 @@ export class CajaController {
     return this.caja.turnoAbierto(idCaja);
   }
 
+  @Get(':idCaja/arqueo')
+  arqueo(@Param('idCaja', ParseIntPipe) idCaja: number) {
+    return this.caja.arqueo(idCaja);
+  }
+
   @Post('cierre')
   cerrar(@Body() dto: CierreCajaDto) {
     return this.caja.cerrar(dto);

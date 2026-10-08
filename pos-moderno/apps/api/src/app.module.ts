@@ -14,6 +14,7 @@ import { UsuariosModule } from './usuarios/usuarios.module';
 import { EmpresaModule } from './empresa/empresa.module';
 import { ClientesModule } from './clientes/clientes.module';
 import { FinanzasModule } from './finanzas/finanzas.module';
+import { CobrosModule } from './cobros/cobros.module';
 
 @Module({
   imports: [
@@ -31,8 +32,8 @@ import { FinanzasModule } from './finanzas/finanzas.module';
     EmpresaModule,
     ClientesModule,
     FinanzasModule,
-    // Próximos módulos (mapeo 1:1 con las capas Logica/Datos del sistema viejo):
-    // CobrosModule, cierre de caja nativo, ...
+    CobrosModule,
+    // Próximos módulos: serialización de comprobantes, ticket, notificaciones/correo.
   ],
   controllers: [HealthController],
 })

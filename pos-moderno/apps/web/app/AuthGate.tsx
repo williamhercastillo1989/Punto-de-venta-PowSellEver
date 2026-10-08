@@ -87,6 +87,7 @@ export function AuthGate({
           <Link href="/compras">Compras</Link>
           <Link href="/proveedores">Proveedores</Link>
           <Link href="/clientes">Clientes</Link>
+          <Link href="/cobros">Cobros</Link>
           <Link href="/movimientos">Movimientos</Link>
           <Link href="/usuarios">Usuarios</Link>
           <Link href="/reportes">Reportes</Link>

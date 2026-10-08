@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { TurnoAbiertoDTO, UsuarioAutenticadoDTO } from '@pos/types';
-import { aperturaCaja, cierreCaja, turnoAbierto } from '../api';
+import { aperturaCaja, arqueoCaja, cierreCaja, turnoAbierto } from '../api';
 import { VentasPage } from '../ventas/VentasPage';
 import { InventarioView } from '../inventario/InventarioView';
 import { ComprasView } from '../compras/ComprasView';
@@ -22,6 +22,7 @@ export function CajaGate({ idCaja, usuario }: Props): JSX.Element {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [saldoInicial, setSaldoInicial] = useState('0');
+  const [cierreInfo, setCierreInfo] = useState<string | null>(null);
   const [tab, setTab] = useState<Tab>('ventas');
 
   const refrescar = useCallback(() => {
@@ -51,17 +52,26 @@ export function CajaGate({ idCaja, usuario }: Props): JSX.Element {
   async function cerrar(): Promise<void> {
     setError(null);
     try {
-      // En un cierre real estos totales se calculan del turno; aquí van simples.
+      // Arqueo del turno: calcula el efectivo esperado antes de cerrar.
+      const arqueo = await arqueoCaja(idCaja);
+      const esperado = arqueo?.saldoEsperado ?? turno?.saldoInicial ?? 0;
       await cierreCaja({
         idCaja,
         idUsuario: usuario.idUsuario,
-        ingresos: 0,
-        egresos: 0,
-        saldoQuedaEnCaja: turno?.saldoInicial ?? 0,
-        totalCalculado: turno?.saldoInicial ?? 0,
-        totalReal: turno?.saldoInicial ?? 0,
+        ingresos: arqueo?.ingresos ?? 0,
+        egresos: arqueo?.gastos ?? 0,
+        saldoQuedaEnCaja: esperado,
+        totalCalculado: esperado,
+        totalReal: esperado,
         diferencia: 0,
       });
+      setCierreInfo(
+        arqueo
+          ? `Caja cerrada. Esperado en efectivo: ${esperado.toFixed(2)} ` +
+              `(inicial ${arqueo.saldoInicial.toFixed(2)} + ventas ${arqueo.ventasEfectivo.toFixed(2)} ` +
+              `+ ingresos ${arqueo.ingresos.toFixed(2)} − gastos ${arqueo.gastos.toFixed(2)})`
+          : 'Caja cerrada.',
+      );
       refrescar();
     } catch (e) {
       setError((e as Error).message);
@@ -75,6 +85,7 @@ export function CajaGate({ idCaja, usuario }: Props): JSX.Element {
       <div className="apertura">
         <div className="apertura__card">
           <h2>Abrir caja {idCaja}</h2>
+          {cierreInfo && <p className="alert alert--ok">{cierreInfo}</p>}
           {error && <p className="alert alert--error">{error}</p>}
           <label>
             Saldo inicial

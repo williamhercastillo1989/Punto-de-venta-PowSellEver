@@ -1,6 +1,7 @@
 import type {
   AjusteInventarioDTO,
   AperturaCajaDTO,
+  ArqueoDTO,
   CierreCajaDTO,
   CrearProveedorDTO,
   InventarioItemDTO,
@@ -41,6 +42,13 @@ export function aperturaCaja(dto: AperturaCajaDTO): Promise<unknown> {
 
 export function cierreCaja(dto: CierreCajaDTO): Promise<unknown> {
   return post('/caja/cierre', dto);
+}
+
+export async function arqueoCaja(idCaja: number): Promise<ArqueoDTO | null> {
+  const res = await fetch(`${API_BASE}/caja/${idCaja}/arqueo`);
+  if (!res.ok) throw new Error(`Error HTTP ${res.status}`);
+  const texto = await res.text();
+  return texto ? (JSON.parse(texto) as ArqueoDTO) : null;
 }
 
 export async function turnoAbierto(

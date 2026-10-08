@@ -336,6 +336,29 @@ export interface CrearIngresoDTO {
   tipoComprobante?: string;
 }
 
+// ---- DTOs: Cobros (abonos de clientes a crédito) ----
+
+export interface CrearCobroDTO {
+  idCliente: number;
+  idUsuario: number;
+  idCaja: number;
+  monto: number;
+  detalle?: string;
+  efectivo?: number;
+  tarjeta?: number;
+  comprobante?: string;
+}
+
+// ---- DTOs: Arqueo de caja ----
+
+export interface ArqueoDTO {
+  saldoInicial: number;
+  ventasEfectivo: number;
+  ingresos: number;
+  gastos: number;
+  saldoEsperado: number;
+}
+
 // ---- Respuesta estándar de la API ----
 
 export interface ApiError {

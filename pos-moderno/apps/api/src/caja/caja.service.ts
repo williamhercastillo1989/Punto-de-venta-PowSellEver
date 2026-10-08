@@ -25,6 +25,10 @@ export class CajaService {
     };
   }
 
+  arqueo(idCaja: number) {
+    return this.repo.arqueo(idCaja);
+  }
+
   async cerrar(dto: CierreCajaDto) {
     const abierto = await this.repo.turnoAbierto(dto.idCaja);
     if (!abierto) {
