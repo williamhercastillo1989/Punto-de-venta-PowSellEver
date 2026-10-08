@@ -92,25 +92,28 @@ async function send<T>(
 
 const post = <T>(ruta: string, body: unknown) => send<T>('POST', ruta, body);
 
+/** Descarga un archivo autenticado (Excel/PDF) vía blob. */
+async function descargarArchivo(ruta: string, nombre: string): Promise<void> {
+  const res = await fetch(`${API_BASE}${ruta}`, { headers: { ...authHeader() } });
+  if (!res.ok) throw new Error(`Error HTTP ${res.status}`);
+  const blob = await res.blob();
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = nombre;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 export const api = {
   login: (dto: LoginDTO) =>
     post<UsuarioAutenticadoDTO>('/auth/login', dto),
   reporteVentas: (desde: string, hasta: string) =>
     get<ReporteVentas>(`/reportes/ventas?desde=${desde}&hasta=${hasta}`),
-  descargarReporteExcel: async (desde: string, hasta: string) => {
-    const res = await fetch(
-      `${API_BASE}/reportes/ventas.xlsx?desde=${desde}&hasta=${hasta}`,
-      { headers: { ...authHeader() } },
-    );
-    if (!res.ok) throw new Error(`Error HTTP ${res.status}`);
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `ventas_${desde}_${hasta}.xlsx`;
-    a.click();
-    URL.revokeObjectURL(url);
-  },
+  descargarReporteExcel: (desde: string, hasta: string) =>
+    descargarArchivo(`/reportes/ventas.xlsx?desde=${desde}&hasta=${hasta}`, `ventas_${desde}_${hasta}.xlsx`),
+  descargarReportePdf: (desde: string, hasta: string) =>
+    descargarArchivo(`/reportes/ventas.pdf?desde=${desde}&hasta=${hasta}`, `ventas_${desde}_${hasta}.pdf`),
   inventario: (q = '') =>
     get<InventarioItemDTO[]>(`/inventario?q=${encodeURIComponent(q)}`),
   bajoMinimo: () => get<InventarioItemDTO[]>('/inventario/bajo-minimo'),

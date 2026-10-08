@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
   descargarReporteExcel,
+  descargarReportePdf,
   reporteVentas,
   type ReporteVentasResp,
 } from '../api';
@@ -35,6 +36,7 @@ export function ReportesView(): JSX.Element {
         <label>Hasta <input type="date" value={hasta} onChange={(e) => setHasta(e.target.value)} /></label>
         <button className="btn btn--primary" onClick={cargar}>Consultar</button>
         <button className="btn" onClick={() => void descargarReporteExcel(desde, hasta)}>Exportar Excel</button>
+        <button className="btn" onClick={() => void descargarReportePdf(desde, hasta)}>Exportar PDF</button>
       </div>
       {data && (
         <>

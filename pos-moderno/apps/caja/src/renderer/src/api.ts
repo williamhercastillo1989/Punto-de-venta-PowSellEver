@@ -213,20 +213,25 @@ export interface ReporteVentasResp {
 export const reporteVentas = (desde: string, hasta: string) =>
   get<ReporteVentasResp>(`/reportes/ventas?desde=${desde}&hasta=${hasta}`);
 
-export async function descargarReporteExcel(
-  desde: string,
-  hasta: string,
-): Promise<void> {
-  const res = await fetch(
-    `${API_BASE}/reportes/ventas.xlsx?desde=${desde}&hasta=${hasta}`,
-    { headers: { ...authHeader() } },
-  );
+async function descargarArchivo(ruta: string, nombre: string): Promise<void> {
+  const res = await fetch(`${API_BASE}${ruta}`, { headers: { ...authHeader() } });
   if (!res.ok) throw new Error(`Error HTTP ${res.status}`);
   const blob = await res.blob();
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `ventas_${desde}_${hasta}.xlsx`;
+  a.download = nombre;
   a.click();
   URL.revokeObjectURL(url);
 }
+
+export const descargarReporteExcel = (desde: string, hasta: string) =>
+  descargarArchivo(
+    `/reportes/ventas.xlsx?desde=${desde}&hasta=${hasta}`,
+    `ventas_${desde}_${hasta}.xlsx`,
+  );
+export const descargarReportePdf = (desde: string, hasta: string) =>
+  descargarArchivo(
+    `/reportes/ventas.pdf?desde=${desde}&hasta=${hasta}`,
+    `ventas_${desde}_${hasta}.pdf`,
+  );

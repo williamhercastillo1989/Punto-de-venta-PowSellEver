@@ -27,9 +27,10 @@ export default function ReportesPage(): JSX.Element {
 
   useEffect(cargar, [cargar]);
 
-  async function exportar(): Promise<void> {
+  async function exportar(tipo: 'excel' | 'pdf'): Promise<void> {
     try {
-      await api.descargarReporteExcel(desde, hasta);
+      if (tipo === 'excel') await api.descargarReporteExcel(desde, hasta);
+      else await api.descargarReportePdf(desde, hasta);
     } catch (e) {
       setError((e as Error).message);
     }
@@ -60,11 +61,11 @@ export default function ReportesPage(): JSX.Element {
         <button className="btn" onClick={cargar}>
           Consultar
         </button>
-        <button className="btn btn--ghost" onClick={exportar}>
+        <button className="btn btn--ghost" onClick={() => exportar('excel')}>
           Exportar Excel
         </button>
-        <button className="btn btn--ghost" onClick={() => window.print()}>
-          Imprimir / PDF
+        <button className="btn btn--ghost" onClick={() => exportar('pdf')}>
+          Exportar PDF
         </button>
       </div>
 
