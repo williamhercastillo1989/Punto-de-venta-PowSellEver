@@ -12,6 +12,8 @@ import { InventarioModule } from './inventario/inventario.module';
 import { ReportesModule } from './reportes/reportes.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { EmpresaModule } from './empresa/empresa.module';
+import { ClientesModule } from './clientes/clientes.module';
+import { FinanzasModule } from './finanzas/finanzas.module';
 
 @Module({
   imports: [
@@ -27,8 +29,10 @@ import { EmpresaModule } from './empresa/empresa.module';
     ReportesModule,
     UsuariosModule,
     EmpresaModule,
+    ClientesModule,
+    FinanzasModule,
     // Próximos módulos (mapeo 1:1 con las capas Logica/Datos del sistema viejo):
-    // ClientesModule, ...
+    // CobrosModule, cierre de caja nativo, ...
   ],
   controllers: [HealthController],
 })

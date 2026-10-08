@@ -18,7 +18,7 @@ apps/
   api/     NestJS + Prisma        → lógica de negocio sobre SQL Server
   caja/    Electron + React       → caja: ventas (offline) + inventario + compras + balanza/impresora
   web/     Next.js + React        → back-office: dashboard, productos, inventario, compras,
-                                     proveedores, usuarios, reportes y empresa
+                                     proveedores, clientes, movimientos, usuarios, reportes, empresa
 packages/
   types/   contratos TypeScript compartidos (API ↔ apps)
   core/    (pendiente) reglas de negocio puras
@@ -53,6 +53,8 @@ Endpoints:
 - `GET /reportes/ventas` (JSON) · `GET /reportes/ventas.xlsx` — **exportación Excel real** (ExcelJS)
 - `GET|POST /usuarios`, `PATCH|DELETE /usuarios/:id` — gestión de usuarios (baja lógica)
 - `GET /empresa` · `PUT /empresa/:id` — configuración de la empresa
+- `GET|POST /clientes`, `PATCH|DELETE /clientes/:id` — clientes (baja lógica, GENERICO protegido)
+- `GET|POST /conceptos` · `GET|POST /gastos` · `GET|POST /ingresos` — movimientos de caja
 
 ### Proceso SQL de una venta (Fase 1)
 

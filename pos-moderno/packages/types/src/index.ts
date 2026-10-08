@@ -282,6 +282,60 @@ export interface EmpresaDTO {
 
 export type ActualizarEmpresaDTO = Partial<Omit<EmpresaDTO, 'idEmpresa'>>;
 
+// ---- DTOs: Clientes ----
+
+export interface ClienteDTO {
+  idCliente: number;
+  nombre: string | null;
+  direccion: string | null;
+  identificadorFiscal: string | null;
+  celular: string | null;
+  estado: string | null;
+  saldo: number | null;
+}
+
+export interface CrearClienteDTO {
+  nombre: string;
+  direccion?: string;
+  identificadorFiscal?: string;
+  celular?: string;
+  estado?: string;
+  saldo?: number;
+}
+
+// ---- DTOs: Conceptos / Gastos / Ingresos ----
+
+export interface ConceptoDTO {
+  idConcepto: number;
+  descripcion: string | null;
+}
+
+export interface MovimientoCajaDTO {
+  id: number;
+  fecha: string | null;
+  tipoComprobante: string | null;
+  numero: string | null;
+  importe: number | null;
+  descripcion: string | null;
+}
+
+export interface CrearGastoDTO {
+  importe: number;
+  descripcion: string;
+  idCaja: number;
+  idConcepto?: number;
+  nroDocumento?: string;
+  tipoComprobante?: string;
+}
+
+export interface CrearIngresoDTO {
+  importe: number;
+  descripcion: string;
+  idCaja: number;
+  nroComprobante?: string;
+  tipoComprobante?: string;
+}
+
 // ---- Respuesta estándar de la API ----
 
 export interface ApiError {
