@@ -4,8 +4,41 @@ import { aperturaCaja, arqueoCaja, cierreCaja, turnoAbierto } from '../api';
 import { VentasPage } from '../ventas/VentasPage';
 import { InventarioView } from '../inventario/InventarioView';
 import { ComprasView } from '../compras/ComprasView';
+import { ProductosView } from '../productos/ProductosView';
+import { ProveedoresView } from '../proveedores/ProveedoresView';
+import { ClientesView } from '../clientes/ClientesView';
+import { CobrosView } from '../cobros/CobrosView';
+import { MovimientosView } from '../finanzas/MovimientosView';
+import { UsuariosView } from '../usuarios/UsuariosView';
+import { ReportesView } from '../reportes/ReportesView';
+import { EmpresaView } from '../empresa/EmpresaView';
 
-type Tab = 'ventas' | 'inventario' | 'compras';
+type Tab =
+  | 'ventas'
+  | 'inventario'
+  | 'compras'
+  | 'productos'
+  | 'proveedores'
+  | 'clientes'
+  | 'cobros'
+  | 'movimientos'
+  | 'usuarios'
+  | 'reportes'
+  | 'empresa';
+
+const TABS: Array<{ key: Tab; label: string }> = [
+  { key: 'ventas', label: 'Ventas' },
+  { key: 'productos', label: 'Productos' },
+  { key: 'inventario', label: 'Inventario' },
+  { key: 'compras', label: 'Compras' },
+  { key: 'proveedores', label: 'Proveedores' },
+  { key: 'clientes', label: 'Clientes' },
+  { key: 'cobros', label: 'Cobros' },
+  { key: 'movimientos', label: 'Movimientos' },
+  { key: 'usuarios', label: 'Usuarios' },
+  { key: 'reportes', label: 'Reportes' },
+  { key: 'empresa', label: 'Empresa' },
+];
 
 interface Props {
   idCaja: number;
@@ -114,39 +147,30 @@ export function CajaGate({ idCaja, usuario }: Props): JSX.Element {
       </div>
 
       <nav className="tabs">
-        <button
-          className={tab === 'ventas' ? 'tabs__btn tabs__btn--on' : 'tabs__btn'}
-          onClick={() => setTab('ventas')}
-        >
-          Ventas
-        </button>
-        <button
-          className={
-            tab === 'inventario' ? 'tabs__btn tabs__btn--on' : 'tabs__btn'
-          }
-          onClick={() => setTab('inventario')}
-        >
-          Inventario
-        </button>
-        <button
-          className={tab === 'compras' ? 'tabs__btn tabs__btn--on' : 'tabs__btn'}
-          onClick={() => setTab('compras')}
-        >
-          Compras
-        </button>
+        {TABS.map((t) => (
+          <button
+            key={t.key}
+            className={tab === t.key ? 'tabs__btn tabs__btn--on' : 'tabs__btn'}
+            onClick={() => setTab(t.key)}
+          >
+            {t.label}
+          </button>
+        ))}
       </nav>
 
       {error && <p className="alert alert--error">{error}</p>}
 
-      {tab === 'ventas' && (
-        <VentasPage idCaja={idCaja} idUsuario={usuario.idUsuario} />
-      )}
-      {tab === 'inventario' && (
-        <InventarioView idCaja={idCaja} idUsuario={usuario.idUsuario} />
-      )}
-      {tab === 'compras' && (
-        <ComprasView idCaja={idCaja} idUsuario={usuario.idUsuario} />
-      )}
+      {tab === 'ventas' && <VentasPage idCaja={idCaja} idUsuario={usuario.idUsuario} />}
+      {tab === 'productos' && <ProductosView />}
+      {tab === 'inventario' && <InventarioView idCaja={idCaja} idUsuario={usuario.idUsuario} />}
+      {tab === 'compras' && <ComprasView idCaja={idCaja} idUsuario={usuario.idUsuario} />}
+      {tab === 'proveedores' && <ProveedoresView />}
+      {tab === 'clientes' && <ClientesView />}
+      {tab === 'cobros' && <CobrosView idCaja={idCaja} idUsuario={usuario.idUsuario} />}
+      {tab === 'movimientos' && <MovimientosView idCaja={idCaja} />}
+      {tab === 'usuarios' && <UsuariosView />}
+      {tab === 'reportes' && <ReportesView />}
+      {tab === 'empresa' && <EmpresaView />}
     </>
   );
 }

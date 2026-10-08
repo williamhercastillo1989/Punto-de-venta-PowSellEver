@@ -3,7 +3,15 @@ import type {
   AperturaCajaDTO,
   ArqueoDTO,
   CierreCajaDTO,
+  ClienteDTO,
+  ConceptoDTO,
+  CrearClienteDTO,
+  CrearCobroDTO,
+  CrearGastoDTO,
+  CrearIngresoDTO,
   CrearProveedorDTO,
+  CrearUsuarioDTO,
+  EmpresaDTO,
   InventarioItemDTO,
   LoginDTO,
   ProductoDTO,
@@ -11,23 +19,36 @@ import type {
   RegistrarCompraDTO,
   TurnoAbiertoDTO,
   UsuarioAutenticadoDTO,
+  UsuarioDTO,
 } from '@pos/types';
 
 /**
  * Cliente de la API del POS. La URL base se podrá configurar por caja;
  * por ahora apunta al servidor NestJS local (Fase 0).
  */
-const API_BASE = 'http://localhost:3000';
+export const API_BASE = 'http://localhost:3000';
 
 async function post<T>(ruta: string, body: unknown): Promise<T> {
+  return send<T>('POST', ruta, body);
+}
+
+async function send<T>(
+  metodo: 'POST' | 'PATCH' | 'PUT' | 'DELETE',
+  ruta: string,
+  body?: unknown,
+): Promise<T> {
   const res = await fetch(`${API_BASE}${ruta}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
+    method: metodo,
+    headers: body ? { 'Content-Type': 'application/json' } : undefined,
+    body: body ? JSON.stringify(body) : undefined,
   });
   if (!res.ok) {
     const data = (await res.json().catch(() => ({}))) as { message?: string };
-    throw new Error(data.message ?? `Error HTTP ${res.status}`);
+    throw new Error(
+      Array.isArray(data.message)
+        ? data.message.join(', ')
+        : data.message ?? `Error HTTP ${res.status}`,
+    );
   }
   return res.json() as Promise<T>;
 }
@@ -119,3 +140,57 @@ export async function obtenerProductos(): Promise<ProductoDTO[]> {
     subTotalPm: null,
   }));
 }
+
+export const crearProducto = (dto: Record<string, unknown>) =>
+  post('/productos', dto);
+export const eliminarProducto = (id: number) =>
+  send('DELETE', `/productos/${id}`);
+export const obtenerCompras = () =>
+  get<Array<Record<string, unknown>>>('/compras');
+
+// ---- Clientes ----
+export const obtenerClientes = () => get<ClienteDTO[]>('/clientes');
+export const crearCliente = (dto: CrearClienteDTO) => post('/clientes', dto);
+export const eliminarCliente = (id: number) => send('DELETE', `/clientes/${id}`);
+
+// ---- Cobros ----
+export const obtenerCobros = () =>
+  get<Array<Record<string, unknown>>>('/cobros');
+export const crearCobro = (dto: CrearCobroDTO) => post('/cobros', dto);
+
+// ---- Finanzas ----
+export const obtenerConceptos = () => get<ConceptoDTO[]>('/conceptos');
+export const crearConcepto = (descripcion: string) =>
+  post('/conceptos', { descripcion });
+export const obtenerGastos = () =>
+  get<Array<Record<string, unknown>>>('/gastos');
+export const crearGasto = (dto: CrearGastoDTO) => post('/gastos', dto);
+export const obtenerIngresos = () =>
+  get<Array<Record<string, unknown>>>('/ingresos');
+export const crearIngreso = (dto: CrearIngresoDTO) => post('/ingresos', dto);
+
+// ---- Usuarios ----
+export const obtenerUsuarios = () => get<UsuarioDTO[]>('/usuarios');
+export const crearUsuario = (dto: CrearUsuarioDTO) => post('/usuarios', dto);
+export const eliminarUsuario = (id: number) => send('DELETE', `/usuarios/${id}`);
+
+// ---- Empresa ----
+export const obtenerEmpresa = () => get<EmpresaDTO | null>('/empresa');
+export const actualizarEmpresa = (id: number, dto: Partial<EmpresaDTO>) =>
+  send<EmpresaDTO>('PUT', `/empresa/${id}`, dto);
+
+// ---- Reportes ----
+export interface ReporteVentasResp {
+  desde: string;
+  hasta: string;
+  resumen: {
+    numVentas: number;
+    total: number;
+    efectivo: number;
+    tarjeta: number;
+    credito: number;
+  };
+  filas: Array<Record<string, unknown>>;
+}
+export const reporteVentas = (desde: string, hasta: string) =>
+  get<ReporteVentasResp>(`/reportes/ventas?desde=${desde}&hasta=${hasta}`);

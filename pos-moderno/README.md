@@ -16,7 +16,9 @@ moderno, híbrido escritorio + web, en TypeScript. Ver `../MIGRACION.md` para el
 ```
 apps/
   api/     NestJS + Prisma        → lógica de negocio sobre SQL Server
-  caja/    Electron + React       → caja: ventas (offline) + inventario + compras + balanza/impresora
+  caja/    Electron + React       → TODOS los módulos (ventas offline, inventario, compras,
+                                     productos, proveedores, clientes, cobros, movimientos,
+                                     usuarios, reportes, empresa) + balanza/impresora
   web/     Next.js + React        → back-office: dashboard, productos, inventario, compras,
                                      proveedores, clientes, movimientos, usuarios, reportes, empresa
 packages/
