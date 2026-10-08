@@ -201,5 +201,8 @@ Con la app abierta, **detén la API** (Ctrl-C) y haz una venta: queda guardada y
 - [x] Fase 3 COMPLETA: **app web Next.js** con **login (JWT)**, dashboard,
       inventario (+ajuste), compras (+alta), proveedores (+alta) y **reportes**
       (tabla + resumen, **exportación Excel real** e impresión/PDF)
-- [ ] Fase 4: migración gradual de stored procedures a lógica en la API
+- [~] Fase 4 (en curso): migración gradual de SPs a lógica en la API.
+      Primer bloque migrado: **movimientos de inventario** (kardex + stock) en
+      TypeScript/Prisma, conmutable con `INVENTARIO_NATIVO` y con **paridad verificada**
+      frente a `insertar_KARDEX_*` + `aumentar/disminuir stock`.
 - [ ] Pendientes menores: proteger endpoints con el JWT (guard), reportes PDF server-side

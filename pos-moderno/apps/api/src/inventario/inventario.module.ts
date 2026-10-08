@@ -70,34 +70,88 @@ export class InventarioRepository {
   }
 
   async ajustar(dto: AjusteInventarioDto) {
-    const fecha = new Date();
+    const nativo = process.env.INVENTARIO_NATIVO === 'true';
     return this.prisma.$transaction(async (tx) => {
-      if (dto.tipo === TipoMov.Entrada) {
-        await this.execSp(tx, 'insertar_KARDEX_Entrada', [
-          fecha,
-          dto.motivo,
-          dto.cantidad,
-          dto.idProducto,
-          dto.idUsuario,
-          'ENTRADA',
-          'Activo',
-          dto.idCaja,
-        ]);
-        await this.execSp(tx, 'aumentarStock', [dto.idProducto, dto.cantidad]);
+      if (nativo) {
+        await this.aplicarMovimientoNativo(tx, dto);
       } else {
-        await this.execSp(tx, 'insertar_KARDEX_SALIDA', [
-          fecha,
-          dto.motivo,
-          dto.cantidad,
-          dto.idProducto,
-          dto.idUsuario,
-          'SALIDA',
-          'Activo',
-          dto.idCaja,
-        ]);
-        await this.execSp(tx, 'disminuir_stock', [dto.idProducto, dto.cantidad]);
+        await this.aplicarMovimientoSp(tx, dto);
       }
-      return { ajustado: true, idProducto: dto.idProducto, tipo: dto.tipo };
+      return {
+        ajustado: true,
+        idProducto: dto.idProducto,
+        tipo: dto.tipo,
+        motor: nativo ? 'nativo' : 'sp',
+      };
+    });
+  }
+
+  /** Implementación LEGACY: delega en los stored procedures. */
+  private async aplicarMovimientoSp(tx: Tx, dto: AjusteInventarioDto) {
+    const fecha = new Date();
+    if (dto.tipo === TipoMov.Entrada) {
+      await this.execSp(tx, 'insertar_KARDEX_Entrada', [
+        fecha, dto.motivo, dto.cantidad, dto.idProducto,
+        dto.idUsuario, 'ENTRADA', 'Activo', dto.idCaja,
+      ]);
+      await this.execSp(tx, 'aumentarStock', [dto.idProducto, dto.cantidad]);
+    } else {
+      await this.execSp(tx, 'insertar_KARDEX_SALIDA', [
+        fecha, dto.motivo, dto.cantidad, dto.idProducto,
+        dto.idUsuario, 'SALIDA', 'Activo', dto.idCaja,
+      ]);
+      await this.execSp(tx, 'disminuir_stock', [dto.idProducto, dto.cantidad]);
+    }
+  }
+
+  /**
+   * Fase 4 — Implementación NATIVA (sin SP): replica la lógica de
+   * insertar_KARDEX_Entrada/SALIDA + aumentar/disminuir stock en TypeScript/Prisma.
+   * Mejora: en salida sin stock suficiente lanza error (el SP lo dejaba pasar en silencio).
+   */
+  private async aplicarMovimientoNativo(tx: Tx, dto: AjusteInventarioDto) {
+    const prod = await tx.producto.findUnique({
+      where: { idProducto: dto.idProducto },
+    });
+    if (!prod || prod.usaInventarios !== 'SI') {
+      throw new Error(
+        `El producto ${dto.idProducto} no maneja inventario (Usa_inventarios != 'SI')`,
+      );
+    }
+
+    const esEntrada = dto.tipo === TipoMov.Entrada;
+    const hay = Number(prod.stock ?? 0); // stock actual (antes del movimiento)
+    const costoUnt = prod.precioDeCompra ?? 0;
+
+    if (!esEntrada && hay < dto.cantidad) {
+      throw new Error(
+        `Stock insuficiente (hay ${hay}, se intentó retirar ${dto.cantidad})`,
+      );
+    }
+
+    // Semántica de "Habia" idéntica a los SPs originales.
+    const habia = esEntrada ? hay - dto.cantidad : hay + dto.cantidad;
+    const nuevoStock = esEntrada ? hay + dto.cantidad : hay - dto.cantidad;
+
+    await tx.kardex.create({
+      data: {
+        fecha: new Date(),
+        motivo: dto.motivo,
+        cantidad: dto.cantidad,
+        idProducto: dto.idProducto,
+        idUsuario: dto.idUsuario,
+        tipo: esEntrada ? 'ENTRADA' : 'SALIDA',
+        estado: 'Activo',
+        costoUnt,
+        habia,
+        hay,
+        idCaja: dto.idCaja,
+      },
+    });
+
+    await tx.producto.update({
+      where: { idProducto: dto.idProducto },
+      data: { stock: String(nuevoStock) },
     });
   }
 }
