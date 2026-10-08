@@ -12,6 +12,7 @@ import {
 import { AjusteInventarioDto, TipoMov } from './ajuste.dto';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
+import { aplicarMovimientoInventario } from '../common/movimientos-inventario';
 
 type Tx = Prisma.TransactionClient;
 
@@ -110,6 +111,7 @@ export class InventarioRepository {
    * Mejora: en salida sin stock suficiente lanza error (el SP lo dejaba pasar en silencio).
    */
   private async aplicarMovimientoNativo(tx: Tx, dto: AjusteInventarioDto) {
+    // El ajuste es explícito sobre inventario: exige que el producto lo maneje.
     const prod = await tx.producto.findUnique({
       where: { idProducto: dto.idProducto },
     });
@@ -118,40 +120,13 @@ export class InventarioRepository {
         `El producto ${dto.idProducto} no maneja inventario (Usa_inventarios != 'SI')`,
       );
     }
-
-    const esEntrada = dto.tipo === TipoMov.Entrada;
-    const hay = Number(prod.stock ?? 0); // stock actual (antes del movimiento)
-    const costoUnt = prod.precioDeCompra ?? 0;
-
-    if (!esEntrada && hay < dto.cantidad) {
-      throw new Error(
-        `Stock insuficiente (hay ${hay}, se intentó retirar ${dto.cantidad})`,
-      );
-    }
-
-    // Semántica de "Habia" idéntica a los SPs originales.
-    const habia = esEntrada ? hay - dto.cantidad : hay + dto.cantidad;
-    const nuevoStock = esEntrada ? hay + dto.cantidad : hay - dto.cantidad;
-
-    await tx.kardex.create({
-      data: {
-        fecha: new Date(),
-        motivo: dto.motivo,
-        cantidad: dto.cantidad,
-        idProducto: dto.idProducto,
-        idUsuario: dto.idUsuario,
-        tipo: esEntrada ? 'ENTRADA' : 'SALIDA',
-        estado: 'Activo',
-        costoUnt,
-        habia,
-        hay,
-        idCaja: dto.idCaja,
-      },
-    });
-
-    await tx.producto.update({
-      where: { idProducto: dto.idProducto },
-      data: { stock: String(nuevoStock) },
+    await aplicarMovimientoInventario(tx, {
+      idProducto: dto.idProducto,
+      idUsuario: dto.idUsuario,
+      idCaja: dto.idCaja,
+      cantidad: dto.cantidad,
+      tipo: dto.tipo === TipoMov.Entrada ? 'ENTRADA' : 'SALIDA',
+      motivo: dto.motivo,
     });
   }
 }

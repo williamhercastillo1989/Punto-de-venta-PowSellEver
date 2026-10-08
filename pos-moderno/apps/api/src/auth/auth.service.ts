@@ -18,16 +18,16 @@ export class AuthService {
 
     const token = await this.jwt.signAsync({
       sub: u.idUsuario,
-      login: u.Login,
-      rol: u.Rol,
+      login: u.login,
+      rol: u.rol,
     });
 
     return {
       idUsuario: u.idUsuario,
-      nombres: u.Nombres_y_Apellidos,
-      login: u.Login,
-      rol: u.Rol,
-      correo: u.Correo,
+      nombres: u.nombres,
+      login: u.login,
+      rol: u.rol,
+      correo: u.correo,
       token,
     };
   }

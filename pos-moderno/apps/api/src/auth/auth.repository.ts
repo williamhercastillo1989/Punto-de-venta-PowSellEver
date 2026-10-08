@@ -1,22 +1,31 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
-/** Fila cruda que devuelve el SP validar_usuario (SELECT * FROM USUARIO2). */
+/** Usuario validado, normalizado (independiente de SP o nativo). */
+export interface UsuarioValidado {
+  idUsuario: number;
+  nombres: string | null;
+  login: string | null;
+  rol: string | null;
+  correo: string | null;
+}
+
+/** Fila cruda del SP validar_usuario (SELECT * FROM USUARIO2). */
 interface UsuarioRow {
   idUsuario: number;
   Nombres_y_Apellidos: string | null;
   Login: string | null;
   Rol: string | null;
   Correo: string | null;
-  Estado: string | null;
 }
 
 /**
- * Acceso a datos de autenticación. Reutiliza el SP `validar_usuario`.
+ * Autenticación. Conmutable con AUTH_NATIVO (Fase 4):
+ *  - SP (legacy): EXEC validar_usuario.
+ *  - NATIVO: consulta Prisma sobre USUARIO2.
  *
- * NOTA: en la BD actual la contraseña está en TEXTO PLANO (USUARIO2.Password).
- * Esto se mantiene para no romper los datos existentes; en la migración de datos
- * se deben hashear (bcrypt) y cambiar la comparación.
+ * NOTA: la contraseña está en TEXTO PLANO en la BD actual; en la migración de
+ * datos debe hashearse (bcrypt) y cambiar la comparación.
  */
 @Injectable()
 export class AuthRepository {
@@ -25,12 +34,36 @@ export class AuthRepository {
   async validarUsuario(
     login: string,
     password: string,
-  ): Promise<UsuarioRow | null> {
+  ): Promise<UsuarioValidado | null> {
+    if (process.env.AUTH_NATIVO === 'true') {
+      const u = await this.prisma.usuario.findFirst({
+        where: { login, password, estado: 'ACTIVO' },
+      });
+      return u
+        ? {
+            idUsuario: u.idUsuario,
+            nombres: u.nombresApellidos,
+            login: u.login,
+            rol: u.rol,
+            correo: u.correo,
+          }
+        : null;
+    }
+
     const filas = await this.prisma.$queryRawUnsafe<UsuarioRow[]>(
       'EXEC dbo.validar_usuario @P1, @P2',
       password,
       login,
     );
-    return filas[0] ?? null;
+    const u = filas[0];
+    return u
+      ? {
+          idUsuario: u.idUsuario,
+          nombres: u.Nombres_y_Apellidos,
+          login: u.Login,
+          rol: u.Rol,
+          correo: u.Correo,
+        }
+      : null;
   }
 }

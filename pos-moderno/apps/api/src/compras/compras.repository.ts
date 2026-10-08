@@ -2,17 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { RegistrarCompraDto } from './dto/registrar-compra.dto';
+import { aplicarMovimientoInventario } from '../common/movimientos-inventario';
 
 type Tx = Prisma.TransactionClient;
 
 /**
- * Acceso a datos de Compras. Reutiliza los stored procedures existentes, todo en
- * una transacción (igual que ventas, pero sumando inventario en vez de restarlo):
- *
- *   insertar_Compras('COMPRA NUEVA', 1ª línea)  →  (SELECT MAX Idcompra)
- *     →  insertar_DetalleCompra (líneas restantes)
- *     →  insertar_KARDEX_Entrada + aumentarStock (por línea con inventario)
- *     →  confirmarCompra
+ * Acceso a datos de Compras. Dos implementaciones del mismo flujo, conmutables
+ * con el flag COMPRAS_NATIVO (Fase 4):
+ *  - SP (legacy): insertar_Compras → insertar_DetalleCompra → insertar_KARDEX_Entrada
+ *                 + aumentarStock → confirmarCompra.
+ *  - NATIVO:      Prisma puro (compra.create + detalleCompra.create + movimiento
+ *                 de inventario nativo), con numeración de comprobante de la serie 'TC'.
  */
 @Injectable()
 export class ComprasRepository {
@@ -23,7 +23,15 @@ export class ComprasRepository {
     return tx.$executeRawUnsafe(`EXEC dbo.${proc} ${placeholders}`, ...params);
   }
 
-  async registrarCompraCompleta(
+  registrarCompraCompleta(
+    dto: RegistrarCompraDto,
+  ): Promise<{ idCompra: number; total: number }> {
+    return process.env.COMPRAS_NATIVO === 'true'
+      ? this.registrarCompraNativa(dto)
+      : this.registrarCompraSp(dto);
+  }
+
+  private async registrarCompraSp(
     dto: RegistrarCompraDto,
   ): Promise<{ idCompra: number; total: number }> {
     const fecha = dto.fechaCompra ? new Date(dto.fechaCompra) : new Date();
@@ -93,6 +101,68 @@ export class ComprasRepository {
       ]);
 
       return { idCompra, total };
+    });
+  }
+
+  /** Fase 4 — flujo de compra NATIVO (Prisma puro, sin stored procedures). */
+  private async registrarCompraNativa(
+    dto: RegistrarCompraDto,
+  ): Promise<{ idCompra: number; total: number }> {
+    const fecha = dto.fechaCompra ? new Date(dto.fechaCompra) : new Date();
+    const total = dto.lineas.reduce((a, l) => a + l.cantidad * l.costo, 0);
+
+    return this.prisma.$transaction(async (tx) => {
+      // Comprobante desde la serie 'TC' (lo que hacía confirmarCompra).
+      let comprobante = '-';
+      const serie = await tx.serializacion.findFirst({
+        where: { serie: 'TC' },
+      });
+      if (serie) {
+        const n = Number(serie.numeroFin ?? 0) + 1;
+        await tx.serializacion.update({
+          where: { idSerializacion: serie.idSerializacion },
+          data: { numeroFin: String(n) },
+        });
+        comprobante = `${serie.tipoDoc ?? ''}-${serie.serie ?? ''}${n}`;
+      }
+
+      const compra = await tx.compra.create({
+        data: {
+          fechaCompra: fecha,
+          total,
+          comprobante,
+          idProveedor: dto.idProveedor,
+          idCaja: dto.idCaja,
+        },
+        select: { idCompra: true },
+      });
+
+      for (const l of dto.lineas) {
+        await tx.detalleCompra.create({
+          data: {
+            idCompra: compra.idCompra,
+            cantidad: l.cantidad,
+            costo: l.costo,
+            moneda: l.moneda ?? '',
+            idProducto: l.idProducto,
+            descripcion: l.descripcion,
+          },
+        });
+
+        if ((l.usaInventarios ?? 'NO').toUpperCase() === 'SI') {
+          await aplicarMovimientoInventario(tx, {
+            idProducto: l.idProducto,
+            idUsuario: dto.idUsuario,
+            idCaja: dto.idCaja,
+            cantidad: l.cantidad,
+            tipo: 'ENTRADA',
+            motivo: 'Compra',
+            fecha,
+          });
+        }
+      }
+
+      return { idCompra: compra.idCompra, total };
     });
   }
 
