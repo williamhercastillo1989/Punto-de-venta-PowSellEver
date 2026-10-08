@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { api, API_BASE, type ReporteVentas } from '@/lib/api';
+import { api, type ReporteVentas } from '@/lib/api';
 
 function hoy(): string {
   return new Date().toISOString().slice(0, 10);
@@ -27,7 +27,13 @@ export default function ReportesPage(): JSX.Element {
 
   useEffect(cargar, [cargar]);
 
-  const urlExcel = `${API_BASE}/reportes/ventas.xlsx?desde=${desde}&hasta=${hasta}`;
+  async function exportar(): Promise<void> {
+    try {
+      await api.descargarReporteExcel(desde, hasta);
+    } catch (e) {
+      setError((e as Error).message);
+    }
+  }
 
   return (
     <div>
@@ -54,9 +60,9 @@ export default function ReportesPage(): JSX.Element {
         <button className="btn" onClick={cargar}>
           Consultar
         </button>
-        <a className="btn btn--ghost" href={urlExcel}>
+        <button className="btn btn--ghost" onClick={exportar}>
           Exportar Excel
-        </a>
+        </button>
         <button className="btn btn--ghost" onClick={() => window.print()}>
           Imprimir / PDF
         </button>

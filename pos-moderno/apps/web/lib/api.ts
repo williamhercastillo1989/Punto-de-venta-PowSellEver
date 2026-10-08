@@ -44,8 +44,24 @@ export interface ReporteVentas {
   }>;
 }
 
+/** Header Authorization con el JWT guardado en localStorage (si hay sesión). */
+function authHeader(): Record<string, string> {
+  if (typeof window === 'undefined') return {};
+  const raw = window.localStorage.getItem('pos_usuario');
+  if (!raw) return {};
+  try {
+    const u = JSON.parse(raw) as { token?: string };
+    return u.token ? { Authorization: `Bearer ${u.token}` } : {};
+  } catch {
+    return {};
+  }
+}
+
 async function get<T>(ruta: string): Promise<T> {
-  const res = await fetch(`${API_BASE}${ruta}`, { cache: 'no-store' });
+  const res = await fetch(`${API_BASE}${ruta}`, {
+    cache: 'no-store',
+    headers: { ...authHeader() },
+  });
   if (!res.ok) throw new Error(`Error HTTP ${res.status}`);
   return res.json() as Promise<T>;
 }
@@ -57,7 +73,10 @@ async function send<T>(
 ): Promise<T> {
   const res = await fetch(`${API_BASE}${ruta}`, {
     method: metodo,
-    headers: body ? { 'Content-Type': 'application/json' } : undefined,
+    headers: {
+      ...authHeader(),
+      ...(body ? { 'Content-Type': 'application/json' } : {}),
+    },
     body: body ? JSON.stringify(body) : undefined,
   });
   if (!res.ok) {
@@ -78,6 +97,20 @@ export const api = {
     post<UsuarioAutenticadoDTO>('/auth/login', dto),
   reporteVentas: (desde: string, hasta: string) =>
     get<ReporteVentas>(`/reportes/ventas?desde=${desde}&hasta=${hasta}`),
+  descargarReporteExcel: async (desde: string, hasta: string) => {
+    const res = await fetch(
+      `${API_BASE}/reportes/ventas.xlsx?desde=${desde}&hasta=${hasta}`,
+      { headers: { ...authHeader() } },
+    );
+    if (!res.ok) throw new Error(`Error HTTP ${res.status}`);
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `ventas_${desde}_${hasta}.xlsx`;
+    a.click();
+    URL.revokeObjectURL(url);
+  },
   inventario: (q = '') =>
     get<InventarioItemDTO[]>(`/inventario?q=${encodeURIComponent(q)}`),
   bajoMinimo: () => get<InventarioItemDTO[]>('/inventario/bajo-minimo'),
