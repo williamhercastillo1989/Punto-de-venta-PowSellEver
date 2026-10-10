@@ -1,0 +1,49 @@
+name: Build instalador PSE Caja (Windows)
+
+# Genera el instalador .exe (NSIS) de la caja con la API embebida.
+# El .exe DEBE compilarse en Windows (query engine de Prisma + módulos nativos).
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-win:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: pos-moderno
+    env:
+      # prisma generate solo lee el esquema; no conecta. Valor ficticio válido.
+      DATABASE_URL: 'sqlserver://localhost:1433;database=BASEADACURSO;user=sa;password=dummy;encrypt=true;trustServerCertificate=true'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: pos-moderno/package-lock.json
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Compilar tipos compartidos
+        run: npm run build -w @pos/types
+
+      - name: Compilar API
+        run: |
+          npm run build -w @pos/api
+          npm run prisma:generate -w @pos/api
+
+      - name: Compilar y empaquetar instalador de la caja
+        working-directory: pos-moderno/apps/caja
+        run: npm run dist:win
+
+      - name: Publicar instalador como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: PSE-Caja-Windows
+          path: pos-moderno/apps/caja/release/*.exe
+          if-no-files-found: error
