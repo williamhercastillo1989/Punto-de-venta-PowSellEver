@@ -226,6 +226,8 @@ export const crearIngreso = (dto: CrearIngresoDTO) => post('/ingresos', dto);
 // ---- Usuarios ----
 export const obtenerUsuarios = () => get<UsuarioDTO[]>('/usuarios');
 export const crearUsuario = (dto: CrearUsuarioDTO) => post('/usuarios', dto);
+export const actualizarUsuario = (id: number, dto: Partial<CrearUsuarioDTO>) =>
+  send('PATCH', `/usuarios/${id}`, dto);
 export const eliminarUsuario = (id: number) => send('DELETE', `/usuarios/${id}`);
 
 // ---- Empresa ----

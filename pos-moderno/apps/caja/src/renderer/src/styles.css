@@ -20,10 +20,28 @@ body {
   margin: 0;
 }
 .app__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   background: #2563eb;
-  padding: 4px 10px;
+  padding: 4px 12px 4px 4px;
   border-radius: 999px;
   font-size: 13px;
+}
+.app__avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+}
+.app__avatar--ini {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #1e40af;
+  color: #fff;
+  font-weight: 700;
 }
 .ventas {
   display: grid;
@@ -146,6 +164,28 @@ button {
   background: #dcfce7;
   color: #166534;
   font-size: 14px;
+}
+.turno-bar__info {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.atiende__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #86efac;
+  flex: 0 0 auto;
+}
+.atiende__avatar--ini {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #16a34a;
+  color: #fff;
+  font-weight: 800;
+  font-size: 16px;
 }
 .tabs {
   display: flex;
@@ -766,6 +806,24 @@ a.btn {
 .dash__user {
   margin-left: auto;
   font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.dash__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+}
+.dash__avatar--ini {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #1e40af;
+  color: #fff;
+  font-weight: 800;
 }
 .dash__vender {
   background: #22c55e;
@@ -1194,4 +1252,246 @@ a.btn {
   gap: 12px;
   justify-content: center;
   margin-top: 16px;
+}
+
+/* ===== Módulo Usuarios (diseño PSE amarillo) ===== */
+.usr {
+  background: #fff;
+  min-height: 100%;
+}
+.usr__header {
+  background: #f7c948;
+  color: #1f2937;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 0.5px;
+  padding: 14px 24px;
+}
+.usr__body {
+  position: relative;
+  padding: 24px;
+  min-height: 420px;
+}
+.usr__search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.usr__search-ico {
+  font-size: 18px;
+  opacity: 0.6;
+}
+.usr__search input {
+  flex: 0 1 460px;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 15px;
+}
+.usr__tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.usr__tabla th {
+  text-align: left;
+  font-weight: 800;
+  color: #111827;
+  padding: 8px 12px;
+}
+.usr__tabla td {
+  padding: 10px 12px;
+  border-top: 1px solid #f1f5f9;
+}
+.usr__tabla tbody tr:hover {
+  background: #f8fafc;
+}
+.usr__acc-cell {
+  width: 96px;
+  white-space: nowrap;
+}
+.usr__edit {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: #f1f5f9;
+  font-size: 15px;
+  line-height: 1;
+  margin-right: 6px;
+}
+.usr__edit:hover {
+  background: #e2e8f0;
+}
+.usr__del {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: #e53935;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+.usr__del:hover {
+  background: #c62828;
+}
+.usr__link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.usr__link:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+.usr__fab {
+  position: absolute;
+  right: 48px;
+  bottom: 48px;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: none;
+  background: #39afd1;
+  color: #fff;
+  font-size: 52px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+.usr__fab:hover {
+  background: #2f98b6;
+}
+
+/* Formulario alta/edición */
+.usr__form {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 32px;
+  max-width: 900px;
+}
+.usr__form-grid {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 32px;
+  align-items: start;
+}
+.usr__fields label {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.usr__fields label > span {
+  text-align: right;
+  color: #374151;
+}
+.usr__fields input,
+.usr__fields select {
+  padding: 8px 4px;
+  border: none;
+  border-bottom: 1px solid #9ca3af;
+  background: transparent;
+  font-size: 15px;
+  outline: none;
+}
+.usr__fields select {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 8px;
+  background: #f3f4f6;
+}
+.usr__fields input:focus {
+  border-bottom-color: #2563eb;
+}
+.usr__fields small {
+  grid-column: 2;
+  font-size: 12px;
+  margin-top: -10px;
+}
+.usr__avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.usr__avatar-img {
+  width: 180px;
+  height: 150px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #60a5fa, #2563eb);
+  color: #fff;
+  font-size: 48px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+img.usr__avatar-img {
+  object-fit: cover;
+  background: #e5e7eb;
+}
+.usr__foto-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+.usr__foto-btn:hover {
+  background: #e2e8f0;
+}
+.usr__id {
+  color: #6b7280;
+  font-weight: 700;
+}
+.usr__actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+.btn--amarillo {
+  background: #f7c948;
+  color: #1f2937;
+  border: none;
+  font-weight: 800;
+  padding: 14px 48px;
+  border-radius: 4px;
+  font-size: 15px;
+}
+.btn--amarillo:hover {
+  background: #f0bb2e;
+}
+.btn--texto {
+  background: none;
+  border: none;
+  font-weight: 800;
+  color: #1f2937;
+  padding: 14px 8px;
+}
+.btn--texto:hover {
+  color: #2563eb;
 }

@@ -137,6 +137,8 @@ export interface UsuarioAutenticadoDTO {
   login: string | null;
   rol: string | null;
   correo: string | null;
+  /** Foto del usuario como data URL (base64), o null si no tiene. */
+  foto?: string | null;
   /** JWT para autorizar las siguientes llamadas a la API. */
   token: string;
 }
@@ -252,9 +254,12 @@ export interface UsuarioDTO {
   idUsuario: number;
   nombres: string | null;
   login: string | null;
+  password: string | null;
   correo: string | null;
   rol: string | null;
   estado: string | null;
+  /** Foto del usuario como data URL (base64), o null si no tiene. */
+  foto?: string | null;
 }
 
 export interface CrearUsuarioDTO {
@@ -263,6 +268,8 @@ export interface CrearUsuarioDTO {
   password: string;
   correo?: string;
   rol?: string;
+  /** Foto del usuario como data URL (base64). */
+  foto?: string;
 }
 
 export type ActualizarUsuarioDTO = Partial<CrearUsuarioDTO>;

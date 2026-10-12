@@ -85,6 +85,13 @@ export function App(): JSX.Element {
       <header className="app__header">
         <h1>POS — Punto de Venta</h1>
         <span className="app__badge">
+          {usuario.foto ? (
+            <img className="app__avatar" src={usuario.foto} alt="" />
+          ) : (
+            <span className="app__avatar app__avatar--ini">
+              {(usuario.nombres ?? usuario.login ?? '?').trim().charAt(0).toUpperCase()}
+            </span>
+          )}
           {usuario.nombres ?? usuario.login} · {usuario.rol ?? 'sin rol'}
         </span>
         <button className="app__logout" onClick={salir}>Salir</button>
