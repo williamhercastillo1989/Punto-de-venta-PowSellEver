@@ -4,6 +4,7 @@ import { LoginView } from './auth/LoginView';
 import { CajaGate } from './caja/CajaGate';
 import { DashboardView } from './dashboard/DashboardView';
 import { ConfiguracionesView } from './config/ConfiguracionesView';
+import { SetupWizard } from './setup/SetupWizard';
 import { ModuloView } from './modulos';
 import { setToken } from './api';
 
@@ -20,6 +21,18 @@ export function App(): JSX.Element {
   const [usuario, setUsuario] = useState<UsuarioAutenticadoDTO | null>(null);
   const [vista, setVista] = useState<Vista>('caja');
   const [origenModulo, setOrigenModulo] = useState<Vista>('dashboard');
+  // Primera ejecución: si no está instalado, mostramos el asistente.
+  const [instalado, setInstalado] = useState<boolean>(() => {
+    try {
+      return window.posAPI?.config?.instalado?.() ?? true;
+    } catch {
+      return true;
+    }
+  });
+
+  if (!instalado) {
+    return <SetupWizard onFinish={() => setInstalado(true)} />;
+  }
 
   function alIniciarSesion(u: UsuarioAutenticadoDTO): void {
     setToken(u.token);

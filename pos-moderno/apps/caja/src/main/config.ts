@@ -12,6 +12,8 @@ export interface AppConfig {
   /** Conexión a SQL Server (solo modo local, para la API embebida). */
   databaseUrl?: string;
   jwtSecret?: string;
+  /** true cuando ya pasó el asistente de primera ejecución. */
+  instalado?: boolean;
 }
 
 const DEFAULTS: AppConfig = {
@@ -21,7 +23,12 @@ const DEFAULTS: AppConfig = {
   databaseUrl:
     'sqlserver://localhost:1433;database=BASEADACURSO;user=sa;password=TU_PASSWORD;encrypt=true;trustServerCertificate=true',
   jwtSecret: 'cambia-este-secreto-en-produccion',
+  instalado: false,
 };
+
+function rutaConfig(): string {
+  return join(app.getPath('userData'), 'config.json');
+}
 
 /**
  * Lee (o crea) el archivo de configuración editable por el instalador/usuario:
@@ -30,7 +37,7 @@ const DEFAULTS: AppConfig = {
  */
 export function cargarConfig(): AppConfig {
   try {
-    const ruta = join(app.getPath('userData'), 'config.json');
+    const ruta = rutaConfig();
     if (existsSync(ruta)) {
       const cfg = JSON.parse(readFileSync(ruta, 'utf8')) as Partial<AppConfig>;
       return { ...DEFAULTS, ...cfg };
@@ -40,4 +47,12 @@ export function cargarConfig(): AppConfig {
     /* si falla, usa valores por defecto */
   }
   return DEFAULTS;
+}
+
+/** Guarda (merge) cambios en config.json y devuelve la config resultante. */
+export function guardarConfig(parcial: Partial<AppConfig>): AppConfig {
+  const actual = cargarConfig();
+  const nueva = { ...actual, ...parcial };
+  writeFileSync(rutaConfig(), JSON.stringify(nueva, null, 2), 'utf8');
+  return nueva;
 }

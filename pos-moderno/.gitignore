@@ -28,6 +28,10 @@ apps/caja/release/
 apps/caja/dist-electron/
 apps/caja/build-api/
 
+# Recursos del instalador NSIS (sí se versionan, aunque 'build/' esté ignorado)
+!apps/caja/build/
+!apps/caja/build/**
+
 # OS
 .DS_Store
 Thumbs.db

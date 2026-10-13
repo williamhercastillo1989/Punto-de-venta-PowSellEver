@@ -15,7 +15,9 @@
   "build": {
     "appId": "com.pse.caja",
     "productName": "PSE Caja",
-    "directories": { "output": "release" },
+    "directories": {
+      "output": "release"
+    },
     "asar": true,
     "npmRebuild": true,
     "files": [
@@ -28,10 +30,23 @@
       "!tsconfig*.json"
     ],
     "extraResources": [
-      { "from": "build-api", "to": "api" }
+      {
+        "from": "build-api",
+        "to": "api"
+      },
+      {
+        "from": "../../../script.sql",
+        "to": "db/script.sql"
+      },
+      {
+        "from": "../../db/appconfig.sql",
+        "to": "db/appconfig.sql"
+      }
     ],
     "win": {
-      "target": ["nsis"],
+      "target": [
+        "nsis"
+      ],
       "artifactName": "PSE-Caja-Setup-${version}.${ext}"
     },
     "nsis": {
@@ -39,25 +54,27 @@
       "perMachine": true,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
-      "shortcutName": "PSE Caja"
+      "shortcutName": "PSE Caja",
+      "include": "build/installer.nsh"
     }
   },
   "dependencies": {
     "@pos/types": "*",
     "better-sqlite3": "^11.3.0",
+    "mssql": "^11.0.2",
     "recharts": "^2.12.7",
     "serialport": "^12.0.0"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.11",
+    "@types/react": "^18.3.4",
+    "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "electron": "^31.4.0",
     "electron-builder": "^24.13.3",
     "electron-vite": "^2.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "@types/react": "^18.3.4",
-    "@types/react-dom": "^18.3.0",
     "typescript": "^5.5.4",
     "vite": "^5.4.2"
   }
