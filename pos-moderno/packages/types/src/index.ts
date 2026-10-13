@@ -225,6 +225,7 @@ export interface InventarioItemDTO {
   stock: number | null;
   stockMinimo: number | null;
   importe: number | null;
+  categoria?: string | null;
 }
 
 export interface MovimientoKardexDTO {
@@ -234,9 +235,20 @@ export interface MovimientoKardexDTO {
   motivo: string | null;
   tipo: string | null;
   cantidad: number | null;
+  habia: number | null;
   hay: number | null;
   costoUnt: number | null;
   cajero: string | null;
+  categoria: string | null;
+}
+
+export interface VencimientoItemDTO {
+  idProducto: number;
+  codigo: string | null;
+  descripcion: string | null;
+  fechaVencimiento: string | null;
+  stock: number | null;
+  diasAVencer: number | null;
 }
 
 export interface AjusteInventarioDTO {

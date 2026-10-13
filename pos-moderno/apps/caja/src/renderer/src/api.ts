@@ -14,6 +14,8 @@ import type {
   EmpresaDTO,
   InventarioItemDTO,
   LoginDTO,
+  MovimientoKardexDTO,
+  VencimientoItemDTO,
   ProductoDTO,
   ProveedorDTO,
   RegistrarCompraDTO,
@@ -122,6 +124,22 @@ export function inventarioBajoMinimo(): Promise<InventarioItemDTO[]> {
 
 export function ajusteInventario(dto: AjusteInventarioDTO): Promise<unknown> {
   return post('/inventario/ajuste', dto);
+}
+
+export function movimientosKardex(
+  idProducto: number,
+): Promise<MovimientoKardexDTO[]> {
+  return get<MovimientoKardexDTO[]>(`/inventario/${idProducto}/kardex`);
+}
+
+export function vencimientosInventario(
+  modo: 'por_vencer' | 'vencidos',
+  dias = 30,
+  q = '',
+): Promise<VencimientoItemDTO[]> {
+  return get<VencimientoItemDTO[]>(
+    `/inventario/vencimientos?modo=${modo}&dias=${dias}&q=${encodeURIComponent(q)}`,
+  );
 }
 
 // ---- Proveedores ----
