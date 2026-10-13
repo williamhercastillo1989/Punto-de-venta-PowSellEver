@@ -2,6 +2,7 @@ import type {
   AjusteInventarioDTO,
   AperturaCajaDTO,
   ArqueoDTO,
+  CajaPrincipalDTO,
   CierreCajaDTO,
   ClienteDTO,
   ConceptoDTO,
@@ -249,6 +250,11 @@ export const actualizarUsuario = (id: number, dto: Partial<CrearUsuarioDTO>) =>
 export const eliminarUsuario = (id: number) => send('DELETE', `/usuarios/${id}`);
 
 // ---- Empresa ----
+export const obtenerCajaPrincipal = () =>
+  get<CajaPrincipalDTO | null>('/caja/principal');
+export const actualizarCajaPrincipal = (descripcion: string) =>
+  send('PATCH', '/caja/principal', { descripcion });
+
 export const obtenerEmpresa = () => get<EmpresaDTO | null>('/empresa');
 export const actualizarEmpresa = (id: number, dto: Partial<EmpresaDTO>) =>
   send<EmpresaDTO>('PUT', `/empresa/${id}`, dto);

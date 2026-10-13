@@ -297,7 +297,13 @@ export interface EmpresaDTO {
   trabajasConImpuestos: string | null;
   modoDeBusqueda: string | null;
   correoParaReportes: string | null;
+  carpetaParaCopias: string | null;
   pais: string | null;
+}
+
+export interface CajaPrincipalDTO {
+  idCaja: number;
+  descripcion: string | null;
 }
 
 export type ActualizarEmpresaDTO = Partial<Omit<EmpresaDTO, 'idEmpresa'>>;
