@@ -1,4 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
+import {
+  ArrowDownLeft,
+  ArrowUpRight,
+  BarChart3,
+  CalendarClock,
+  FileText,
+  Printer,
+  RefreshCw,
+  Search,
+  TrendingDown,
+} from 'lucide-react';
 import type {
   InventarioItemDTO,
   MovimientoKardexDTO,
@@ -14,68 +25,92 @@ import {
   obtenerProductos,
   vencimientosInventario,
 } from '../api';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
+import { Alert } from '@/components/ui/alert';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 interface Props {
   idCaja: number;
   idUsuario: number;
 }
 
-type Tab = 'kardex' | 'movimientos' | 'bajos' | 'reporte' | 'vencimientos';
-
-const TABS: { k: Tab; label: string; icon: string }[] = [
-  { k: 'kardex', label: 'Kardex', icon: '📊' },
-  { k: 'movimientos', label: 'Movimientos', icon: '🔄' },
-  { k: 'bajos', label: 'Inventarios Bajos', icon: '📉' },
-  { k: 'reporte', label: 'Reporte Inventarios', icon: '📋' },
-  { k: 'vencimientos', label: 'Vencimientos de Productos', icon: '📅' },
-];
+const TABS = [
+  { k: 'kardex', label: 'Kardex', Icon: BarChart3 },
+  { k: 'movimientos', label: 'Movimientos', Icon: RefreshCw },
+  { k: 'bajos', label: 'Inventarios Bajos', Icon: TrendingDown },
+  { k: 'reporte', label: 'Reporte Inventarios', Icon: FileText },
+  { k: 'vencimientos', label: 'Vencimientos de Productos', Icon: CalendarClock },
+] as const;
 
 const n = (v: number | string | null | undefined): string =>
   v == null || v === '' ? '0.00' : Number(v).toFixed(2);
 
+function PrintBtn(): JSX.Element {
+  return (
+    <Button variant="outline" size="sm" onClick={() => window.print()}>
+      <Printer /> Imprimir
+    </Button>
+  );
+}
+
 export function InventarioView({ idCaja, idUsuario }: Props): JSX.Element {
-  const [tab, setTab] = useState<Tab>('kardex');
+  const [tab, setTab] = useState<string>('kardex');
   const [productos, setProductos] = useState<ProductoDTO[]>([]);
   const [ajuste, setAjuste] = useState<null | 'Entrada' | 'Salida'>(null);
   const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
-    obtenerProductos()
-      .then(setProductos)
-      .catch(() => setProductos([]));
+    obtenerProductos().then(setProductos).catch(() => setProductos([]));
   }, [refresh]);
 
   return (
-    <div className="inv">
-      <header className="inv__top">
-        <h2>Inventarios</h2>
-        <nav className="inv__tabs">
-          {TABS.map((t) => (
-            <button
-              key={t.k}
-              className={`inv__tab ${tab === t.k ? 'inv__tab--on' : ''}`}
-              onClick={() => setTab(t.k)}
-            >
-              <span>{t.icon}</span> {t.label}
-            </button>
-          ))}
-        </nav>
-        <div className="inv__acc">
-          <button className="inv__io inv__io--in" onClick={() => setAjuste('Entrada')}>
-            Entrada ↩
-          </button>
-          <button className="inv__io inv__io--out" onClick={() => setAjuste('Salida')}>
-            Salida ↪
-          </button>
+    <Tabs value={tab} onValueChange={setTab} className="min-h-full bg-background">
+      <header className="flex flex-wrap items-start justify-between gap-4 border-b px-5 pt-4">
+        <div>
+          <h2 className="mb-1 text-xl font-bold">Inventarios</h2>
+          <TabsList>
+            {TABS.map(({ k, label, Icon }) => (
+              <TabsTrigger key={k} value={k}>
+                <Icon /> {label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </div>
+        <div className="flex gap-3 pb-2">
+          <Button variant="outline" className="rounded-full text-success" onClick={() => setAjuste('Entrada')}>
+            <ArrowDownLeft /> Entrada
+          </Button>
+          <Button variant="outline" className="rounded-full text-destructive" onClick={() => setAjuste('Salida')}>
+            <ArrowUpRight /> Salida
+          </Button>
         </div>
       </header>
 
-      <div className="inv__body" key={`${tab}-${refresh}`}>
-        {tab === 'kardex' && <KardexTab productos={productos} />}
-        {tab === 'movimientos' && <MovimientosTab productos={productos} />}
-        {tab === 'bajos' && <BajosTab />}
-        {tab === 'reporte' && <ReporteTab />}
-        {tab === 'vencimientos' && <VencimientosTab />}
+      <div className="p-5" key={refresh}>
+        <TabsContent value="kardex"><KardexTab productos={productos} /></TabsContent>
+        <TabsContent value="movimientos"><MovimientosTab productos={productos} /></TabsContent>
+        <TabsContent value="bajos"><BajosTab /></TabsContent>
+        <TabsContent value="reporte"><ReporteTab /></TabsContent>
+        <TabsContent value="vencimientos"><VencimientosTab /></TabsContent>
       </div>
 
       {ajuste && (
@@ -91,11 +126,11 @@ export function InventarioView({ idCaja, idUsuario }: Props): JSX.Element {
           }}
         />
       )}
-    </div>
+    </Tabs>
   );
 }
 
-/* ---------- Buscador de producto con autocompletar ---------- */
+/* ---------- Buscador de producto ---------- */
 function ProductoBuscador({
   productos,
   onSelect,
@@ -112,16 +147,15 @@ function ProductoBuscador({
     const t = q.trim().toLowerCase();
     if (!t) return [];
     return productos
-      .filter((p) =>
-        `${p.descripcion ?? ''} ${p.codigo ?? ''}`.toLowerCase().includes(t),
-      )
+      .filter((p) => `${p.descripcion ?? ''} ${p.codigo ?? ''}`.toLowerCase().includes(t))
       .slice(0, 8);
   }, [q, productos]);
 
   return (
-    <div className="inv__search">
-      <span className="inv__search-ico">🔍</span>
-      <input
+    <div className="relative mb-4 max-w-xl">
+      <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+      <Input
+        className="bg-primary/10 pl-9"
         value={q}
         placeholder={placeholder}
         onChange={(e) => {
@@ -132,23 +166,19 @@ function ProductoBuscador({
         onFocus={() => setAbierto(true)}
       />
       {abierto && matches.length > 0 && (
-        <ul className="inv__ac">
+        <ul className="absolute z-20 mt-1 max-h-72 w-full overflow-auto rounded-md border bg-popover p-1 shadow-md">
           {matches.map((p) => (
             <li
               key={p.id}
+              className="cursor-pointer rounded-sm px-3 py-2 text-sm hover:bg-accent"
               onClick={() => {
                 onSelect(p);
-                setQ(
-                  `${p.descripcion} /Precio: ${n(p.precioVenta)} /Codigo: ${p.codigo ?? ''}`,
-                );
+                setQ(`${p.descripcion} /Precio: ${n(p.precioVenta)} /Codigo: ${p.codigo ?? ''}`);
                 setAbierto(false);
               }}
             >
               <strong>{p.descripcion}</strong>
-              <span className="muted">
-                {' '}
-                · {p.codigo} · S/ {n(p.precioVenta)}
-              </span>
+              <span className="text-muted-foreground"> · {p.codigo} · S/ {n(p.precioVenta)}</span>
             </li>
           ))}
         </ul>
@@ -165,85 +195,72 @@ function KardexTab({ productos }: { productos: ProductoDTO[] }): JSX.Element {
 
   useEffect(() => {
     if (!prod) return setMovs([]);
-    movimientosKardex(prod.id)
-      .then(setMovs)
-      .catch((e: Error) => setError(e.message));
+    movimientosKardex(prod.id).then(setMovs).catch((e: Error) => setError(e.message));
   }, [prod]);
 
   const existencia = movs.length ? movs[0].hay ?? 0 : 0;
 
   return (
     <>
-      <ProductoBuscador
-        productos={productos}
-        onSelect={setProd}
-        placeholder="Buscar producto para ver su Kardex…"
-      />
-      {error && <p className="alert alert--error">{error}</p>}
+      <ProductoBuscador productos={productos} onSelect={setProd} placeholder="Buscar producto para ver su Kardex…" />
+      {error && <Alert variant="error" className="mb-3">{error}</Alert>}
       {!prod ? (
-        <p className="muted inv__vacio">Busca un producto para ver su Kardex.</p>
+        <p className="py-10 text-center text-muted-foreground">Busca un producto para ver su Kardex.</p>
       ) : (
-        <div className="kardex">
-          <div className="kardex__head">
-            <h3>Kardex de Inventario</h3>
-            <div className="kardex__meta">
-              <span>
-                <strong>Producto:</strong> {prod.descripcion}
-              </span>
-              <span>
-                <strong>Existencia Actual:</strong> {n(existencia)}
-              </span>
-              <span className="muted">{new Date().toLocaleString()}</span>
+        <div>
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h3 className="text-center text-lg font-semibold">Kardex de Inventario</h3>
+              <div className="flex flex-wrap gap-4 text-sm">
+                <span><b>Producto:</b> {prod.descripcion}</span>
+                <span><b>Existencia Actual:</b> {n(existencia)}</span>
+                <span className="text-muted-foreground">{new Date().toLocaleString()}</span>
+              </div>
             </div>
-            <button className="inv__print" onClick={() => window.print()}>
-              🖨 Imprimir
-            </button>
+            <PrintBtn />
           </div>
-          <table className="tabla kardex__tabla">
-            <thead>
-              <tr>
-                <th rowSpan={2}>Fecha</th>
-                <th rowSpan={2}>Detalle</th>
-                <th colSpan={3} className="kardex__g kardex__g--in">ENTRADA</th>
-                <th colSpan={3} className="kardex__g kardex__g--out">SALIDA</th>
-                <th colSpan={3} className="kardex__g kardex__g--ex">Existencias</th>
-              </tr>
-              <tr>
-                <th className="num">Cant</th><th className="num">C.Unit</th><th className="num">Total</th>
-                <th className="num">Cant</th><th className="num">C.Unit</th><th className="num">Total</th>
-                <th className="num">Cant</th><th className="num">C.Unit</th><th className="num">Total</th>
-              </tr>
-            </thead>
-            <tbody>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead rowSpan={2}>Fecha</TableHead>
+                <TableHead rowSpan={2}>Detalle</TableHead>
+                <TableHead colSpan={3} className="bg-success/10 text-center">ENTRADA</TableHead>
+                <TableHead colSpan={3} className="bg-destructive/10 text-center">SALIDA</TableHead>
+                <TableHead colSpan={3} className="bg-primary/10 text-center">Existencias</TableHead>
+              </TableRow>
+              <TableRow>
+                <TableHead className="text-right">Cant</TableHead><TableHead className="text-right">C.Unit</TableHead><TableHead className="text-right">Total</TableHead>
+                <TableHead className="text-right">Cant</TableHead><TableHead className="text-right">C.Unit</TableHead><TableHead className="text-right">Total</TableHead>
+                <TableHead className="text-right">Cant</TableHead><TableHead className="text-right">C.Unit</TableHead><TableHead className="text-right">Total</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {movs.map((m) => {
                 const esEntrada = (m.tipo ?? '').toUpperCase() === 'ENTRADA';
                 const cu = m.costoUnt ?? 0;
                 const cant = m.cantidad ?? 0;
-                const total = cant * cu;
                 const hay = m.hay ?? 0;
                 return (
-                  <tr key={m.idKardex}>
-                    <td>{m.fecha ? new Date(m.fecha).toLocaleString() : ''}</td>
-                    <td>{m.motivo}</td>
-                    <td className="num">{esEntrada ? n(cant) : ''}</td>
-                    <td className="num">{esEntrada ? n(cu) : ''}</td>
-                    <td className="num">{esEntrada ? n(total) : ''}</td>
-                    <td className="num">{!esEntrada ? n(cant) : ''}</td>
-                    <td className="num">{!esEntrada ? n(cu) : ''}</td>
-                    <td className="num">{!esEntrada ? n(total) : ''}</td>
-                    <td className="num">{n(hay)}</td>
-                    <td className="num">{n(cu)}</td>
-                    <td className="num">{n(hay * cu)}</td>
-                  </tr>
+                  <TableRow key={m.idKardex}>
+                    <TableCell>{m.fecha ? new Date(m.fecha).toLocaleString() : ''}</TableCell>
+                    <TableCell>{m.motivo}</TableCell>
+                    <TableCell className="text-right">{esEntrada ? n(cant) : ''}</TableCell>
+                    <TableCell className="text-right">{esEntrada ? n(cu) : ''}</TableCell>
+                    <TableCell className="text-right">{esEntrada ? n(cant * cu) : ''}</TableCell>
+                    <TableCell className="text-right">{!esEntrada ? n(cant) : ''}</TableCell>
+                    <TableCell className="text-right">{!esEntrada ? n(cu) : ''}</TableCell>
+                    <TableCell className="text-right">{!esEntrada ? n(cant * cu) : ''}</TableCell>
+                    <TableCell className="text-right">{n(hay)}</TableCell>
+                    <TableCell className="text-right">{n(cu)}</TableCell>
+                    <TableCell className="text-right">{n(hay * cu)}</TableCell>
+                  </TableRow>
                 );
               })}
               {movs.length === 0 && (
-                <tr>
-                  <td colSpan={11} className="muted">Sin movimientos.</td>
-                </tr>
+                <TableRow><TableCell colSpan={11} className="text-muted-foreground">Sin movimientos.</TableCell></TableRow>
               )}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       )}
     </>
@@ -262,61 +279,42 @@ function MovimientosTab({ productos }: { productos: ProductoDTO[] }): JSX.Elemen
 
   return (
     <>
-      <ProductoBuscador
-        productos={productos}
-        onSelect={setProd}
-        placeholder="Buscar producto para ver sus movimientos…"
-      />
-      <div className="inv__toolbar">
-        <button className="inv__print" onClick={() => window.print()}>
-          🖨 Imprimir
-        </button>
-      </div>
+      <ProductoBuscador productos={productos} onSelect={setProd} placeholder="Buscar producto para ver sus movimientos…" />
+      <div className="mb-3"><PrintBtn /></div>
       {!prod ? (
-        <p className="muted inv__vacio">Busca un producto para ver sus movimientos.</p>
+        <p className="py-10 text-center text-muted-foreground">Busca un producto para ver sus movimientos.</p>
       ) : (
-        <table className="tabla">
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Descripción</th>
-              <th>Movimiento</th>
-              <th className="num">Había</th>
-              <th>Tipo</th>
-              <th className="num">Cantidad</th>
-              <th className="num">Hay</th>
-              <th>Cajero</th>
-              <th>Categoría</th>
-            </tr>
-          </thead>
-          <tbody>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Fecha</TableHead><TableHead>Descripción</TableHead><TableHead>Movimiento</TableHead>
+              <TableHead className="text-right">Había</TableHead><TableHead>Tipo</TableHead>
+              <TableHead className="text-right">Cantidad</TableHead><TableHead className="text-right">Hay</TableHead>
+              <TableHead>Cajero</TableHead><TableHead>Categoría</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {movs.map((m) => {
               const esEntrada = (m.tipo ?? '').toUpperCase() === 'ENTRADA';
               return (
-                <tr key={m.idKardex}>
-                  <td>{m.fecha ? new Date(m.fecha).toLocaleString() : ''}</td>
-                  <td>{m.descripcion}</td>
-                  <td>{m.motivo}</td>
-                  <td className="num">{n(m.habia)}</td>
-                  <td>
-                    <span className={`inv__tipo ${esEntrada ? 'inv__tipo--in' : 'inv__tipo--out'}`}>
-                      {m.tipo}
-                    </span>
-                  </td>
-                  <td className="num">{n(m.cantidad)}</td>
-                  <td className="num">{n(m.hay)}</td>
-                  <td>{m.cajero}</td>
-                  <td>{m.categoria}</td>
-                </tr>
+                <TableRow key={m.idKardex}>
+                  <TableCell>{m.fecha ? new Date(m.fecha).toLocaleString() : ''}</TableCell>
+                  <TableCell>{m.descripcion}</TableCell>
+                  <TableCell>{m.motivo}</TableCell>
+                  <TableCell className="text-right">{n(m.habia)}</TableCell>
+                  <TableCell><Badge variant={esEntrada ? 'success' : 'destructive'}>{m.tipo}</Badge></TableCell>
+                  <TableCell className="text-right">{n(m.cantidad)}</TableCell>
+                  <TableCell className="text-right">{n(m.hay)}</TableCell>
+                  <TableCell>{m.cajero}</TableCell>
+                  <TableCell>{m.categoria}</TableCell>
+                </TableRow>
               );
             })}
             {movs.length === 0 && (
-              <tr>
-                <td colSpan={9} className="muted">Sin movimientos.</td>
-              </tr>
+              <TableRow><TableCell colSpan={9} className="text-muted-foreground">Sin movimientos.</TableCell></TableRow>
             )}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       )}
     </>
   );
@@ -328,71 +326,57 @@ function BajosTab(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    inventarioBajoMinimo()
-      .then(setItems)
-      .catch((e: Error) => setError(e.message));
+    inventarioBajoMinimo().then(setItems).catch((e: Error) => setError(e.message));
   }, []);
 
   return (
     <>
-      <div className="inv__toolbar">
-        <button className="inv__print" onClick={() => window.print()}>
-          🖨 Imprimir
-        </button>
-        <span className="muted">
-          Estos productos están debajo del mínimo de STOCK, te recomendamos que
-          gestiones tus productos.
+      <div className="mb-3 flex flex-wrap items-center gap-3">
+        <PrintBtn />
+        <span className="text-sm text-muted-foreground">
+          Estos productos están debajo del mínimo de STOCK, te recomendamos gestionar tus productos.
         </span>
       </div>
-      {error && <p className="alert alert--error">{error}</p>}
-      <table className="tabla">
-        <thead>
-          <tr>
-            <th>Código</th>
-            <th>Descripción</th>
-            <th className="num">Precio de Compra</th>
-            <th className="num">Stock</th>
-            <th className="num">Stock Mínimo</th>
-          </tr>
-        </thead>
-        <tbody>
+      {error && <Alert variant="error" className="mb-3">{error}</Alert>}
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Código</TableHead><TableHead>Descripción</TableHead>
+            <TableHead className="text-right">Precio de Compra</TableHead>
+            <TableHead className="text-right">Stock</TableHead>
+            <TableHead className="text-right">Stock Mínimo</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {items.map((it) => (
-            <tr key={it.idProducto} className="fila--alerta">
-              <td>{it.codigo}</td>
-              <td>{it.descripcion}</td>
-              <td className="num">{n(it.costo)}</td>
-              <td className="num">{n(it.stock)}</td>
-              <td className="num">{n(it.stockMinimo)}</td>
-            </tr>
+            <TableRow key={it.idProducto} className="bg-destructive/5">
+              <TableCell>{it.codigo}</TableCell>
+              <TableCell>{it.descripcion}</TableCell>
+              <TableCell className="text-right">{n(it.costo)}</TableCell>
+              <TableCell className="text-right">{n(it.stock)}</TableCell>
+              <TableCell className="text-right">{n(it.stockMinimo)}</TableCell>
+            </TableRow>
           ))}
           {items.length === 0 && (
-            <tr>
-              <td colSpan={5} className="muted">
-                No hay productos bajo el mínimo. 🎉
-              </td>
-            </tr>
+            <TableRow><TableCell colSpan={5} className="text-muted-foreground">No hay productos bajo el mínimo. 🎉</TableCell></TableRow>
           )}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </>
   );
 }
 
-/* ---------- Reporte de inventario ---------- */
+/* ---------- Reporte ---------- */
 const POR_PAGINA = 15;
 function ReporteTab(): JSX.Element {
   const [items, setItems] = useState<InventarioItemDTO[]>([]);
   const [q, setQ] = useState('');
-  const [aplicado, setAplicado] = useState('');
   const [pagina, setPagina] = useState(1);
   const [error, setError] = useState<string | null>(null);
 
   function cargar(filtro: string): void {
     obtenerInventario(filtro)
-      .then((d) => {
-        setItems(d);
-        setPagina(1);
-      })
+      .then((d) => { setItems(d); setPagina(1); })
       .catch((e: Error) => setError(e.message));
   }
   useEffect(() => cargar(''), []);
@@ -403,102 +387,64 @@ function ReporteTab(): JSX.Element {
 
   return (
     <>
-      <div className="inv__resumen">
-        <div className="inv__resumen-card">
-          <span className="muted">Cantidad de Productos en Inventario</span>
-          <strong>{items.length}</strong>
+      <div className="mb-4 flex flex-wrap gap-6 rounded-lg bg-muted px-5 py-3">
+        <div className="flex flex-col">
+          <span className="text-sm text-muted-foreground">Cantidad de Productos en Inventario</span>
+          <strong className="text-2xl">{items.length}</strong>
         </div>
-        <div className="inv__resumen-card">
-          <span className="muted">Costo del Inventario</span>
-          <strong className="verde">{n(totalImporte)}</strong>
+        <div className="flex flex-col">
+          <span className="text-sm text-muted-foreground">Costo del Inventario</span>
+          <strong className="text-2xl text-success">{n(totalImporte)}</strong>
         </div>
       </div>
 
-      <div className="inv__toolbar">
-        <input
-          className="inv__input"
+      <div className="mb-3 flex flex-wrap items-center gap-3">
+        <Input
+          className="max-w-xs"
           placeholder="Buscar producto…"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              setAplicado(q);
-              cargar(q);
-            }
-          }}
+          onKeyDown={(e) => { if (e.key === 'Enter') cargar(q); }}
         />
-        <button
-          className="btn btn--primary"
-          onClick={() => {
-            setAplicado(q);
-            cargar(q);
-          }}
-        >
-          Buscar
-        </button>
-        <button
-          className="inv__mostrar"
-          onClick={() => {
-            setQ('');
-            setAplicado('');
-            cargar('');
-          }}
-        >
-          Mostrar TODO
-        </button>
-        <button className="inv__print" onClick={() => window.print()}>
-          🖨 Imprimir
-        </button>
+        <Button onClick={() => cargar(q)}>Buscar</Button>
+        <Button variant="secondary" onClick={() => { setQ(''); cargar(''); }}>Mostrar TODO</Button>
+        <PrintBtn />
       </div>
+      {error && <Alert variant="error" className="mb-3">{error}</Alert>}
 
-      {error && <p className="alert alert--error">{error}</p>}
-      {aplicado && <p className="muted">Filtro: “{aplicado}”</p>}
-
-      <table className="tabla inv__reporte">
-        <thead>
-          <tr>
-            <th>Código</th>
-            <th>Descripción</th>
-            <th className="num">Costo</th>
-            <th className="num">Precio Venta</th>
-            <th className="num">Stock</th>
-            <th className="num">Stock Mínimo</th>
-            <th>Categoría</th>
-            <th className="num">Importe</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Código</TableHead><TableHead>Descripción</TableHead>
+            <TableHead className="text-right">Costo</TableHead><TableHead className="text-right">Precio Venta</TableHead>
+            <TableHead className="text-right">Stock</TableHead><TableHead className="text-right">Stock Mínimo</TableHead>
+            <TableHead>Categoría</TableHead><TableHead className="text-right">Importe</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {visibles.map((it) => (
-            <tr key={it.idProducto}>
-              <td>{it.codigo}</td>
-              <td>{it.descripcion}</td>
-              <td className="num">{n(it.costo)}</td>
-              <td className="num">{n(it.precioVenta)}</td>
-              <td className="num">{n(it.stock)}</td>
-              <td className="num">{n(it.stockMinimo)}</td>
-              <td>{it.categoria}</td>
-              <td className="num">{n(it.importe)}</td>
-            </tr>
+            <TableRow key={it.idProducto}>
+              <TableCell>{it.codigo}</TableCell>
+              <TableCell>{it.descripcion}</TableCell>
+              <TableCell className="text-right">{n(it.costo)}</TableCell>
+              <TableCell className="text-right">{n(it.precioVenta)}</TableCell>
+              <TableCell className="text-right">{n(it.stock)}</TableCell>
+              <TableCell className="text-right">{n(it.stockMinimo)}</TableCell>
+              <TableCell>{it.categoria}</TableCell>
+              <TableCell className="text-right">{n(it.importe)}</TableCell>
+            </TableRow>
           ))}
           {items.length === 0 && (
-            <tr>
-              <td colSpan={8} className="muted">Sin productos.</td>
-            </tr>
+            <TableRow><TableCell colSpan={8} className="text-muted-foreground">Sin productos.</TableCell></TableRow>
           )}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
 
       {paginas > 1 && (
-        <div className="inv__pager">
-          <button disabled={pagina <= 1} onClick={() => setPagina((p) => p - 1)}>
-            ← Anterior
-          </button>
-          <span>
-            Página {pagina} de {paginas}
-          </span>
-          <button disabled={pagina >= paginas} onClick={() => setPagina((p) => p + 1)}>
-            Siguiente →
-          </button>
+        <div className="mt-4 flex items-center justify-center gap-4">
+          <Button variant="outline" size="sm" disabled={pagina <= 1} onClick={() => setPagina((p) => p - 1)}>← Anterior</Button>
+          <span className="text-sm">Página {pagina} de {paginas}</span>
+          <Button variant="outline" size="sm" disabled={pagina >= paginas} onClick={() => setPagina((p) => p + 1)}>Siguiente →</Button>
         </div>
       )}
     </>
@@ -513,82 +459,53 @@ function VencimientosTab(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    vencimientosInventario(modo, 30, q)
-      .then(setItems)
-      .catch((e: Error) => setError(e.message));
+    vencimientosInventario(modo, 30, q).then(setItems).catch((e: Error) => setError(e.message));
   }, [modo, q]);
 
   return (
     <>
-      <div className="inv__venc-top">
-        <input
-          className="inv__input"
-          placeholder="Buscar producto / código…"
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-        />
-        <fieldset className="inv__filtros">
-          <legend>Filtros</legend>
-          <label>
-            <input
-              type="radio"
-              name="venc"
-              checked={modo === 'por_vencer'}
-              onChange={() => setModo('por_vencer')}
-            />
-            Por vencer en menos de 30 días
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="venc"
-              checked={modo === 'vencidos'}
-              onChange={() => setModo('vencidos')}
-            />
-            Productos vencidos (todos)
-          </label>
+      <div className="mb-4 flex flex-wrap items-start gap-6">
+        <Input className="max-w-xs" placeholder="Buscar producto / código…" value={q} onChange={(e) => setQ(e.target.value)} />
+        <fieldset className="rounded-lg border px-4 py-2">
+          <legend className="px-1 text-sm font-semibold">Filtros</legend>
+          <RadioGroup value={modo} onValueChange={(v) => setModo(v as 'por_vencer' | 'vencidos')}>
+            <label className="flex items-center gap-2 text-sm">
+              <RadioGroupItem value="por_vencer" /> Por vencer en menos de 30 días
+            </label>
+            <label className="flex items-center gap-2 text-sm">
+              <RadioGroupItem value="vencidos" /> Productos vencidos (todos)
+            </label>
+          </RadioGroup>
         </fieldset>
-        <button className="inv__print" onClick={() => window.print()}>
-          🖨 Imprimir
-        </button>
+        <PrintBtn />
       </div>
-
-      {error && <p className="alert alert--error">{error}</p>}
-
-      <table className="tabla">
-        <thead>
-          <tr>
-            <th>Código</th>
-            <th>Descripción</th>
-            <th>F. Vencimiento</th>
-            <th className="num">Stock</th>
-            <th className="num">Días a Vencer</th>
-          </tr>
-        </thead>
-        <tbody>
+      {error && <Alert variant="error" className="mb-3">{error}</Alert>}
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Código</TableHead><TableHead>Descripción</TableHead><TableHead>F. Vencimiento</TableHead>
+            <TableHead className="text-right">Stock</TableHead><TableHead className="text-right">Días a Vencer</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {items.map((it) => (
-            <tr
-              key={it.idProducto}
-              className={(it.diasAVencer ?? 0) < 0 ? 'fila--alerta' : ''}
-            >
-              <td>{it.codigo}</td>
-              <td>{it.descripcion}</td>
-              <td>{it.fechaVencimiento}</td>
-              <td className="num">{n(it.stock)}</td>
-              <td className="num">{it.diasAVencer}</td>
-            </tr>
+            <TableRow key={it.idProducto} className={(it.diasAVencer ?? 0) < 0 ? 'bg-destructive/5' : ''}>
+              <TableCell>{it.codigo}</TableCell>
+              <TableCell>{it.descripcion}</TableCell>
+              <TableCell>{it.fechaVencimiento}</TableCell>
+              <TableCell className="text-right">{n(it.stock)}</TableCell>
+              <TableCell className="text-right">{it.diasAVencer}</TableCell>
+            </TableRow>
           ))}
           {items.length === 0 && (
-            <tr>
-              <td colSpan={5} className="muted">
-                {modo === 'vencidos'
-                  ? 'No hay productos vencidos.'
-                  : 'No hay productos por vencer en 30 días.'}
-              </td>
-            </tr>
+            <TableRow>
+              <TableCell colSpan={5} className="text-muted-foreground">
+                {modo === 'vencidos' ? 'No hay productos vencidos.' : 'No hay productos por vencer en 30 días.'}
+              </TableCell>
+            </TableRow>
           )}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </>
   );
 }
@@ -627,10 +544,7 @@ function AjusteModal({
         idProducto: prod.id,
         idCaja,
         idUsuario,
-        tipo:
-          tipo === 'Entrada'
-            ? TipoMovimientoKardex.Entrada
-            : TipoMovimientoKardex.Salida,
+        tipo: tipo === 'Entrada' ? TipoMovimientoKardex.Entrada : TipoMovimientoKardex.Salida,
         cantidad: Number(cantidad),
         motivo,
       });
@@ -643,49 +557,37 @@ function AjusteModal({
   }
 
   return (
-    <div className="modal__fondo" onClick={onClose}>
-      <form
-        className="modal__caja"
-        onClick={(e) => e.stopPropagation()}
-        onSubmit={aplicar}
-      >
-        <h3>
-          {tipo === 'Entrada' ? '↩ Entrada de inventario' : '↪ Salida de inventario'}
-        </h3>
-        {error && <p className="alert alert--error">{error}</p>}
-        <ProductoBuscador
-          productos={productos}
-          onSelect={setProd}
-          placeholder="Buscar producto…"
-        />
-        {prod && (
-          <p className="muted">
-            {prod.descripcion} · stock actual: {prod.stock ?? '0'}
-          </p>
-        )}
-        <label className="modal__campo">
-          Cantidad
-          <input
-            type="number"
-            min="0.01"
-            step="0.01"
-            value={cantidad}
-            onChange={(e) => setCantidad(e.target.value)}
-          />
-        </label>
-        <label className="modal__campo">
-          Motivo
-          <input value={motivo} onChange={(e) => setMotivo(e.target.value)} />
-        </label>
-        <div className="modal__btns">
-          <button className="btn btn--primary" type="submit" disabled={guardando}>
-            {guardando ? 'Aplicando…' : `Aplicar ${tipo}`}
-          </button>
-          <button type="button" className="btn" onClick={onClose}>
-            Cancelar
-          </button>
-        </div>
-      </form>
-    </div>
+    <Dialog open onOpenChange={(o) => !o && onClose()}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>
+            {tipo === 'Entrada' ? 'Entrada de inventario' : 'Salida de inventario'}
+          </DialogTitle>
+        </DialogHeader>
+        <form onSubmit={aplicar} className="flex flex-col gap-3">
+          {error && <Alert variant="error">{error}</Alert>}
+          <ProductoBuscador productos={productos} onSelect={setProd} placeholder="Buscar producto…" />
+          {prod && (
+            <p className="text-sm text-muted-foreground">
+              {prod.descripcion} · stock actual: {prod.stock ?? '0'}
+            </p>
+          )}
+          <div className="grid gap-1.5">
+            <Label>Cantidad</Label>
+            <Input type="number" min="0.01" step="0.01" value={cantidad} onChange={(e) => setCantidad(e.target.value)} />
+          </div>
+          <div className="grid gap-1.5">
+            <Label>Motivo</Label>
+            <Input value={motivo} onChange={(e) => setMotivo(e.target.value)} />
+          </div>
+          <DialogFooter>
+            <Button type="button" variant="outline" onClick={onClose}>Cancelar</Button>
+            <Button type="submit" disabled={guardando}>
+              {guardando ? 'Aplicando…' : `Aplicar ${tipo}`}
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 }

@@ -1,3 +1,5 @@
+import { ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { EmpresaView } from './empresa/EmpresaView';
 import { UsuariosView } from './usuarios/UsuariosView';
 import { ComprobantesView } from './comprobantes/ComprobantesView';
@@ -20,9 +22,9 @@ interface Ctx {
 
 function Placeholder({ titulo }: { titulo: string }): JSX.Element {
   return (
-    <main className="page">
-      <h2>{titulo}</h2>
-      <p className="muted">Módulo en construcción.</p>
+    <main className="p-6">
+      <h2 className="text-xl font-bold">{titulo}</h2>
+      <p className="text-muted-foreground">Módulo en construcción.</p>
     </main>
   );
 }
@@ -65,12 +67,14 @@ export function ModuloView({
 }): JSX.Element {
   const m = MODULOS[moduloKey];
   return (
-    <div>
-      <div className="modbar">
-        <button className="btn" onClick={onVolver}>← Volver</button>
+    <div className="min-h-screen bg-background">
+      <div className="flex items-center gap-3 border-b bg-card px-4 py-2">
+        <Button variant="outline" size="sm" onClick={onVolver}>
+          <ArrowLeft /> Volver
+        </Button>
         <strong>{m?.label ?? 'Módulo'}</strong>
       </div>
-      {m ? m.comp({ idCaja, idUsuario }) : <p className="page">Módulo desconocido</p>}
+      {m ? m.comp({ idCaja, idUsuario }) : <p className="p-6 text-muted-foreground">Módulo desconocido</p>}
     </div>
   );
 }

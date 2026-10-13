@@ -1,6 +1,12 @@
 import { useState } from 'react';
+import { LogIn } from 'lucide-react';
 import type { UsuarioAutenticadoDTO } from '@pos/types';
 import { login } from '../api';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Alert } from '@/components/ui/alert';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface Props {
   onLogin: (usuario: UsuarioAutenticadoDTO) => void;
@@ -27,30 +33,38 @@ export function LoginView({ onLogin }: Props): JSX.Element {
   }
 
   return (
-    <div className="login">
-      <form className="login__card" onSubmit={entrar}>
-        <h1>Iniciar sesión</h1>
-        {error && <p className="alert alert--error">{error}</p>}
-        <label>
-          Usuario
-          <input
-            value={usuario}
-            onChange={(e) => setUsuario(e.target.value)}
-            autoFocus
-          />
-        </label>
-        <label>
-          Contraseña
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <button className="btn btn--primary" disabled={cargando}>
-          {cargando ? 'Entrando…' : 'Entrar'}
-        </button>
-      </form>
+    <div className="flex min-h-screen items-center justify-center bg-muted p-4">
+      <Card className="w-full max-w-sm">
+        <CardHeader>
+          <CardTitle className="text-xl">Iniciar sesión</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form className="flex flex-col gap-4" onSubmit={entrar}>
+            {error && <Alert variant="error">{error}</Alert>}
+            <div className="grid gap-1.5">
+              <Label htmlFor="login-usuario">Usuario</Label>
+              <Input
+                id="login-usuario"
+                value={usuario}
+                onChange={(e) => setUsuario(e.target.value)}
+                autoFocus
+              />
+            </div>
+            <div className="grid gap-1.5">
+              <Label htmlFor="login-password">Contraseña</Label>
+              <Input
+                id="login-password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <Button type="submit" disabled={cargando}>
+              <LogIn /> {cargando ? 'Entrando…' : 'Entrar'}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
 }

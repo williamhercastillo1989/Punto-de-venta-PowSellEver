@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
+import { Mail, Save, Send } from 'lucide-react';
 import { enviarReporteCorreo, guardarCorreo, obtenerCorreo } from '../api';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Alert } from '@/components/ui/alert';
+import { Card } from '@/components/ui/card';
 
 function hoy(): string {
   return new Date().toISOString().slice(0, 10);
@@ -44,21 +50,54 @@ export function CorreoView(): JSX.Element {
   }
 
   return (
-    <main className="page">
-      <h2>Correo</h2>
-      {error && <p className="alert alert--error">{error}</p>}
-      {msg && <p className="alert alert--ok">{msg}</p>}
-      <form className="panel row" onSubmit={guardar}>
-        <input placeholder="Correo" value={correo} onChange={(e) => setCorreo(e.target.value)} />
-        <input type="password" placeholder="Contraseña / App password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <button className="btn btn--primary" type="submit">Guardar config</button>
-      </form>
-      <form className="panel row" onSubmit={enviar}>
-        <input placeholder="Enviar reporte a (correo)" value={para} onChange={(e) => setPara(e.target.value)} required />
-        <input type="date" value={desde} onChange={(e) => setDesde(e.target.value)} />
-        <input type="date" value={hasta} onChange={(e) => setHasta(e.target.value)} />
-        <button className="btn btn--primary" type="submit">Enviar PDF</button>
-      </form>
+    <main className="min-h-full bg-background p-5">
+      <h2 className="mb-4 flex items-center gap-2 text-xl font-bold">
+        <Mail className="size-5" /> Correo
+      </h2>
+      {error && <Alert variant="error" className="mb-3">{error}</Alert>}
+      {msg && <Alert variant="success" className="mb-3">{msg}</Alert>}
+      <Card className="mb-4 p-4">
+        <form className="flex flex-wrap items-center gap-3" onSubmit={guardar}>
+          <Input
+            className="max-w-xs"
+            placeholder="Correo"
+            value={correo}
+            onChange={(e) => setCorreo(e.target.value)}
+          />
+          <Input
+            className="max-w-xs"
+            type="password"
+            placeholder="Contraseña / App password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button type="submit">
+            <Save /> Guardar config
+          </Button>
+        </form>
+      </Card>
+      <Card className="p-4">
+        <form className="flex flex-wrap items-end gap-3" onSubmit={enviar}>
+          <Input
+            className="max-w-xs"
+            placeholder="Enviar reporte a (correo)"
+            value={para}
+            onChange={(e) => setPara(e.target.value)}
+            required
+          />
+          <div className="grid gap-1.5">
+            <Label>Desde</Label>
+            <Input type="date" value={desde} onChange={(e) => setDesde(e.target.value)} />
+          </div>
+          <div className="grid gap-1.5">
+            <Label>Hasta</Label>
+            <Input type="date" value={hasta} onChange={(e) => setHasta(e.target.value)} />
+          </div>
+          <Button type="submit">
+            <Send /> Enviar PDF
+          </Button>
+        </form>
+      </Card>
     </main>
   );
 }
