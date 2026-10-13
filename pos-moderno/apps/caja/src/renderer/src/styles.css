@@ -1665,3 +1665,63 @@ img.usr__avatar-img {
   width: 64px; height: 64px; border-radius: 50%; background: #16a34a; color: #fff;
   display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 800;
 }
+
+/* ===== Diseño de Comprobantes ===== */
+.cmp { display: grid; grid-template-columns: 420px 1fr; gap: 24px; padding: 16px; }
+.cmp__preview { display: flex; justify-content: center; }
+.cmp__panel { max-width: 520px; }
+.cmp__sub { font-size: 18px; font-weight: 600; color: #374151; margin: 16px 0 8px; }
+.cmp__formatos { display: flex; gap: 16px; margin-bottom: 16px; }
+.cmp__fmt { padding: 14px 22px; border: 1px solid #e5e7eb; border-radius: 6px; background: #fff; font-size: 15px; }
+.cmp__fmt--on { background: #f7c948; border-color: #f7c948; font-weight: 700; }
+.cmp__logo-btn {
+  display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+  background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 14px;
+  font-weight: 600; margin-bottom: 16px;
+}
+.cmp__campos { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+.cmp__campos label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #374151; }
+.cmp__campos input { padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; }
+.cmp__guardar {
+  border: 2px solid #111; background: #fff; font-weight: 800; font-size: 18px;
+  padding: 12px 48px; border-radius: 4px;
+}
+.cmp__guardar:hover { background: #f7c948; border-color: #f7c948; }
+
+/* ===== Comprobante (ticket) renderizado ===== */
+.tk {
+  width: 320px; background: #fff; color: #111; padding: 14px 16px;
+  font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; border: 1px solid #e5e7eb;
+}
+.tk__logo {
+  width: 86px; height: 86px; margin: 0 auto 8px; border-radius: 50%;
+  background: #111; color: #fff; display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: 11px; font-weight: 800; overflow: hidden;
+}
+.tk__logo img { width: 100%; height: 100%; object-fit: cover; }
+.tk__empresa { text-align: center; font-weight: 800; font-size: 15px; margin-bottom: 4px; }
+.tk__band { background: #fde9a6; text-align: center; padding: 3px 4px; margin: 2px 0; font-weight: 600; }
+.tk__band--inline { display: inline; padding: 0 6px; }
+.tk__doc { font-weight: 800; margin: 8px 0 4px; }
+.tk__barcode {
+  height: 46px; margin: 0 auto 10px; width: 80%;
+  background: repeating-linear-gradient(90deg, #111 0 2px, #fff 2px 4px, #111 4px 5px, #fff 5px 8px);
+}
+.tk__row { display: flex; justify-content: space-between; font-size: 12px; }
+.tk__row span { color: #374151; }
+.tk__items { width: 100%; border-collapse: collapse; margin: 8px 0; border-top: 1px dashed #999; border-bottom: 1px dashed #999; }
+.tk__items th { text-align: left; font-size: 11px; padding: 4px 0; border-bottom: 1px dashed #ccc; }
+.tk__items td { font-size: 12px; padding: 3px 0; vertical-align: top; }
+.tk__tot { display: flex; justify-content: space-between; font-size: 12px; }
+.tk__tot--big { font-weight: 800; font-size: 15px; border-top: 1px solid #111; margin-top: 2px; padding-top: 2px; }
+.tk__son { font-size: 12px; margin: 6px 0; }
+.tk__prods { border-top: 1px dashed #999; margin-top: 8px; padding-top: 4px; font-size: 12px; }
+.tk__stars { text-align: center; overflow: hidden; white-space: nowrap; margin: 6px 0; }
+.tk__qr {
+  width: 84px; height: 84px; margin: 6px auto 0;
+  background:
+    repeating-linear-gradient(90deg, #111 0 6px, #fff 6px 12px),
+    repeating-linear-gradient(0deg, #111 0 6px, #fff 6px 12px);
+  background-blend-mode: multiply; border: 4px solid #fff; outline: 1px solid #111;
+}
+.tk__fiscal { margin-top: 8px; font-size: 11px; }
