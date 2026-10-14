@@ -8,8 +8,7 @@
     "dev": "electron-vite dev",
     "build": "electron-vite build",
     "start": "electron-vite preview",
-    "pack:api": "node ../../scripts/empaquetar-api.mjs",
-    "dist:win": "electron-vite build && npm run pack:api && electron-builder --win",
+    "dist:win": "npm run build && electron-builder --win nsis",
     "lint": "echo \"(sin lint aún)\""
   },
   "build": {
@@ -85,9 +84,9 @@
     "@types/react": "^18.3.4",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
-    "electron": "^31.4.0",
-    "electron-builder": "^24.13.3",
+    "electron": "31.7.7",
     "electron-vite": "^2.3.0",
+    "electron-builder": "^26.0.12",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "typescript": "^5.5.4",
