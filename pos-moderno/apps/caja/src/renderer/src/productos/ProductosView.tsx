@@ -1,4 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  ArrowLeft,
+  Download,
+  FileSpreadsheet,
+  Pencil,
+  Plus,
+  RefreshCw,
+  Trash2,
+} from 'lucide-react';
 import type { ProductoDTO } from '@pos/types';
 import {
   actualizarProducto,
@@ -10,6 +19,30 @@ import {
   obtenerGrupos,
   obtenerProductos,
 } from '../api';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Alert } from '@/components/ui/alert';
+import { Card } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+
+const SIN_GRUPO = '__none__';
 
 const VACIO = {
   id: null as number | null,
@@ -100,7 +133,7 @@ export function ProductosView(): JSX.Element {
     setF({
       id: p.id,
       descripcion: p.descripcion ?? '',
-      seVendeA: p.seVendeA ?? 'UNIDAD',
+      seVendeA: (p as { seVendeA?: string }).seVendeA ?? 'UNIDAD',
       costo: String(costo),
       ganancia: costo > 0 ? ((pv / costo - 1) * 100).toFixed(2) : '0',
       precioVenta: String(pv),
@@ -187,10 +220,10 @@ export function ProductosView(): JSX.Element {
   // ---------- Vista LISTA ----------
   if (vista === 'lista') {
     return (
-      <main className="page prodlist">
-        <div className="prodlist__bar">
-          <input
-            className="prodlist__search"
+      <main className="min-h-full bg-background p-5">
+        <div className="mb-4 flex flex-wrap items-center gap-3">
+          <Input
+            className="max-w-xs"
             placeholder="Buscar…"
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
@@ -199,62 +232,92 @@ export function ProductosView(): JSX.Element {
             ref={fileRef}
             type="file"
             accept=".xlsx"
-            style={{ display: 'none' }}
+            className="hidden"
             onChange={importar}
           />
-          <button className="prodlist__excel" type="button" onClick={() => fileRef.current?.click()}>
-            ▦ Importar desde EXCEL
-          </button>
-          <button className="prodlist__excel" type="button" onClick={() => void descargarPlantillaProductos()} style={{ color: '#64748b' }}>
-            ⬇ Plantilla
-          </button>
-          <button className="prodlist__add" type="button" onClick={abrirNuevo} title="Agregar producto">
-            +
-          </button>
+          <Button variant="outline" type="button" onClick={() => fileRef.current?.click()}>
+            <FileSpreadsheet /> Importar desde EXCEL
+          </Button>
+          <Button
+            variant="outline"
+            type="button"
+            className="text-muted-foreground"
+            onClick={() => void descargarPlantillaProductos()}
+          >
+            <Download /> Plantilla
+          </Button>
+          <Button type="button" onClick={abrirNuevo} title="Agregar producto" className="ml-auto">
+            <Plus /> Agregar
+          </Button>
         </div>
 
-        {error && <p className="alert alert--error">{error}</p>}
-        {msg && <p className="alert alert--ok">{msg}</p>}
+        {error && <Alert variant="error" className="mb-3">{error}</Alert>}
+        {msg && <Alert variant="success" className="mb-3">{msg}</Alert>}
 
-        <table className="tabla">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Codigo</th>
-              <th>Grupo</th>
-              <th>Descripcion</th>
-              <th className="num">Impuesto</th>
-              <th className="num">P_Compra</th>
-              <th className="num">P_mayoreo</th>
-              <th className="num">Stock_minimo</th>
-              <th>F_vencimiento</th>
-              <th className="num">Stock</th>
-              <th className="num">P_venta</th>
-            </tr>
-          </thead>
-          <tbody>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead></TableHead>
+              <TableHead>Codigo</TableHead>
+              <TableHead>Grupo</TableHead>
+              <TableHead>Descripcion</TableHead>
+              <TableHead className="text-right">Impuesto</TableHead>
+              <TableHead className="text-right">P_Compra</TableHead>
+              <TableHead className="text-right">P_mayoreo</TableHead>
+              <TableHead className="text-right">Stock_minimo</TableHead>
+              <TableHead>F_vencimiento</TableHead>
+              <TableHead className="text-right">Stock</TableHead>
+              <TableHead className="text-right">P_venta</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {lista.map((p) => (
-              <tr key={p.id}>
-                <td className="acc">
-                  <button className="ico ico--del" title="Eliminar" onClick={() => borrar(p.id)}>✕</button>
-                  <button className="ico ico--edit" title="Editar" onClick={() => abrirEditar(p)}>✎</button>
-                </td>
-                <td>{p.codigo}</td>
-                <td>{grupoNombre(p.idGrupo)}</td>
-                <td>{p.descripcion}</td>
-                <td className="num">{p.impuesto ?? '0'}</td>
-                <td className="num">{(p.precioCompra ?? 0).toFixed(2)}</td>
-                <td className="num">{(p.precioMayoreo ?? 0).toFixed(2)}</td>
-                <td className="num">{(p.stockMinimo ?? 0).toFixed(2)}</td>
-                <td>{p.fechaVencimiento ?? ''}</td>
-                <td className="num">{p.usaInventarios === 'SI' ? p.stock : '—'}</td>
-                <td className="num">{(p.precioVenta ?? 0).toFixed(2)}</td>
-              </tr>
+              <TableRow key={p.id}>
+                <TableCell>
+                  <div className="flex gap-1">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-8 text-destructive"
+                      title="Eliminar"
+                      onClick={() => borrar(p.id)}
+                    >
+                      <Trash2 />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-8"
+                      title="Editar"
+                      onClick={() => abrirEditar(p)}
+                    >
+                      <Pencil />
+                    </Button>
+                  </div>
+                </TableCell>
+                <TableCell>{p.codigo}</TableCell>
+                <TableCell>{grupoNombre(p.idGrupo)}</TableCell>
+                <TableCell>{p.descripcion}</TableCell>
+                <TableCell className="text-right">{p.impuesto ?? '0'}</TableCell>
+                <TableCell className="text-right">{(p.precioCompra ?? 0).toFixed(2)}</TableCell>
+                <TableCell className="text-right">{(p.precioMayoreo ?? 0).toFixed(2)}</TableCell>
+                <TableCell className="text-right">{(p.stockMinimo ?? 0).toFixed(2)}</TableCell>
+                <TableCell>{p.fechaVencimiento ?? ''}</TableCell>
+                <TableCell className="text-right">{p.usaInventarios === 'SI' ? p.stock : '—'}</TableCell>
+                <TableCell className="text-right">{(p.precioVenta ?? 0).toFixed(2)}</TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+            {lista.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={11} className="text-muted-foreground">
+                  Sin productos.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
 
-        <div className="prod__footer">
+        <div className="mt-4 flex flex-wrap gap-6 rounded-lg bg-muted px-5 py-3">
           <span>Cant. de Productos: <strong>{productos.length}</strong></span>
           <span>Costo de Inventario: <strong>{costoInventario.toFixed(2)}</strong></span>
         </div>
@@ -264,80 +327,143 @@ export function ProductosView(): JSX.Element {
 
   // ---------- Vista FORMULARIO ----------
   return (
-    <main className="page prod">
-      <div className="prod__bar">
-        <button className="btn" type="button" onClick={() => setVista('lista')}>← Volver al listado</button>
+    <main className="min-h-full bg-background p-5">
+      <div className="mb-4">
+        <Button variant="outline" type="button" onClick={() => setVista('lista')}>
+          <ArrowLeft /> Volver al listado
+        </Button>
       </div>
-      {error && <p className="alert alert--error">{error}</p>}
+      {error && <Alert variant="error" className="mb-3">{error}</Alert>}
 
-      <form className="prod__form panel" onSubmit={guardar}>
-        <div className="fila">
-          <label>Descripción:</label>
-          <input value={f.descripcion} onChange={(e) => setF((p) => ({ ...p, descripcion: e.target.value }))} required />
-        </div>
-
-        <div className="fila">
-          <label></label>
-          <div className="radios">
-            <label><input type="radio" checked={f.seVendeA === 'UNIDAD'} onChange={() => setF((p) => ({ ...p, seVendeA: 'UNIDAD' }))} /> Por Unidad/Pieza</label>
-            <label><input type="radio" checked={f.seVendeA === 'GRANEL'} onChange={() => setF((p) => ({ ...p, seVendeA: 'GRANEL' }))} /> A granel (usa decimales)</label>
+      <Card className="max-w-3xl p-6">
+        <form className="flex flex-col gap-4" onSubmit={guardar}>
+          <div className="grid gap-1.5">
+            <Label>Descripción:</Label>
+            <Input value={f.descripcion} onChange={(e) => setF((p) => ({ ...p, descripcion: e.target.value }))} required />
           </div>
-        </div>
 
-        <div className="fila"><label>Precio Costo:</label><input type="number" step="0.01" value={f.costo} onChange={(e) => setCosto(e.target.value)} /></div>
-        <div className="fila"><label>% Ganancia:</label><input type="number" step="0.01" value={f.ganancia} onChange={(e) => setGanancia(e.target.value)} /></div>
-        <div className="fila"><label>Precio venta:</label><input type="number" step="0.01" value={f.precioVenta} onChange={(e) => setPrecioVenta(e.target.value)} /></div>
-        <div className="fila">
-          <label>Precio Mayoreo:</label>
-          <input type="number" step="0.01" value={f.precioMayoreo} onChange={(e) => setF((p) => ({ ...p, precioMayoreo: e.target.value }))} />
-          <span className="apd">A partir de:</span>
-          <input className="chico" type="number" value={f.aPartirDe} onChange={(e) => setF((p) => ({ ...p, aPartirDe: e.target.value }))} />
-          <span>Unidades</span>
-        </div>
+          <RadioGroup
+            value={f.seVendeA}
+            onValueChange={(v) => setF((p) => ({ ...p, seVendeA: v }))}
+            className="grid-flow-col justify-start gap-6"
+          >
+            <label className="flex items-center gap-2 text-sm">
+              <RadioGroupItem value="UNIDAD" /> Por Unidad/Pieza
+            </label>
+            <label className="flex items-center gap-2 text-sm">
+              <RadioGroupItem value="GRANEL" /> A granel (usa decimales)
+            </label>
+          </RadioGroup>
 
-        <div className="fila">
-          <label>Grupo:</label>
-          <select value={f.idGrupo} onChange={(e) => setF((p) => ({ ...p, idGrupo: e.target.value ? Number(e.target.value) : '' }))}>
-            <option value="">— sin grupo —</option>
-            {grupos.map((g) => (<option key={g.idLine} value={g.idLine}>{g.linea}</option>))}
-          </select>
-          <button type="button" onClick={() => setMostrarNuevoGrupo((v) => !v)}>+ Agregar Grupo</button>
-        </div>
-        {mostrarNuevoGrupo && (
-          <div className="fila">
-            <label></label>
-            <input placeholder="Nombre del grupo" value={nuevoGrupo} onChange={(e) => setNuevoGrupo(e.target.value)} />
-            <button type="button" onClick={agregarGrupo}>Guardar grupo</button>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <div className="grid gap-1.5">
+              <Label>Precio Costo:</Label>
+              <Input type="number" step="0.01" value={f.costo} onChange={(e) => setCosto(e.target.value)} />
+            </div>
+            <div className="grid gap-1.5">
+              <Label>% Ganancia:</Label>
+              <Input type="number" step="0.01" value={f.ganancia} onChange={(e) => setGanancia(e.target.value)} />
+            </div>
+            <div className="grid gap-1.5">
+              <Label>Precio venta:</Label>
+              <Input type="number" step="0.01" value={f.precioVenta} onChange={(e) => setPrecioVenta(e.target.value)} />
+            </div>
           </div>
-        )}
 
-        <div className="fila">
-          <label>Código de barras:</label>
-          <input value={f.codigo} onChange={(e) => setF((p) => ({ ...p, codigo: e.target.value }))} />
-          <button type="button" onClick={generarCodigo}>Generar código</button>
-        </div>
+          <div className="flex flex-wrap items-end gap-3">
+            <div className="grid gap-1.5">
+              <Label>Precio Mayoreo:</Label>
+              <Input type="number" step="0.01" value={f.precioMayoreo} onChange={(e) => setF((p) => ({ ...p, precioMayoreo: e.target.value }))} />
+            </div>
+            <div className="grid gap-1.5">
+              <Label>A partir de:</Label>
+              <Input className="w-24" type="number" value={f.aPartirDe} onChange={(e) => setF((p) => ({ ...p, aPartirDe: e.target.value }))} />
+            </div>
+            <span className="pb-2 text-sm text-muted-foreground">Unidades</span>
+          </div>
 
-        <div className="prod__inv">
-          <label className="inv__title">
-            <input type="checkbox" checked={f.controlar} onChange={(e) => setF((p) => ({ ...p, controlar: e.target.checked }))} /> Controlar inventarios
-          </label>
-          {f.controlar && (
-            <>
-              <div className="fila"><label>Hay:</label><input type="number" step="0.01" value={f.stock} onChange={(e) => setF((p) => ({ ...p, stock: e.target.value }))} /> <span>en este momento.</span></div>
-              <div className="fila"><label>Mínimo:</label><input type="number" step="0.01" value={f.stockMinimo} onChange={(e) => setF((p) => ({ ...p, stockMinimo: e.target.value }))} /></div>
-              <div className="fila">
-                <label>Fecha de Venc:</label>
-                <input type="date" value={f.fechaVencimiento} disabled={f.noAplicaVenc} onChange={(e) => setF((p) => ({ ...p, fechaVencimiento: e.target.value }))} />
-                <label><input type="checkbox" checked={f.noAplicaVenc} onChange={(e) => setF((p) => ({ ...p, noAplicaVenc: e.target.checked }))} /> No aplica</label>
-              </div>
-            </>
+          <div className="flex flex-wrap items-end gap-3">
+            <div className="grid gap-1.5">
+              <Label>Grupo:</Label>
+              <Select
+                value={f.idGrupo ? String(f.idGrupo) : SIN_GRUPO}
+                onValueChange={(v) => setF((p) => ({ ...p, idGrupo: v && v !== SIN_GRUPO ? Number(v) : '' }))}
+              >
+                <SelectTrigger className="min-w-[14rem]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={SIN_GRUPO}>— sin grupo —</SelectItem>
+                  {grupos.map((g) => (
+                    <SelectItem key={g.idLine} value={String(g.idLine)}>{g.linea}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <Button variant="outline" type="button" onClick={() => setMostrarNuevoGrupo((v) => !v)}>
+              <Plus /> Agregar Grupo
+            </Button>
+          </div>
+          {mostrarNuevoGrupo && (
+            <div className="flex items-end gap-3">
+              <Input className="max-w-xs" placeholder="Nombre del grupo" value={nuevoGrupo} onChange={(e) => setNuevoGrupo(e.target.value)} />
+              <Button variant="outline" type="button" onClick={agregarGrupo}>Guardar grupo</Button>
+            </div>
           )}
-        </div>
 
-        <button className="btn btn--primary prod__guardar" type="submit">
-          {f.id ? 'Actualizar' : 'Guardar'}
-        </button>
-      </form>
+          <div className="flex flex-wrap items-end gap-3">
+            <div className="grid gap-1.5">
+              <Label>Código de barras:</Label>
+              <Input value={f.codigo} onChange={(e) => setF((p) => ({ ...p, codigo: e.target.value }))} />
+            </div>
+            <Button variant="outline" type="button" onClick={generarCodigo}>
+              <RefreshCw /> Generar código
+            </Button>
+          </div>
+
+          <div className="rounded-lg border p-4">
+            <label className="flex items-center gap-2 text-sm font-semibold">
+              <Checkbox
+                checked={f.controlar}
+                onCheckedChange={(c) => setF((p) => ({ ...p, controlar: c === true }))}
+              />
+              Controlar inventarios
+            </label>
+            {f.controlar && (
+              <div className="mt-4 flex flex-col gap-4">
+                <div className="flex flex-wrap items-end gap-3">
+                  <div className="grid gap-1.5">
+                    <Label>Hay:</Label>
+                    <Input type="number" step="0.01" value={f.stock} onChange={(e) => setF((p) => ({ ...p, stock: e.target.value }))} />
+                  </div>
+                  <span className="pb-2 text-sm text-muted-foreground">en este momento.</span>
+                </div>
+                <div className="grid max-w-xs gap-1.5">
+                  <Label>Mínimo:</Label>
+                  <Input type="number" step="0.01" value={f.stockMinimo} onChange={(e) => setF((p) => ({ ...p, stockMinimo: e.target.value }))} />
+                </div>
+                <div className="flex flex-wrap items-end gap-4">
+                  <div className="grid gap-1.5">
+                    <Label>Fecha de Venc:</Label>
+                    <Input type="date" value={f.fechaVencimiento} disabled={f.noAplicaVenc} onChange={(e) => setF((p) => ({ ...p, fechaVencimiento: e.target.value }))} />
+                  </div>
+                  <label className="flex items-center gap-2 pb-2 text-sm">
+                    <Checkbox
+                      checked={f.noAplicaVenc}
+                      onCheckedChange={(c) => setF((p) => ({ ...p, noAplicaVenc: c === true }))}
+                    />
+                    No aplica
+                  </label>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <Button type="submit" className="self-start">
+            {f.id ? 'Actualizar' : 'Guardar'}
+          </Button>
+        </form>
+      </Card>
     </main>
   );
 }

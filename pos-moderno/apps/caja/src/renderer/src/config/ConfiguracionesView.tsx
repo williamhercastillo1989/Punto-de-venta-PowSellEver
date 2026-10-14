@@ -1,3 +1,7 @@
+import { Crown } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+
 interface Item {
   k: string;
   label: string;
@@ -54,21 +58,33 @@ export function ConfiguracionesView({
   onVolver: () => void;
 }): JSX.Element {
   return (
-    <div className="cfg">
-      <button className="cfg__back" onClick={onVolver}>👑 Volver al Administrador</button>
-      <div className="cfg__groups">
+    <div className="p-4">
+      <div className="mb-4">
+        <Button variant="outline" onClick={onVolver}>
+          <Crown /> Volver al Administrador
+        </Button>
+      </div>
+      <div className="flex flex-col gap-6">
         {GRUPOS.map((g) => (
-          <section key={g.titulo} className="cfg__group">
-            <h3>{g.titulo}</h3>
-            <div className="cfg__items">
-              {g.items.map((it) => (
-                <button key={it.k} className="cfg__item" onClick={() => onAbrir(it.k)}>
-                  <span className="cfg__icon">{it.icon}</span>
-                  <span className="cfg__label">{it.label}</span>
-                </button>
-              ))}
-            </div>
-          </section>
+          <Card key={g.titulo}>
+            <CardHeader>
+              <CardTitle className="text-base">{g.titulo}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+                {g.items.map((it) => (
+                  <button
+                    key={it.k}
+                    className="flex flex-col items-center justify-center gap-2 rounded-lg border bg-card p-4 text-center transition-colors hover:border-primary hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    onClick={() => onAbrir(it.k)}
+                  >
+                    <span className="text-3xl leading-none">{it.icon}</span>
+                    <span className="text-sm font-medium">{it.label}</span>
+                  </button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         ))}
       </div>
     </div>

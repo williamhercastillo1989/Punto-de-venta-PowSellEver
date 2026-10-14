@@ -5,9 +5,43 @@ import type {
   RegistrarVentaDTO,
   UsuarioAutenticadoDTO,
 } from '@pos/types';
-import { obtenerClientes, obtenerEmpresa, obtenerProductos } from '../api';
+import {
+  obtenerClientes,
+  obtenerEmpresa,
+  obtenerProductos,
+  obtenerTicket,
+} from '../api';
+import {
+  Camera,
+  CreditCard,
+  Keyboard,
+  Minus,
+  Monitor,
+  Moon,
+  Pause,
+  Play,
+  Plus,
+  Search,
+  Sun,
+  Trash2,
+  Users,
+  X,
+} from 'lucide-react';
+import { numeroALetras, DISENO_DEFAULT } from '../ticket/comprobante';
 import { CobroModal, type DatosCobro } from './CobroModal';
 import { TicketPreview, type TicketData } from './TicketPreview';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Alert } from '@/components/ui/alert';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { cn } from '@/lib/utils';
 
 interface Props {
   idCaja: number;
@@ -232,15 +266,39 @@ export function VentasPage({
 
     if (datos.modo === 'directo') {
       try {
+        const cfg = ((await obtenerTicket().catch(() => ({}))) ?? {}) as Record<string, string>;
+        const txt = (k: string, def: string): string =>
+          typeof cfg[k] === 'string' && cfg[k].trim() ? cfg[k] : def;
+        const esFactura = cfg.formato === 'FACTURA' || datos.tipoDoc === 'FACTURA';
         await window.posAPI.impresora.imprimirTicket('192.168.1.100', 9100, {
           empresa: empresaNombre,
+          identificadorFiscal: txt('identificadorFiscal', DISENO_DEFAULT.identificadorFiscal),
+          direccion: txt('direccion', DISENO_DEFAULT.direccion),
+          provinciaDepartamentoPais: txt('provinciaDepartamentoPais', DISENO_DEFAULT.provinciaDepartamentoPais),
+          numeroDoc: docActual,
+          cajero: usuario?.nombres ?? usuario?.login ?? '',
+          cliente:
+            clientes.find((c) => c.idCliente === datos.idCliente)?.nombre ?? 'GENERICO',
+          fecha: new Date().toLocaleString(),
           lineas: carrito.map((l) => ({
             descripcion: l.producto.descripcion ?? '',
             cantidad: l.cantidad,
             precio: l.precioUnitario,
           })),
+          subtotal: total,
+          descuento: 0,
           total,
-          pie: '¡Gracias por su compra!',
+          son: numeroALetras(total),
+          nombreDeMoneda: txt('nombreDeMoneda', DISENO_DEFAULT.nombreDeMoneda),
+          efectivo: datos.efectivo,
+          vuelto: datos.vuelto,
+          tipoPago,
+          numProductos: carrito.reduce((s, l) => s + l.cantidad, 0),
+          agradecimiento: txt('agradecimiento', DISENO_DEFAULT.agradecimiento),
+          paginaWebFacebook: txt('paginaWebFacebook', DISENO_DEFAULT.paginaWebFacebook),
+          anuncio: txt('anuncio', DISENO_DEFAULT.anuncio),
+          datosFiscales: txt('datosFiscales', DISENO_DEFAULT.datosFiscales),
+          esFactura,
         });
       } catch {
         /* impresora opcional */
@@ -257,7 +315,13 @@ export function VentasPage({
         cajero: usuario?.nombres ?? usuario?.login ?? '',
         cliente: nombreCli,
         fecha: new Date().toLocaleString(),
+        subtotal: total,
+        descuento: 0,
         total,
+        efectivo: datos.efectivo,
+        vuelto: datos.vuelto,
+        tipoPago,
+        numProductos: carrito.reduce((s, l) => s + l.cantidad, 0),
         lineas: carrito.map((l) => ({
           descripcion: l.producto.descripcion ?? '',
           cantidad: l.cantidad,
@@ -293,115 +357,163 @@ export function VentasPage({
   const credito = (): void => setMsg('Gestión de créditos: próximamente.');
 
   return (
-    <div className={oscuro ? 'pos pos--dark' : 'pos'}>
+    <div className={cn('flex min-h-full flex-col bg-background text-foreground', oscuro && 'dark')}>
       {/* Barra superior */}
-      <div className="pos__top">
-        <div className="pos__brand">🖥️ PSE</div>
-        <input
-          ref={buscarRef}
-          className="pos__input"
-          placeholder={
-            modo === 'teclado'
-              ? 'Buscar con TECLADO (nombre o código)'
-              : 'Buscar con LECTORA de Codigos de Barras'
-          }
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
-          onKeyDown={onBuscarKey}
-        />
-        <div className="pos__toggle">
-          <button className={modo === 'lectora' ? 'on' : ''} onClick={() => setModo('lectora')}>📷 Lectora (F1)</button>
-          <button className={modo === 'teclado' ? 'on' : ''} onClick={() => setModo('teclado')}>⌨ Teclado (F2)</button>
+      <header className="flex flex-wrap items-center gap-3 border-b bg-card px-4 py-2">
+        <div className="flex items-center gap-2 text-lg font-bold">
+          <Monitor className="size-5 text-primary" /> PSE
         </div>
-        <div className="pos__user">👑 {usuario?.nombres ?? usuario?.login ?? 'Usuario'}</div>
-      </div>
+        <div className="relative min-w-[16rem] flex-1">
+          <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            ref={buscarRef}
+            className="pl-9"
+            placeholder={
+              modo === 'teclado'
+                ? 'Buscar con TECLADO (nombre o código)'
+                : 'Buscar con LECTORA de Codigos de Barras'
+            }
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
+            onKeyDown={onBuscarKey}
+          />
+          {sugerencias.length > 0 && (
+            <ul className="absolute z-20 mt-1 max-h-72 w-full overflow-auto rounded-md border bg-popover p-1 shadow-md">
+              {sugerencias.map((p) => (
+                <li
+                  key={p.id}
+                  className="flex cursor-pointer items-center justify-between gap-3 rounded-sm px-3 py-2 text-sm hover:bg-accent"
+                  onClick={() => { agregar(p); setBusqueda(''); buscarRef.current?.focus(); }}
+                >
+                  <span>{p.descripcion}</span>
+                  <span className="text-muted-foreground">{p.codigo} · {precioDe(p).toFixed(2)}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <div className="flex gap-1">
+          <Button variant={modo === 'lectora' ? 'default' : 'outline'} size="sm" onClick={() => setModo('lectora')}>
+            <Camera /> Lectora (F1)
+          </Button>
+          <Button variant={modo === 'teclado' ? 'default' : 'outline'} size="sm" onClick={() => setModo('teclado')}>
+            <Keyboard /> Teclado (F2)
+          </Button>
+        </div>
+        <div className="text-sm font-medium">👑 {usuario?.nombres ?? usuario?.login ?? 'Usuario'}</div>
+      </header>
 
       {/* Acciones rápidas */}
-      <div className="pos__acts">
-        <button onClick={() => onIr?.('cobros')}>💳 Cobros</button>
-        <button onClick={credito}>👥 Aperturar Credito por Cobrar</button>
-        <button onClick={credito}>🧍 Aperturar Credito por Pagar</button>
-        <button className={mayoreo ? 'act-on' : ''} onClick={toggleMayoreo}>🪙 Mayoreo</button>
-        <button onClick={() => onIr?.('movimientos')}>↩ Ingreso dinero</button>
-        <button onClick={() => onIr?.('movimientos')}>↪ Salida dinero</button>
+      <div className="flex flex-wrap gap-2 border-b bg-muted/40 px-4 py-2">
+        <Button variant="outline" size="sm" onClick={() => onIr?.('cobros')}><CreditCard /> Cobros</Button>
+        <Button variant="outline" size="sm" onClick={credito}><Users /> Aperturar Credito por Cobrar</Button>
+        <Button variant="outline" size="sm" onClick={credito}>Aperturar Credito por Pagar</Button>
+        <Button variant={mayoreo ? 'default' : 'outline'} size="sm" onClick={toggleMayoreo}>🪙 Mayoreo</Button>
+        <Button variant="outline" size="sm" onClick={() => onIr?.('movimientos')}>↩ Ingreso dinero</Button>
+        <Button variant="outline" size="sm" onClick={() => onIr?.('movimientos')}>↪ Salida dinero</Button>
       </div>
 
-      <div className="pos__ctas">
-        <button className="cta cta--blue" onClick={() => onIr?.('movimientos')}>Ver Ingresos y Salidas</button>
-        <button className="cta cta--orange" onClick={() => onCerrarTurno?.()}>Cerrar Turno</button>
-        <button className="cta cta--orange" onClick={() => onIr?.('compras')}>Comprar</button>
+      <div className="flex flex-wrap gap-2 px-4 py-2">
+        <Button variant="secondary" onClick={() => onIr?.('movimientos')}>Ver Ingresos y Salidas</Button>
+        <Button onClick={() => onCerrarTurno?.()}>Cerrar Turno</Button>
+        <Button onClick={() => onIr?.('compras')}>Comprar</Button>
       </div>
 
-      {sugerencias.length > 0 && (
-        <ul className="pos__sugerencias">
-          {sugerencias.map((p) => (
-            <li key={p.id} onClick={() => { agregar(p); setBusqueda(''); buscarRef.current?.focus(); }}>
-              <span>{p.descripcion}</span>
-              <span className="muted">{p.codigo} · {precioDe(p).toFixed(2)}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <div className="pos__body">
-        <section className="pos__cart">
-          <table>
-            <thead>
-              <tr><th></th><th></th><th></th><th>Producto</th><th className="num">Cant</th><th className="num">P_Unit</th><th className="num">Importe</th><th className="num">Stock</th></tr>
-            </thead>
-            <tbody>
-              {carrito.map((l, i) => (
-                <tr key={l.producto.id} className={sel === i ? 'sel' : ''} onClick={() => setSel(i)}>
-                  <td><button className="x" onClick={() => quitar(i)}>✕</button></td>
-                  <td><button onClick={() => cambiarCantidad(i, 1)}>+</button></td>
-                  <td><button onClick={() => cambiarCantidad(i, -1)}>−</button></td>
-                  <td>{l.producto.descripcion}</td>
-                  <td className="num">{l.cantidad.toFixed(2)}</td>
-                  <td className="num">{l.precioUnitario.toFixed(2)}</td>
-                  <td className="num">{(l.cantidad * l.precioUnitario).toFixed(2)}</td>
-                  <td className="num">{l.producto.stock ?? '—'}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {error && <p className="alert alert--error">{error}</p>}
-          {msg && <p className="alert alert--ok">{msg}</p>}
+      <div className="flex flex-1 flex-wrap gap-4 px-4 pb-4">
+        <section className="flex min-w-[20rem] flex-1 flex-col gap-3">
+          <div className="rounded-lg border bg-card">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-8"></TableHead>
+                  <TableHead className="w-8"></TableHead>
+                  <TableHead className="w-8"></TableHead>
+                  <TableHead>Producto</TableHead>
+                  <TableHead className="text-right">Cant</TableHead>
+                  <TableHead className="text-right">P_Unit</TableHead>
+                  <TableHead className="text-right">Importe</TableHead>
+                  <TableHead className="text-right">Stock</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {carrito.map((l, i) => (
+                  <TableRow
+                    key={l.producto.id}
+                    data-state={sel === i ? 'selected' : undefined}
+                    className="cursor-pointer"
+                    onClick={() => setSel(i)}
+                  >
+                    <TableCell>
+                      <Button variant="ghost" size="icon" className="size-7 text-destructive" onClick={() => quitar(i)}>
+                        <X />
+                      </Button>
+                    </TableCell>
+                    <TableCell>
+                      <Button variant="ghost" size="icon" className="size-7" onClick={() => cambiarCantidad(i, 1)}>
+                        <Plus />
+                      </Button>
+                    </TableCell>
+                    <TableCell>
+                      <Button variant="ghost" size="icon" className="size-7" onClick={() => cambiarCantidad(i, -1)}>
+                        <Minus />
+                      </Button>
+                    </TableCell>
+                    <TableCell>{l.producto.descripcion}</TableCell>
+                    <TableCell className="text-right tabular-nums">{l.cantidad.toFixed(2)}</TableCell>
+                    <TableCell className="text-right tabular-nums">{l.precioUnitario.toFixed(2)}</TableCell>
+                    <TableCell className="text-right tabular-nums">{(l.cantidad * l.precioUnitario).toFixed(2)}</TableCell>
+                    <TableCell className="text-right tabular-nums">{l.producto.stock ?? '—'}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+          {error && <Alert variant="error">{error}</Alert>}
+          {msg && <Alert variant="success">{msg}</Alert>}
         </section>
 
-        <aside className="pos__panel">
-          <div className="pos__totalbox">{total.toFixed(2)}</div>
-          <input className="pos__display" value={entrada} readOnly />
-          <div className="keypad">
-            {['1', '2', '3'].map((d) => (<button key={d} onClick={() => tecla(d)}>{d}</button>))}
-            <button className="k-act" onClick={() => aplicar('cantidad')}>CANT</button>
-            {['4', '5', '6'].map((d) => (<button key={d} onClick={() => tecla(d)}>{d}</button>))}
-            <button className="k-act" onClick={() => aplicar('precio')}>PREC</button>
-            {['7', '8', '9'].map((d) => (<button key={d} onClick={() => tecla(d)}>{d}</button>))}
-            <button className="k-act" onClick={() => setEntrada('')}>Borrar</button>
-            <button onClick={() => tecla('0')}>0</button>
-            <button onClick={() => tecla(',')}>,</button>
-            <button onClick={() => setEntrada((e) => e.slice(0, -1))}>⌫</button>
+        <aside className="flex w-72 flex-col gap-3">
+          <div className="rounded-lg bg-primary/10 p-4 text-right text-3xl font-bold tabular-nums">{total.toFixed(2)}</div>
+          <Input className="text-right text-lg tabular-nums" value={entrada} readOnly />
+          <div className="grid grid-cols-4 gap-2">
+            {['1', '2', '3'].map((d) => (<Button key={d} variant="outline" onClick={() => tecla(d)}>{d}</Button>))}
+            <Button variant="secondary" onClick={() => aplicar('cantidad')}>CANT</Button>
+            {['4', '5', '6'].map((d) => (<Button key={d} variant="outline" onClick={() => tecla(d)}>{d}</Button>))}
+            <Button variant="secondary" onClick={() => aplicar('precio')}>PREC</Button>
+            {['7', '8', '9'].map((d) => (<Button key={d} variant="outline" onClick={() => tecla(d)}>{d}</Button>))}
+            <Button variant="secondary" onClick={() => setEntrada('')}>Borrar</Button>
+            <Button variant="outline" onClick={() => tecla('0')}>0</Button>
+            <Button variant="outline" onClick={() => tecla(',')}>,</Button>
+            <Button variant="outline" onClick={() => setEntrada((e) => e.slice(0, -1))}>⌫</Button>
           </div>
-          <div className="pos__totales">
-            <div><span>Sub Total:</span><span>{subTotal.toFixed(2)}</span></div>
-            <div><span>IVA (16%):</span><span>{iva.toFixed(2)}</span></div>
+          <div className="rounded-lg bg-muted p-3 text-sm">
+            <div className="flex justify-between"><span>Sub Total:</span><span className="tabular-nums">{subTotal.toFixed(2)}</span></div>
+            <div className="flex justify-between"><span>IVA (16%):</span><span className="tabular-nums">{iva.toFixed(2)}</span></div>
           </div>
-          <button className="pos__cobrar" disabled={carrito.length === 0} onClick={() => void cobrar()}>
-            Cobrar (F3)
-          </button>
+          <Button size="lg" className="w-full" disabled={carrito.length === 0} onClick={() => void cobrar()}>
+            <CreditCard /> Cobrar (F3)
+          </Button>
         </aside>
       </div>
 
       {/* Barra inferior */}
-      <div className="pos__bottom">
-        <button onClick={ponerEnEspera}>⏸ Poner en Espera{espera.length ? ` (${espera.length})` : ''}</button>
-        <button onClick={restaurar} disabled={espera.length === 0}>▶ Restaurar</button>
-        <button onClick={() => { setCarrito([]); setSel(null); }}>✎ Eliminar</button>
-        <span className="pos__bottom-right">
-          <button onClick={() => onIr?.('reportes')}>∑ Ver ventas del día y Devoluciones</button>
-          <button onClick={() => setOscuro((o) => !o)}>{oscuro ? '☀ Tema Claro' : '🌙 Tema Oscuro'}</button>
+      <footer className="flex flex-wrap items-center gap-2 border-t bg-card px-4 py-2">
+        <Button variant="outline" size="sm" onClick={ponerEnEspera}>
+          <Pause /> Poner en Espera{espera.length ? ` (${espera.length})` : ''}
+        </Button>
+        <Button variant="outline" size="sm" onClick={restaurar} disabled={espera.length === 0}>
+          <Play /> Restaurar
+        </Button>
+        <Button variant="outline" size="sm" onClick={() => { setCarrito([]); setSel(null); }}>
+          <Trash2 /> Eliminar
+        </Button>
+        <span className="ml-auto flex flex-wrap gap-2">
+          <Button variant="outline" size="sm" onClick={() => onIr?.('reportes')}>∑ Ver ventas del día y Devoluciones</Button>
+          <Button variant="outline" size="sm" onClick={() => setOscuro((o) => !o)}>
+            {oscuro ? (<><Sun /> Tema Claro</>) : (<><Moon /> Tema Oscuro</>)}
+          </Button>
         </span>
-      </div>
+      </footer>
 
       {mostrarCobro && (
         <CobroModal

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { AlertTriangle, CheckCircle2, CreditCard, Monitor, Printer, X } from 'lucide-react';
 import type { ClienteDTO } from '@pos/types';
 import {
   cancelarPagoTerminal,
@@ -6,6 +7,21 @@ import {
   iniciarPagoTerminal,
   obtenerTerminal,
 } from '../api';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Alert } from '@/components/ui/alert';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
+import { cn } from '@/lib/utils';
+
+const SELECT_CLASS =
+  'flex h-9 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring';
 
 export interface DatosCobro {
   modo: 'directo' | 'pantalla';
@@ -147,125 +163,176 @@ export function CobroModal({ total, numeroDoc, clientes, onCancelar, onConfirmar
   }, [efectivo, tarjeta, credito, idCliente, tipoDoc, vuelto]);
 
   return (
-    <div className="modal-overlay" onClick={onCancelar}>
-      <div className="cobro" onClick={(e) => e.stopPropagation()}>
-        <button className="cobro__x" onClick={onCancelar}>✕</button>
-        <div className="cobro__left">
-          <div className="cobro__total">$ {total.toFixed(2)}</div>
-          <div className="cobro__pagos">
-            <label className={campo === 'efectivo' ? 'on' : ''}>
-              Efectivo:
-              <input
-                inputMode="decimal"
-                value={efectivo}
-                onFocus={(e) => { setCampo('efectivo'); e.target.select(); }}
-                onChange={(e) => setEfectivo(e.target.value)}
-              />
-            </label>
-            <label className={campo === 'tarjeta' ? 'on' : ''}>
-              Tarjeta:
-              <input
-                inputMode="decimal"
-                value={tarjeta}
-                onFocus={(e) => { setCampo('tarjeta'); e.target.select(); }}
-                onChange={(e) => setTarjeta(e.target.value)}
-              />
-            </label>
-            <label className={campo === 'credito' ? 'on' : ''}>
-              Credito:
-              <input
-                inputMode="decimal"
-                value={credito}
-                onFocus={(e) => { setCampo('credito'); e.target.select(); }}
-                onChange={(e) => setCredito(e.target.value)}
-              />
-            </label>
-          </div>
-          <div className="cobro__vuelto">Vuelto: <strong>{vuelto.toFixed(2)}</strong></div>
-          <div className="cobro__rest">Restante: {restante.toFixed(2)}</div>
-        </div>
-
-        <div className="cobro__keypad">
-          {['1','2','3','4','5','6','7','8','9'].map((d) => (
-            <button key={d} onClick={() => tecla(d)}>{d}</button>
-          ))}
-          <button onClick={() => tecla('0')}>0</button>
-          <button onClick={() => tecla(',')}>,</button>
-          <button onClick={() => set('0')}>Borrar</button>
-        </div>
-
-        <div className="cobro__right">
-          <label className="cobro__imp">Impresora:
-            <select><option>Ninguna</option><option>Predeterminada</option></select>
-          </label>
-          <button className="cobro__directo" disabled={restante > 0} onClick={() => confirmar('directo')}>
-            Imprimir directo (ENTER)
-          </button>
-          <button className="cobro__pantalla" disabled={restante > 0} onClick={() => confirmar('pantalla')}>
-            Guardar y ver en Pantalla (F1)
-          </button>
-          {terminalOn && !procesandoTerminal && (
-            <button
-              className="cobro__terminal"
-              disabled={montoTerminal <= 0}
-              onClick={() => setConfirmandoTerminal(true)}
-            >
-              💳 Cobrar con Terminal MP
-            </button>
-          )}
-          {terminalOn && terminalSim && (
-            <div className="muted" style={{ color: '#f59e0b' }}>
-              ⚠ Modo simulación: aprueba sin usar la terminal física. Desactívalo en
-              Configurar → Terminales para cobros reales.
-            </div>
-          )}
-          {terminalOn && procesandoTerminal && (
-            <button className="cobro__cancelar" onClick={() => void cancelarTerminal()}>
-              ✕ Cancelar cobro en terminal
-            </button>
-          )}
-          {terminalMsg && <div className="cobro__tmsg">{terminalMsg}</div>}
-          <div className="cobro__doc">
-            <button className={tipoDoc === 'BOLETA' ? 'on' : ''} onClick={() => setTipoDoc('BOLETA')}>BOLETA</button>
-            <button className={tipoDoc === 'FACTURA' ? 'on' : ''} onClick={() => setTipoDoc('FACTURA')}>FACTURA</button>
-          </div>
-          <div className="cobro__cli">
-            <span>Cliente: (Opcional)</span>
-            <select value={idCliente} onChange={(e) => setIdCliente(e.target.value ? Number(e.target.value) : '')}>
-              <option value="">GENERICO</option>
-              {clientes.map((c) => (<option key={c.idCliente} value={c.idCliente}>{c.nombre}</option>))}
-            </select>
-          </div>
-          <div className="cobro__ticket">TICKET {numeroDoc}</div>
-        </div>
-
-        {confirmandoTerminal && (
-          <div className="dlg">
-            <div className="dlg__box">
-              <h3>Cobrar con Terminal</h3>
-              <p>¿Enviar un cobro de <strong>$ {montoTerminal.toFixed(2)}</strong> a la terminal Mercado Pago?</p>
-              <div className="dlg__btns">
-                <button className="btn btn--ghost" onClick={() => setConfirmandoTerminal(false)}>Cancelar</button>
-                <button className="cobro__terminal" onClick={() => { setConfirmandoTerminal(false); void cobrarConTerminal(); }}>Sí, cobrar</button>
+    <>
+      <Dialog open onOpenChange={(o) => !o && onCancelar()}>
+        <DialogContent className="max-w-4xl">
+          <DialogHeader>
+            <DialogTitle>Cobrar · TICKET {numeroDoc}</DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-6 md:grid-cols-3">
+            {/* Columna izquierda: total y pagos */}
+            <div className="flex flex-col gap-3">
+              <div className="rounded-lg bg-primary/10 p-4 text-center text-3xl font-bold tabular-nums">
+                $ {total.toFixed(2)}
               </div>
-            </div>
-          </div>
-        )}
-
-        {exitoTerminal && (
-          <div className="dlg">
-            <div className="dlg__box dlg__box--ok">
-              <div style={{ fontSize: 56 }}>✅</div>
-              <h2 style={{ color: '#16a34a', margin: '6px 0' }}>¡Pago aprobado en la terminal!</h2>
-              <p>El cobro se realizó correctamente. Finaliza la venta:</p>
-              <div className="dlg__btns">
-                <button className="cobro__directo" onClick={() => { setExitoTerminal(false); confirmar('directo'); }}>🖨 Imprimir y finalizar</button>
-                <button className="cobro__pantalla" onClick={() => { setExitoTerminal(false); confirmar('pantalla'); }}>Ver en pantalla</button>
+              <div className="flex flex-col gap-2">
+                <div
+                  className={cn(
+                    'grid gap-1.5 rounded-md border p-2',
+                    campo === 'efectivo' && 'border-primary ring-1 ring-primary',
+                  )}
+                >
+                  <Label>Efectivo:</Label>
+                  <Input
+                    inputMode="decimal"
+                    value={efectivo}
+                    onFocus={(e) => { setCampo('efectivo'); e.target.select(); }}
+                    onChange={(e) => setEfectivo(e.target.value)}
+                  />
+                </div>
+                <div
+                  className={cn(
+                    'grid gap-1.5 rounded-md border p-2',
+                    campo === 'tarjeta' && 'border-primary ring-1 ring-primary',
+                  )}
+                >
+                  <Label>Tarjeta:</Label>
+                  <Input
+                    inputMode="decimal"
+                    value={tarjeta}
+                    onFocus={(e) => { setCampo('tarjeta'); e.target.select(); }}
+                    onChange={(e) => setTarjeta(e.target.value)}
+                  />
+                </div>
+                <div
+                  className={cn(
+                    'grid gap-1.5 rounded-md border p-2',
+                    campo === 'credito' && 'border-primary ring-1 ring-primary',
+                  )}
+                >
+                  <Label>Credito:</Label>
+                  <Input
+                    inputMode="decimal"
+                    value={credito}
+                    onFocus={(e) => { setCampo('credito'); e.target.select(); }}
+                    onChange={(e) => setCredito(e.target.value)}
+                  />
+                </div>
               </div>
+              <div className="text-lg">Vuelto: <strong>{vuelto.toFixed(2)}</strong></div>
+              <div className="text-sm text-muted-foreground">Restante: {restante.toFixed(2)}</div>
+            </div>
+
+            {/* Columna central: teclado */}
+            <div className="grid h-fit grid-cols-3 gap-2">
+              {['1','2','3','4','5','6','7','8','9'].map((d) => (
+                <Button key={d} variant="outline" onClick={() => tecla(d)}>{d}</Button>
+              ))}
+              <Button variant="outline" onClick={() => tecla('0')}>0</Button>
+              <Button variant="outline" onClick={() => tecla(',')}>,</Button>
+              <Button variant="secondary" onClick={() => set('0')}>Borrar</Button>
+            </div>
+
+            {/* Columna derecha: acciones */}
+            <div className="flex flex-col gap-2">
+              <div className="grid gap-1.5">
+                <Label>Impresora:</Label>
+                <select className={SELECT_CLASS}>
+                  <option>Ninguna</option>
+                  <option>Predeterminada</option>
+                </select>
+              </div>
+              <Button disabled={restante > 0} onClick={() => confirmar('directo')}>
+                <Printer /> Imprimir directo (ENTER)
+              </Button>
+              <Button variant="secondary" disabled={restante > 0} onClick={() => confirmar('pantalla')}>
+                <Monitor /> Guardar y ver en Pantalla (F1)
+              </Button>
+              {terminalOn && !procesandoTerminal && (
+                <Button
+                  variant="success"
+                  disabled={montoTerminal <= 0}
+                  onClick={() => setConfirmandoTerminal(true)}
+                >
+                  <CreditCard /> Cobrar con Terminal MP
+                </Button>
+              )}
+              {terminalOn && terminalSim && (
+                <p className="flex items-start gap-1.5 text-xs text-muted-foreground">
+                  <AlertTriangle className="mt-0.5 size-3.5 shrink-0" />
+                  Modo simulación: aprueba sin usar la terminal física. Desactívalo en
+                  Configurar → Terminales para cobros reales.
+                </p>
+              )}
+              {terminalOn && procesandoTerminal && (
+                <Button variant="destructive" onClick={() => void cancelarTerminal()}>
+                  <X /> Cancelar cobro en terminal
+                </Button>
+              )}
+              {terminalMsg && <Alert variant="info" className="text-sm">{terminalMsg}</Alert>}
+              <div className="flex gap-2">
+                <Button
+                  variant={tipoDoc === 'BOLETA' ? 'default' : 'outline'}
+                  className="flex-1"
+                  onClick={() => setTipoDoc('BOLETA')}
+                >
+                  BOLETA
+                </Button>
+                <Button
+                  variant={tipoDoc === 'FACTURA' ? 'default' : 'outline'}
+                  className="flex-1"
+                  onClick={() => setTipoDoc('FACTURA')}
+                >
+                  FACTURA
+                </Button>
+              </div>
+              <div className="grid gap-1.5">
+                <Label>Cliente: (Opcional)</Label>
+                <select
+                  className={SELECT_CLASS}
+                  value={idCliente}
+                  onChange={(e) => setIdCliente(e.target.value ? Number(e.target.value) : '')}
+                >
+                  <option value="">GENERICO</option>
+                  {clientes.map((c) => (<option key={c.idCliente} value={c.idCliente}>{c.nombre}</option>))}
+                </select>
+              </div>
+              <div className="text-sm text-muted-foreground">TICKET {numeroDoc}</div>
             </div>
           </div>
-        )}
-      </div>
-    </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={confirmandoTerminal} onOpenChange={(o) => !o && setConfirmandoTerminal(false)}>
+        <DialogContent className="sm:max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Cobrar con Terminal</DialogTitle>
+          </DialogHeader>
+          <p>¿Enviar un cobro de <strong>$ {montoTerminal.toFixed(2)}</strong> a la terminal Mercado Pago?</p>
+          <DialogFooter>
+            <Button variant="ghost" onClick={() => setConfirmandoTerminal(false)}>Cancelar</Button>
+            <Button variant="success" onClick={() => { setConfirmandoTerminal(false); void cobrarConTerminal(); }}>Sí, cobrar</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={exitoTerminal} onOpenChange={(o) => !o && setExitoTerminal(false)}>
+        <DialogContent className="sm:max-w-md">
+          <div className="flex flex-col items-center gap-2 text-center">
+            <CheckCircle2 className="size-14 text-success" />
+            <h2 className="text-xl font-bold text-success">¡Pago aprobado en la terminal!</h2>
+            <p>El cobro se realizó correctamente. Finaliza la venta:</p>
+          </div>
+          <DialogFooter>
+            <Button onClick={() => { setExitoTerminal(false); confirmar('directo'); }}>
+              <Printer /> Imprimir y finalizar
+            </Button>
+            <Button variant="secondary" onClick={() => { setExitoTerminal(false); confirmar('pantalla'); }}>
+              Ver en pantalla
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }

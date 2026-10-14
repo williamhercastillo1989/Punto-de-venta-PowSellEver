@@ -1,7 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
+import { Home } from 'lucide-react';
 import type { TurnoAbiertoDTO, UsuarioAutenticadoDTO } from '@pos/types';
 import { aperturaCaja, arqueoCaja, cierreCaja, turnoAbierto } from '../api';
 import { VentasPage } from '../ventas/VentasPage';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Alert } from '@/components/ui/alert';
+import { Card } from '@/components/ui/card';
 
 interface Props {
   idCaja: number;
@@ -74,49 +80,71 @@ export function CajaGate({ idCaja, usuario, onIr, onInicio }: Props): JSX.Elemen
     }
   }
 
-  if (cargando) return <p style={{ padding: 16 }}>Cargando estado de la caja…</p>;
+  if (cargando) return <p className="p-4 text-muted-foreground">Cargando estado de la caja…</p>;
 
   if (!turno) {
     return (
-      <div className="apertura">
-        <div className="apertura__card">
+      <div className="flex min-h-full items-center justify-center bg-background p-6">
+        <Card className="flex w-full max-w-sm flex-col gap-4 p-6">
           {onInicio && (
-            <button className="btn btn--ghost" onClick={onInicio} style={{ marginBottom: 8 }}>
-              ⌂ Volver al Dashboard
-            </button>
+            <Button variant="ghost" size="sm" className="self-start" onClick={onInicio}>
+              <Home /> Volver al Dashboard
+            </Button>
           )}
-          <h2>Abrir caja {idCaja}</h2>
-          {cierreInfo && <p className="alert alert--ok">{cierreInfo}</p>}
-          {error && <p className="alert alert--error">{error}</p>}
-          <label>
-            Saldo inicial
-            <input
+          <h2 className="text-xl font-bold">Abrir caja {idCaja}</h2>
+          {cierreInfo && <Alert variant="success">{cierreInfo}</Alert>}
+          {error && <Alert variant="error">{error}</Alert>}
+          <div className="grid gap-1.5">
+            <Label htmlFor="saldo-inicial">Saldo inicial</Label>
+            <Input
+              id="saldo-inicial"
               type="number"
               value={saldoInicial}
               onChange={(e) => setSaldoInicial(e.target.value)}
             />
-          </label>
-          <button className="btn btn--primary" onClick={abrir}>
-            Abrir turno
-          </button>
-        </div>
+          </div>
+          <Button onClick={abrir}>Abrir turno</Button>
+        </Card>
       </div>
     );
   }
 
   return (
     <>
-      <div className="turno-bar">
-        <span>
-          Turno abierto · Caja {turno.idCaja} · Saldo inicial{' '}
-          {turno.saldoInicial.toFixed(2)}
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b bg-card px-4 py-2">
+        <span className="flex items-center gap-3">
+          {usuario.foto ? (
+            <img className="size-10 rounded-full object-cover" src={usuario.foto} alt="" />
+          ) : (
+            <span className="flex size-10 items-center justify-center rounded-full bg-primary text-lg font-bold text-primary-foreground">
+              {(usuario.nombres ?? usuario.login ?? '?').trim().charAt(0).toUpperCase()}
+            </span>
+          )}
+          <span className="text-sm">
+            <strong>Atiende: {usuario.nombres ?? usuario.login}</strong>
+            <br />
+            <span className="text-muted-foreground">
+              Turno abierto · Caja {turno.idCaja} · Saldo inicial{' '}
+              {turno.saldoInicial.toFixed(2)}
+            </span>
+          </span>
         </span>
-        <span style={{ display: 'flex', gap: 8 }}>
-          {onInicio && <button onClick={onInicio}>⌂ Dashboard</button>}
-          <button onClick={cerrar}>Cerrar caja</button>
+        <span className="flex gap-2">
+          {onInicio && (
+            <Button variant="outline" size="sm" onClick={onInicio}>
+              <Home /> Dashboard
+            </Button>
+          )}
+          <Button variant="outline" size="sm" onClick={cerrar}>
+            Cerrar caja
+          </Button>
         </span>
       </div>
-      {error && <p className="alert alert--error">{error}</p>}
+      {error && (
+        <Alert variant="error" className="mx-4 mt-2">
+          {error}
+        </Alert>
+      )}
       <VentasPage
         idCaja={idCaja}
         idUsuario={usuario.idUsuario}
