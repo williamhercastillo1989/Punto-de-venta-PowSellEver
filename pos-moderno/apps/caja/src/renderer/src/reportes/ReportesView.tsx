@@ -1,10 +1,24 @@
 import { useCallback, useEffect, useState } from 'react';
+import { BarChart3, FileSpreadsheet, FileText, Search } from 'lucide-react';
 import {
   descargarReporteExcel,
   descargarReportePdf,
   reporteVentas,
   type ReporteVentasResp,
 } from '../api';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Alert } from '@/components/ui/alert';
+import { Card, CardContent } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 function hoy(): string {
   return new Date().toISOString().slice(0, 10);
@@ -28,39 +42,82 @@ export function ReportesView(): JSX.Element {
   useEffect(cargar, [cargar]);
 
   return (
-    <main className="page">
-      <h2>Reporte de ventas</h2>
-      {error && <p className="alert alert--error">{error}</p>}
-      <div className="toolbar">
-        <label>Desde <input type="date" value={desde} onChange={(e) => setDesde(e.target.value)} /></label>
-        <label>Hasta <input type="date" value={hasta} onChange={(e) => setHasta(e.target.value)} /></label>
-        <button className="btn btn--primary" onClick={cargar}>Consultar</button>
-        <button className="btn" onClick={() => void descargarReporteExcel(desde, hasta)}>Exportar Excel</button>
-        <button className="btn" onClick={() => void descargarReportePdf(desde, hasta)}>Exportar PDF</button>
+    <main className="min-h-full bg-background p-5">
+      <h2 className="mb-4 flex items-center gap-2 text-xl font-bold">
+        <BarChart3 className="size-5" /> Reporte de ventas
+      </h2>
+      {error && <Alert variant="error" className="mb-3">{error}</Alert>}
+      <div className="mb-4 flex flex-wrap items-end gap-3">
+        <div className="grid gap-1.5">
+          <Label>Desde</Label>
+          <Input type="date" value={desde} onChange={(e) => setDesde(e.target.value)} />
+        </div>
+        <div className="grid gap-1.5">
+          <Label>Hasta</Label>
+          <Input type="date" value={hasta} onChange={(e) => setHasta(e.target.value)} />
+        </div>
+        <Button onClick={cargar}>
+          <Search /> Consultar
+        </Button>
+        <Button variant="outline" onClick={() => void descargarReporteExcel(desde, hasta)}>
+          <FileSpreadsheet /> Exportar Excel
+        </Button>
+        <Button variant="outline" onClick={() => void descargarReportePdf(desde, hasta)}>
+          <FileText /> Exportar PDF
+        </Button>
       </div>
       {data && (
         <>
-          <div className="cards">
-            <div className="card"><div className="card__value">{data.resumen.numVentas}</div><div className="card__label">Ventas</div></div>
-            <div className="card"><div className="card__value">{data.resumen.total.toFixed(2)}</div><div className="card__label">Total</div></div>
-            <div className="card"><div className="card__value">{data.resumen.efectivo.toFixed(2)}</div><div className="card__label">Efectivo</div></div>
-            <div className="card"><div className="card__value">{data.resumen.tarjeta.toFixed(2)}</div><div className="card__label">Tarjeta</div></div>
+          <div className="mb-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <Card>
+              <CardContent className="p-4">
+                <div className="text-2xl font-bold">{data.resumen.numVentas}</div>
+                <div className="text-sm text-muted-foreground">Ventas</div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4">
+                <div className="text-2xl font-bold">{data.resumen.total.toFixed(2)}</div>
+                <div className="text-sm text-muted-foreground">Total</div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4">
+                <div className="text-2xl font-bold">{data.resumen.efectivo.toFixed(2)}</div>
+                <div className="text-sm text-muted-foreground">Efectivo</div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4">
+                <div className="text-2xl font-bold">{data.resumen.tarjeta.toFixed(2)}</div>
+                <div className="text-sm text-muted-foreground">Tarjeta</div>
+              </CardContent>
+            </Card>
           </div>
-          <table className="tabla">
-            <thead><tr><th>ID</th><th>Fecha</th><th>Comprobante</th><th>Cajero</th><th>Pago</th><th className="num">Total</th></tr></thead>
-            <tbody>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>ID</TableHead>
+                <TableHead>Fecha</TableHead>
+                <TableHead>Comprobante</TableHead>
+                <TableHead>Cajero</TableHead>
+                <TableHead>Pago</TableHead>
+                <TableHead className="text-right">Total</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {data.filas.map((f) => (
-                <tr key={String(f.idVenta)}>
-                  <td>{String(f.idVenta)}</td>
-                  <td>{f.fecha ? String(f.fecha).slice(0, 10) : ''}</td>
-                  <td>{String(f.comprobante ?? '')} {String(f.numeroDoc ?? '')}</td>
-                  <td>{String(f.cajero ?? '')}</td>
-                  <td>{String(f.tipoPago ?? '')}</td>
-                  <td className="num">{Number(f.montoTotal ?? 0).toFixed(2)}</td>
-                </tr>
+                <TableRow key={String(f.idVenta)}>
+                  <TableCell>{String(f.idVenta)}</TableCell>
+                  <TableCell>{f.fecha ? String(f.fecha).slice(0, 10) : ''}</TableCell>
+                  <TableCell>{String(f.comprobante ?? '')} {String(f.numeroDoc ?? '')}</TableCell>
+                  <TableCell>{String(f.cajero ?? '')}</TableCell>
+                  <TableCell>{String(f.tipoPago ?? '')}</TableCell>
+                  <TableCell className="text-right">{Number(f.montoTotal ?? 0).toFixed(2)}</TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </>
       )}
     </main>

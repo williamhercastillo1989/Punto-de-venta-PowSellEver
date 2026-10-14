@@ -1,6 +1,19 @@
 import { useEffect, useState } from 'react';
+import { Plus, Trash2 } from 'lucide-react';
 import type { ClienteDTO } from '@pos/types';
 import { crearCliente, eliminarCliente, obtenerClientes } from '../api';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Alert } from '@/components/ui/alert';
+import { Card, CardContent } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 export function ClientesView(): JSX.Element {
   const [items, setItems] = useState<ClienteDTO[]>([]);
@@ -36,25 +49,62 @@ export function ClientesView(): JSX.Element {
   }
 
   return (
-    <main className="page">
-      <h2>Clientes</h2>
-      {error && <p className="alert alert--error">{error}</p>}
-      <form className="panel row" onSubmit={crear}>
-        <input placeholder="Nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} required />
-        <input placeholder="Celular" value={celular} onChange={(e) => setCelular(e.target.value)} />
-        <button className="btn btn--primary" type="submit">Agregar</button>
-      </form>
-      <table className="tabla">
-        <thead><tr><th>#</th><th>Nombre</th><th>Celular</th><th className="num">Saldo</th><th></th></tr></thead>
-        <tbody>
+    <main className="p-4">
+      <h2 className="mb-3 text-xl font-bold">Clientes</h2>
+      {error && <Alert variant="error" className="mb-3">{error}</Alert>}
+      <Card className="mb-4">
+        <CardContent className="p-4">
+          <form className="flex flex-wrap items-center gap-3" onSubmit={crear}>
+            <Input
+              className="max-w-xs"
+              placeholder="Nombre"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+              required
+            />
+            <Input
+              className="max-w-xs"
+              placeholder="Celular"
+              value={celular}
+              onChange={(e) => setCelular(e.target.value)}
+            />
+            <Button type="submit">
+              <Plus /> Agregar
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>#</TableHead>
+            <TableHead>Nombre</TableHead>
+            <TableHead>Celular</TableHead>
+            <TableHead className="text-right">Saldo</TableHead>
+            <TableHead />
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {items.map((c) => (
-            <tr key={c.idCliente}>
-              <td>{c.idCliente}</td><td>{c.nombre}</td><td>{c.celular}</td><td className="num">{c.saldo}</td>
-              <td><button onClick={() => baja(c.idCliente)}>Baja</button></td>
-            </tr>
+            <TableRow key={c.idCliente}>
+              <TableCell>{c.idCliente}</TableCell>
+              <TableCell>{c.nombre}</TableCell>
+              <TableCell>{c.celular}</TableCell>
+              <TableCell className="text-right">{c.saldo}</TableCell>
+              <TableCell className="text-right">
+                <Button variant="destructive" size="sm" onClick={() => baja(c.idCliente)}>
+                  <Trash2 /> Baja
+                </Button>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+          {items.length === 0 && (
+            <TableRow>
+              <TableCell colSpan={5} className="text-muted-foreground">Sin clientes.</TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
     </main>
   );
 }

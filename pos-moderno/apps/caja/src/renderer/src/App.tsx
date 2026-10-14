@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { LogOut } from 'lucide-react';
 import type { UsuarioAutenticadoDTO } from '@pos/types';
 import { LoginView } from './auth/LoginView';
 import { CajaGate } from './caja/CajaGate';
@@ -7,6 +8,7 @@ import { ConfiguracionesView } from './config/ConfiguracionesView';
 import { SetupWizard } from './setup/SetupWizard';
 import { ModuloView } from './modulos';
 import { setToken } from './api';
+import { Button } from '@/components/ui/button';
 
 const ID_CAJA = 1;
 
@@ -94,20 +96,22 @@ export function App(): JSX.Element {
 
   // --- Caja (POS) — todos los roles ---
   return (
-    <div className="app">
-      <header className="app__header">
-        <h1>POS — Punto de Venta</h1>
-        <span className="app__badge">
+    <div className="flex min-h-screen flex-col bg-background">
+      <header className="flex items-center gap-4 border-b bg-card px-5 py-3">
+        <h1 className="text-lg font-bold">POS — Punto de Venta</h1>
+        <span className="ml-auto flex items-center gap-2 text-sm">
           {usuario.foto ? (
-            <img className="app__avatar" src={usuario.foto} alt="" />
+            <img className="size-8 rounded-full object-cover" src={usuario.foto} alt="" />
           ) : (
-            <span className="app__avatar app__avatar--ini">
+            <span className="flex size-8 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
               {(usuario.nombres ?? usuario.login ?? '?').trim().charAt(0).toUpperCase()}
             </span>
           )}
           {usuario.nombres ?? usuario.login} · {usuario.rol ?? 'sin rol'}
         </span>
-        <button className="app__logout" onClick={salir}>Salir</button>
+        <Button variant="outline" size="sm" onClick={salir}>
+          <LogOut /> Salir
+        </Button>
       </header>
       <CajaGate
         idCaja={ID_CAJA}

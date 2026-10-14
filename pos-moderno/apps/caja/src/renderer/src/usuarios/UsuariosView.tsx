@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Camera, Pencil, Plus, Save, Search, Trash2 } from 'lucide-react';
 import type { UsuarioDTO } from '@pos/types';
 import {
   actualizarUsuario,
@@ -6,6 +7,26 @@ import {
   eliminarUsuario,
   obtenerUsuarios,
 } from '../api';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Alert } from '@/components/ui/alert';
+import { Card } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 const ROLES = [
   { valor: 'Administrador', label: 'Administrador (acceso total)' },
@@ -139,21 +160,24 @@ export function UsuariosView(): JSX.Element {
   }
 
   return (
-    <div className="usr">
-      <header className="usr__header">USUARIOS</header>
+    <div className="min-h-full bg-background">
+      <header className="border-b px-5 pt-4">
+        <h2 className="mb-3 text-xl font-bold">USUARIOS</h2>
+      </header>
 
-      <div className="usr__body">
-        <div className="usr__search">
-          <span className="usr__search-ico">🔍</span>
-          <input
+      <div className="relative p-5">
+        <div className="relative mb-4 max-w-md">
+          <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
             type="text"
+            className="pl-9"
             placeholder="Buscar usuario…"
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
           />
         </div>
 
-        {error && <p className="alert alert--error">{error}</p>}
+        {error && <Alert variant="error" className="mb-3">{error}</Alert>}
 
         {form ? (
           <FormularioUsuario
@@ -164,58 +188,71 @@ export function UsuariosView(): JSX.Element {
           />
         ) : (
           <>
-            <table className="usr__tabla">
-              <thead>
-                <tr>
-                  <th aria-label="acciones" />
-                  <th>Nombres</th>
-                  <th>Login</th>
-                  <th>Password</th>
-                </tr>
-              </thead>
-              <tbody>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead aria-label="acciones" className="w-24" />
+                  <TableHead>Nombres</TableHead>
+                  <TableHead>Login</TableHead>
+                  <TableHead>Password</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
                 {filtrados.map((u) => (
-                  <tr key={u.idUsuario} onDoubleClick={() => editar(u)}>
-                    <td className="usr__acc-cell">
+                  <TableRow key={u.idUsuario} onDoubleClick={() => editar(u)}>
+                    <TableCell>
+                      <div className="flex gap-1">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          title="Editar"
+                          onClick={() => editar(u)}
+                        >
+                          <Pencil />
+                        </Button>
+                        {u.login !== 'admin' && (
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="text-destructive hover:text-destructive"
+                            title="Eliminar"
+                            onClick={() => baja(u.idUsuario, u.nombres ?? '')}
+                          >
+                            <Trash2 />
+                          </Button>
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell>
                       <button
-                        className="usr__edit"
-                        title="Editar"
+                        className="font-medium text-primary underline-offset-4 hover:underline"
                         onClick={() => editar(u)}
                       >
-                        ✏️
-                      </button>
-                      {u.login !== 'admin' && (
-                        <button
-                          className="usr__del"
-                          title="Eliminar"
-                          onClick={() => baja(u.idUsuario, u.nombres ?? '')}
-                        >
-                          ✕
-                        </button>
-                      )}
-                    </td>
-                    <td>
-                      <button className="usr__link" onClick={() => editar(u)}>
                         {u.nombres}
                       </button>
-                    </td>
-                    <td>{u.login}</td>
-                    <td>{u.password}</td>
-                  </tr>
+                    </TableCell>
+                    <TableCell>{u.login}</TableCell>
+                    <TableCell>{u.password}</TableCell>
+                  </TableRow>
                 ))}
                 {filtrados.length === 0 && (
-                  <tr>
-                    <td colSpan={4} className="muted">
+                  <TableRow>
+                    <TableCell colSpan={4} className="text-muted-foreground">
                       Sin usuarios.
-                    </td>
-                  </tr>
+                    </TableCell>
+                  </TableRow>
                 )}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
 
-            <button className="usr__fab" title="Agregar usuario" onClick={nuevo}>
-              +
-            </button>
+            <Button
+              size="icon"
+              className="fixed bottom-8 right-8 size-14 rounded-full shadow-lg"
+              title="Agregar usuario"
+              onClick={nuevo}
+            >
+              <Plus className="size-6" />
+            </Button>
           </>
         )}
       </div>
@@ -248,77 +285,89 @@ function FormularioUsuario({
   }
 
   return (
-    <form className="usr__form" onSubmit={onGuardar} noValidate>
-      <div className="usr__form-grid">
-        <div className="usr__fields">
-          <label>
-            <span>Nombres y Apellidos:</span>
-            <input
-              value={form.nombres}
-              onChange={(e) => set('nombres', e.target.value)}
-              autoFocus
-            />
-          </label>
-          <label>
-            <span>Usuario:</span>
-            <input
-              value={form.login}
-              onChange={(e) => set('login', e.target.value)}
-            />
-          </label>
-          <label>
-            <span>Contraseña:</span>
-            <input
-              value={form.password}
-              onChange={(e) => set('password', e.target.value)}
-              placeholder={form.idUsuario ? '(dejar vacío para no cambiar)' : ''}
-            />
-          </label>
-          <label>
-            <span>Correo electrónico:</span>
-            <input
-              type="text"
-              value={form.correo}
-              onChange={(e) => set('correo', e.target.value)}
-            />
-            <small className="muted">Servirá para recuperar su contraseña</small>
-          </label>
-          <label>
-            <span>Rol:</span>
-            <select value={form.rol} onChange={(e) => set('rol', e.target.value)}>
-              {ROLES.map((r) => (
-                <option key={r.valor} value={r.valor}>
-                  {r.label}
-                </option>
-              ))}
-            </select>
-          </label>
+    <Card>
+      <form className="p-6" onSubmit={onGuardar} noValidate>
+        <div className="flex flex-wrap gap-8">
+          <div className="flex min-w-72 flex-1 flex-col gap-3">
+            <div className="grid gap-1.5">
+              <Label>Nombres y Apellidos:</Label>
+              <Input
+                value={form.nombres}
+                onChange={(e) => set('nombres', e.target.value)}
+                autoFocus
+              />
+            </div>
+            <div className="grid gap-1.5">
+              <Label>Usuario:</Label>
+              <Input value={form.login} onChange={(e) => set('login', e.target.value)} />
+            </div>
+            <div className="grid gap-1.5">
+              <Label>Contraseña:</Label>
+              <Input
+                value={form.password}
+                onChange={(e) => set('password', e.target.value)}
+                placeholder={form.idUsuario ? '(dejar vacío para no cambiar)' : ''}
+              />
+            </div>
+            <div className="grid gap-1.5">
+              <Label>Correo electrónico:</Label>
+              <Input
+                type="text"
+                value={form.correo}
+                onChange={(e) => set('correo', e.target.value)}
+              />
+              <small className="text-muted-foreground">Servirá para recuperar su contraseña</small>
+            </div>
+            <div className="grid gap-1.5">
+              <Label>Rol:</Label>
+              <Select value={form.rol} onValueChange={(v) => set('rol', v)}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {ROLES.map((r) => (
+                    <SelectItem key={r.valor} value={r.valor}>
+                      {r.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center gap-3">
+            {form.foto ? (
+              <img
+                className="size-32 rounded-full object-cover"
+                src={form.foto}
+                alt="Foto del usuario"
+              />
+            ) : (
+              <div className="flex size-32 items-center justify-center rounded-full bg-muted text-3xl font-semibold text-muted-foreground">
+                {iniciales(form.nombres)}
+              </div>
+            )}
+            <Button variant="outline" asChild>
+              <label className="cursor-pointer">
+                <Camera /> {form.foto ? 'Cambiar foto' : 'Subir foto'}
+                <input type="file" accept="image/*" onChange={elegirFoto} hidden />
+              </label>
+            </Button>
+            {form.idUsuario != null && (
+              <span className="text-sm text-muted-foreground">#{form.idUsuario}</span>
+            )}
+          </div>
         </div>
 
-        <div className="usr__avatar">
-          {form.foto ? (
-            <img className="usr__avatar-img" src={form.foto} alt="Foto del usuario" />
-          ) : (
-            <div className="usr__avatar-img">{iniciales(form.nombres)}</div>
-          )}
-          <label className="usr__foto-btn">
-            📷 {form.foto ? 'Cambiar foto' : 'Subir foto'}
-            <input type="file" accept="image/*" onChange={elegirFoto} hidden />
-          </label>
-          {form.idUsuario != null && (
-            <span className="usr__id">#{form.idUsuario}</span>
-          )}
+        <div className="mt-6 flex gap-3">
+          <Button type="submit">
+            <Save /> Guardar Cambios
+          </Button>
+          <Button type="button" variant="ghost" onClick={onVolver}>
+            Volver
+          </Button>
         </div>
-      </div>
-
-      <div className="usr__actions">
-        <button className="btn btn--amarillo" type="submit">
-          Guardar Cambios
-        </button>
-        <button className="btn btn--texto" type="button" onClick={onVolver}>
-          Volver
-        </button>
-      </div>
-    </form>
+      </form>
+    </Card>
   );
 }

@@ -1,6 +1,19 @@
 import { useEffect, useState } from 'react';
+import { Plus } from 'lucide-react';
 import type { ProveedorDTO } from '@pos/types';
 import { crearProveedor, obtenerProveedores } from '../api';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Alert } from '@/components/ui/alert';
+import { Card, CardContent } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 export function ProveedoresView(): JSX.Element {
   const [items, setItems] = useState<ProveedorDTO[]>([]);
@@ -27,22 +40,56 @@ export function ProveedoresView(): JSX.Element {
   }
 
   return (
-    <main className="page">
-      <h2>Proveedores</h2>
-      {error && <p className="alert alert--error">{error}</p>}
-      <form className="panel row" onSubmit={crear}>
-        <input placeholder="Nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} required />
-        <input placeholder="Celular" value={celular} onChange={(e) => setCelular(e.target.value)} />
-        <button className="btn btn--primary" type="submit">Agregar</button>
-      </form>
-      <table className="tabla">
-        <thead><tr><th>#</th><th>Nombre</th><th>Celular</th><th className="num">Saldo</th></tr></thead>
-        <tbody>
+    <main className="p-4">
+      <h2 className="mb-3 text-xl font-bold">Proveedores</h2>
+      {error && <Alert variant="error" className="mb-3">{error}</Alert>}
+      <Card className="mb-4">
+        <CardContent className="p-4">
+          <form className="flex flex-wrap items-center gap-3" onSubmit={crear}>
+            <Input
+              className="max-w-xs"
+              placeholder="Nombre"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+              required
+            />
+            <Input
+              className="max-w-xs"
+              placeholder="Celular"
+              value={celular}
+              onChange={(e) => setCelular(e.target.value)}
+            />
+            <Button type="submit">
+              <Plus /> Agregar
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>#</TableHead>
+            <TableHead>Nombre</TableHead>
+            <TableHead>Celular</TableHead>
+            <TableHead className="text-right">Saldo</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {items.map((p) => (
-            <tr key={p.idProveedor}><td>{p.idProveedor}</td><td>{p.nombre}</td><td>{p.celular}</td><td className="num">{p.saldo}</td></tr>
+            <TableRow key={p.idProveedor}>
+              <TableCell>{p.idProveedor}</TableCell>
+              <TableCell>{p.nombre}</TableCell>
+              <TableCell>{p.celular}</TableCell>
+              <TableCell className="text-right">{p.saldo}</TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+          {items.length === 0 && (
+            <TableRow>
+              <TableCell colSpan={4} className="text-muted-foreground">Sin proveedores.</TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
     </main>
   );
 }

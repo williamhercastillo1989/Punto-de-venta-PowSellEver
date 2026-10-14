@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Plus, ShoppingCart } from 'lucide-react';
 import type {
   CompraLineaDTO,
   ProductoDTO,
@@ -10,6 +11,26 @@ import {
   obtenerProveedores,
   registrarCompra,
 } from '../api';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Alert } from '@/components/ui/alert';
+import { Card } from '@/components/ui/card';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 interface Props {
   idCaja: number;
@@ -85,102 +106,121 @@ export function ComprasView({ idCaja, idUsuario }: Props): JSX.Element {
   }
 
   return (
-    <main className="page">
-      <div className="page__head">
-        <h2>Nueva compra</h2>
+    <main className="min-h-full bg-background p-5">
+      <div className="mb-4">
+        <h2 className="text-xl font-bold">Nueva compra</h2>
       </div>
-      {error && <p className="alert alert--error">{error}</p>}
-      {mensaje && <p className="alert alert--ok">{mensaje}</p>}
+      {error && <Alert variant="error" className="mb-3">{error}</Alert>}
+      {mensaje && <Alert variant="success" className="mb-3">{mensaje}</Alert>}
 
-      <div className="compra__prov">
-        <label>
-          Proveedor:&nbsp;
-          <select
-            value={idProveedor}
-            onChange={(e) =>
-              setIdProveedor(e.target.value ? Number(e.target.value) : '')
-            }
+      <Card className="mb-4 flex flex-wrap items-end gap-6 p-4">
+        <div className="grid gap-1.5">
+          <Label>Proveedor:</Label>
+          <Select
+            value={idProveedor ? String(idProveedor) : undefined}
+            onValueChange={(v) => setIdProveedor(v ? Number(v) : '')}
           >
-            <option value="">— selecciona —</option>
-            {proveedores.map((p) => (
-              <option key={p.idProveedor} value={p.idProveedor}>
-                {p.nombre}
-              </option>
-            ))}
-          </select>
-        </label>
-        <span className="compra__nuevo">
-          <input
+            <SelectTrigger className="min-w-[14rem]">
+              <SelectValue placeholder="— selecciona —" />
+            </SelectTrigger>
+            <SelectContent>
+              {proveedores.map((p) => (
+                <SelectItem key={p.idProveedor} value={String(p.idProveedor)}>
+                  {p.nombre}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex items-end gap-2">
+          <Input
+            className="max-w-xs"
             placeholder="Nuevo proveedor…"
             value={nuevoProv}
             onChange={(e) => setNuevoProv(e.target.value)}
           />
-          <button onClick={guardarProveedor}>+ Agregar</button>
-        </span>
-      </div>
+          <Button variant="outline" onClick={guardarProveedor}>
+            <Plus /> Agregar
+          </Button>
+        </div>
+      </Card>
 
-      <div className="compra__cols">
+      <div className="grid gap-5 lg:grid-cols-2">
         <section>
-          <h3>Productos</h3>
-          <ul className="lista">
+          <h3 className="mb-3 text-lg font-semibold">Productos</h3>
+          <ul className="flex flex-col gap-2">
             {productos.map((p) => (
-              <li key={p.id} className="lista__item">
+              <li
+                key={p.id}
+                className="flex items-center justify-between rounded-md border bg-card px-3 py-2"
+              >
                 <span>{p.descripcion}</span>
-                <button onClick={() => agregarLinea(p)}>Añadir</button>
+                <Button variant="outline" size="sm" onClick={() => agregarLinea(p)}>
+                  Añadir
+                </Button>
               </li>
             ))}
           </ul>
         </section>
 
         <section>
-          <h3>Líneas de compra</h3>
-          <table className="tabla">
-            <thead>
-              <tr>
-                <th>Producto</th>
-                <th className="num">Cantidad</th>
-                <th className="num">Costo</th>
-                <th className="num">Subtotal</th>
-              </tr>
-            </thead>
-            <tbody>
+          <h3 className="mb-3 text-lg font-semibold">Líneas de compra</h3>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Producto</TableHead>
+                <TableHead className="text-right">Cantidad</TableHead>
+                <TableHead className="text-right">Costo</TableHead>
+                <TableHead className="text-right">Subtotal</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {lineas.map((l, i) => (
-                <tr key={l.idProducto}>
-                  <td>{l.descripcion}</td>
-                  <td className="num">
-                    <input
+                <TableRow key={l.idProducto}>
+                  <TableCell>{l.descripcion}</TableCell>
+                  <TableCell className="text-right">
+                    <Input
+                      className="ml-auto max-w-[8rem] text-right"
                       type="number"
                       min="0"
                       step="0.01"
                       value={l.cantidad}
                       onChange={(e) => actualizar(i, 'cantidad', e.target.value)}
                     />
-                  </td>
-                  <td className="num">
-                    <input
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <Input
+                      className="ml-auto max-w-[8rem] text-right"
                       type="number"
                       min="0"
                       step="0.01"
                       value={l.costo}
                       onChange={(e) => actualizar(i, 'costo', e.target.value)}
                     />
-                  </td>
-                  <td className="num">{(l.cantidad * l.costo).toFixed(2)}</td>
-                </tr>
+                  </TableCell>
+                  <TableCell className="text-right">{(l.cantidad * l.costo).toFixed(2)}</TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
-          <div className="ventas__total">
+              {lineas.length === 0 && (
+                <TableRow>
+                  <TableCell colSpan={4} className="text-muted-foreground">
+                    Sin líneas. Añade productos desde la izquierda.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+          <div className="mt-3 flex items-center justify-between rounded-md bg-muted px-4 py-3">
             <strong>Total</strong>
-            <strong>{total.toFixed(2)}</strong>
+            <strong className="text-lg">{total.toFixed(2)}</strong>
           </div>
-          <button
-            className="btn btn--primary"
+          <Button
+            className="mt-4"
             disabled={lineas.length === 0}
             onClick={guardarCompra}
           >
-            Registrar compra (suma inventario)
-          </button>
+            <ShoppingCart /> Registrar compra (suma inventario)
+          </Button>
         </section>
       </div>
     </main>

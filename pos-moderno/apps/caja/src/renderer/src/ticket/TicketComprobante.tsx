@@ -1,3 +1,4 @@
+import './comprobante.css';
 import {
   numeroALetras,
   type DisenoComprobante,

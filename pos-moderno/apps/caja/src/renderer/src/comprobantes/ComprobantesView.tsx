@@ -1,5 +1,18 @@
 import { useEffect, useState } from 'react';
+import { Plus, Trash2 } from 'lucide-react';
 import { crearSerie, eliminarSerie, obtenerSeries } from '../api';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Alert } from '@/components/ui/alert';
+import { Card } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 export function ComprobantesView(): JSX.Element {
   const [series, setSeries] = useState<Array<Record<string, unknown>>>([]);
@@ -34,28 +47,66 @@ export function ComprobantesView(): JSX.Element {
   }
 
   return (
-    <main className="page">
-      <h2>Serialización de comprobantes</h2>
-      {error && <p className="alert alert--error">{error}</p>}
-      <form className="panel row" onSubmit={crear}>
-        <input placeholder="Serie (ej. TC)" value={serie} onChange={(e) => setSerie(e.target.value)} required />
-        <input placeholder="Tipo de documento" value={tipoDoc} onChange={(e) => setTipoDoc(e.target.value)} />
-        <button className="btn btn--primary" type="submit">Agregar</button>
-      </form>
-      <table className="tabla">
-        <thead><tr><th>#</th><th>Serie</th><th>Tipo</th><th className="num">Último nº</th><th></th></tr></thead>
-        <tbody>
+    <main className="min-h-full bg-background p-5">
+      <h2 className="mb-4 text-xl font-bold">Serialización de comprobantes</h2>
+      {error && <Alert variant="error" className="mb-3">{error}</Alert>}
+      <Card className="mb-4 flex flex-wrap items-center gap-3 p-4">
+        <form className="flex flex-wrap items-center gap-3" onSubmit={crear}>
+          <Input
+            className="max-w-xs"
+            placeholder="Serie (ej. TC)"
+            value={serie}
+            onChange={(e) => setSerie(e.target.value)}
+            required
+          />
+          <Input
+            className="max-w-xs"
+            placeholder="Tipo de documento"
+            value={tipoDoc}
+            onChange={(e) => setTipoDoc(e.target.value)}
+          />
+          <Button type="submit">
+            <Plus /> Agregar
+          </Button>
+        </form>
+      </Card>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>#</TableHead>
+            <TableHead>Serie</TableHead>
+            <TableHead>Tipo</TableHead>
+            <TableHead className="text-right">Último nº</TableHead>
+            <TableHead></TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {series.map((s) => (
-            <tr key={String(s.idSerializacion)}>
-              <td>{String(s.idSerializacion)}</td>
-              <td>{String(s.serie ?? '')}</td>
-              <td>{String(s.tipoDoc ?? '')}</td>
-              <td className="num">{String(s.numeroFin ?? '')}</td>
-              <td><button onClick={() => eliminar(Number(s.idSerializacion))}>Eliminar</button></td>
-            </tr>
+            <TableRow key={String(s.idSerializacion)}>
+              <TableCell>{String(s.idSerializacion)}</TableCell>
+              <TableCell>{String(s.serie ?? '')}</TableCell>
+              <TableCell>{String(s.tipoDoc ?? '')}</TableCell>
+              <TableCell className="text-right">{String(s.numeroFin ?? '')}</TableCell>
+              <TableCell>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={() => eliminar(Number(s.idSerializacion))}
+                >
+                  <Trash2 /> Eliminar
+                </Button>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+          {series.length === 0 && (
+            <TableRow>
+              <TableCell colSpan={5} className="text-muted-foreground">
+                Sin series registradas.
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
     </main>
   );
 }

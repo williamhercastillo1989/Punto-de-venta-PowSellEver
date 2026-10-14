@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { CheckCircle2, AlertTriangle, Link2 } from 'lucide-react';
 import {
   desvincularTerminal,
   dispositivosTerminal,
@@ -8,6 +9,20 @@ import {
   urlOauthTerminal,
   type TerminalConfig,
 } from '../api';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Alert } from '@/components/ui/alert';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Card } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 export function TerminalMPView(): JSX.Element {
   const [cfg, setCfg] = useState<TerminalConfig | null>(null);
@@ -104,17 +119,17 @@ export function TerminalMPView(): JSX.Element {
   }
 
   return (
-    <main className="page" style={{ maxWidth: 620 }}>
-      <h2>Terminal — Mercado Pago</h2>
-      {error && <p className="alert alert--error">{error}</p>}
-      {msg && <p className="alert alert--ok">{msg}</p>}
+    <main className="mx-auto max-w-[620px] p-5">
+      <h2 className="mb-3 text-xl font-bold">Terminal — Mercado Pago</h2>
+      {error && <Alert variant="error" className="mb-3">{error}</Alert>}
+      {msg && <Alert variant="success" className="mb-3">{msg}</Alert>}
 
-      <div className="instructivo">
+      <div className="mb-4 rounded-md border border-primary/30 bg-primary/5 p-4 text-sm">
         <strong>¿Cómo configurar tu terminal?</strong>
-        <ol>
+        <ol className="my-2 list-decimal space-y-1 pl-5">
           <li>
             Crea una aplicación en el panel de Mercado Pago (tipo “Pagos presenciales / Point”):{' '}
-            <a href="https://www.mercadopago.com/developers/panel/app" target="_blank" rel="noreferrer">
+            <a className="text-primary underline" href="https://www.mercadopago.com/developers/panel/app" target="_blank" rel="noreferrer">
               Abrir panel de Mercado Pago ↗
             </a>
           </li>
@@ -135,102 +150,108 @@ export function TerminalMPView(): JSX.Element {
             <strong> Simulación</strong>.
           </li>
         </ol>
-        <div className="instructivo__links">
-          <a href="https://www.mercadopago.com/developers/es/docs/mp-point/landing" target="_blank" rel="noreferrer">📄 Documentación Mercado Pago Point ↗</a>
-          <a href="https://www.mercadopago.com/developers/panel/app" target="_blank" rel="noreferrer">🔑 Obtener Access Token ↗</a>
+        <div className="flex flex-wrap gap-4">
+          <a className="text-primary underline" href="https://www.mercadopago.com/developers/es/docs/mp-point/landing" target="_blank" rel="noreferrer">📄 Documentación Mercado Pago Point ↗</a>
+          <a className="text-primary underline" href="https://www.mercadopago.com/developers/panel/app" target="_blank" rel="noreferrer">🔑 Obtener Access Token ↗</a>
         </div>
-        <div style={{ marginTop: 10, borderTop: '1px solid #bfdbfe', paddingTop: 8 }}>
+        <div className="mt-3 border-t border-primary/30 pt-2">
           <strong>Si ves errores de Mercado Pago:</strong>
-          <ul style={{ margin: '6px 0', paddingLeft: 20 }}>
+          <ul className="my-1.5 list-disc space-y-1 pl-5">
             <li><em>“Device is not allowed to perform this action”</em>: tu equipo no permite cambiar el modo por API. Ponlo en <strong>modo Integrado/Punto de venta desde la propia terminal</strong> (Configuración → Modo de operación → Integrado/PDV).</li>
             <li><em>“device and site configuration not found”</em>: la terminal <strong>no está asociada a una Sucursal y Caja</strong>. En tu cuenta MP crea <strong>Sucursal</strong> y <strong>Caja (punto de venta)</strong> y asócia la terminal. En la tabla de abajo la columna “Sucursal/Caja” debe dejar de decir “sin asociar”.</li>
           </ul>
-          <a href="https://www.mercadopago.com/developers/es/docs/mp-point/integration-configuration/integration-via-pdv" target="_blank" rel="noreferrer">📄 Configurar PDV / Sucursal y Caja ↗</a>
+          <a className="text-primary underline" href="https://www.mercadopago.com/developers/es/docs/mp-point/integration-configuration/integration-via-pdv" target="_blank" rel="noreferrer">📄 Configurar PDV / Sucursal y Caja ↗</a>
         </div>
       </div>
 
-      <div className="panel" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+      <Card className="mb-4 flex flex-wrap items-center gap-4 p-4">
         {cfg?.conectado && cfg.real ? (
           <>
-            <span style={{ color: '#16a34a', fontWeight: 700 }}>
-              ✔ Cuenta conectada {cfg.cuenta ? `(${cfg.cuenta})` : ''}
+            <span className="flex items-center gap-1.5 font-bold text-success">
+              <CheckCircle2 className="size-4" /> Cuenta conectada {cfg.cuenta ? `(${cfg.cuenta})` : ''}
             </span>
-            <button className="btn btn--ghost" type="button" onClick={() => void desconectar()}>
+            <Button variant="ghost" type="button" onClick={() => void desconectar()}>
               Desvincular
-            </button>
+            </Button>
           </>
         ) : cfg?.conectado && !cfg.real ? (
           <>
-            <span style={{ color: '#f59e0b', fontWeight: 700 }}>
-              ⚠ Conexión SIMULADA — pega tu Access Token REAL (APP_USR-…) abajo para producción.
+            <span className="flex items-center gap-1.5 font-bold text-primary">
+              <AlertTriangle className="size-4" /> Conexión SIMULADA — pega tu Access Token REAL (APP_USR-…) abajo para producción.
             </span>
-            <button className="btn btn--ghost" type="button" onClick={() => void desconectar()}>
+            <Button variant="ghost" type="button" onClick={() => void desconectar()}>
               Desvincular
-            </button>
+            </Button>
           </>
         ) : (
           <>
-            <button className="btn btn--primary" type="button" onClick={conectar} style={{ background: '#00b1ea' }}>
-              🔗 Conectar con Mercado Pago
-            </button>
-            <span className="muted">Vincula tu cuenta sin pegar el token a mano.</span>
+            <Button type="button" onClick={conectar} style={{ background: '#00b1ea' }} className="text-white hover:opacity-90">
+              <Link2 /> Conectar con Mercado Pago
+            </Button>
+            <span className="text-muted-foreground">Vincula tu cuenta sin pegar el token a mano.</span>
           </>
         )}
-      </div>
+      </Card>
 
-      <form className="panel" onSubmit={guardar}>
-        <div className="row" style={{ marginBottom: 10 }}>
-          <label><input type="checkbox" checked={enabled} onChange={(e) => setEnabled(e.target.checked)} /> Habilitar cobro con terminal</label>
-        </div>
-        <div className="row" style={{ marginBottom: 10 }}>
-          <label><input type="checkbox" checked={simulacion} onChange={(e) => setSimulacion(e.target.checked)} /> Modo simulación (sin hardware real)</label>
-        </div>
-        <div className="row" style={{ marginBottom: 10 }}>
-          <label style={{ width: 150 }}>Access Token</label>
-          <input
-            type="password"
-            style={{ flex: 1 }}
-            placeholder={cfg?.tokenConfigurado ? '•••••• (guardado)' : 'APP_USR-...'}
-            value={accessToken}
-            onChange={(e) => setAccessToken(e.target.value)}
-          />
-        </div>
-        <div className="row" style={{ marginBottom: 10 }}>
-          <label style={{ width: 150 }}>Device ID</label>
-          <input style={{ flex: 1 }} value={deviceId} onChange={(e) => setDeviceId(e.target.value)} placeholder="PAX_A910__..." />
-        </div>
-        <div className="row" style={{ marginBottom: 10 }}>
-          <label style={{ width: 150 }}>Store ID (opcional)</label>
-          <input style={{ flex: 1 }} value={storeId} onChange={(e) => setStoreId(e.target.value)} />
-        </div>
-        <div className="row">
-          <button className="btn btn--primary" type="submit">Guardar</button>
-          <button className="btn" type="button" onClick={() => void probar()}>Probar dispositivos</button>
-        </div>
-      </form>
+      <Card className="mb-4">
+        <form className="flex flex-col gap-3 p-4" onSubmit={guardar}>
+          <label className="flex items-center gap-2 text-sm">
+            <Checkbox checked={enabled} onCheckedChange={(v) => setEnabled(Boolean(v))} /> Habilitar cobro con terminal
+          </label>
+          <label className="flex items-center gap-2 text-sm">
+            <Checkbox checked={simulacion} onCheckedChange={(v) => setSimulacion(Boolean(v))} /> Modo simulación (sin hardware real)
+          </label>
+          <div className="flex items-center gap-3">
+            <Label className="w-[150px] shrink-0">Access Token</Label>
+            <Input
+              type="password"
+              className="flex-1"
+              placeholder={cfg?.tokenConfigurado ? '•••••• (guardado)' : 'APP_USR-...'}
+              value={accessToken}
+              onChange={(e) => setAccessToken(e.target.value)}
+            />
+          </div>
+          <div className="flex items-center gap-3">
+            <Label className="w-[150px] shrink-0">Device ID</Label>
+            <Input className="flex-1" value={deviceId} onChange={(e) => setDeviceId(e.target.value)} placeholder="PAX_A910__..." />
+          </div>
+          <div className="flex items-center gap-3">
+            <Label className="w-[150px] shrink-0">Store ID (opcional)</Label>
+            <Input className="flex-1" value={storeId} onChange={(e) => setStoreId(e.target.value)} />
+          </div>
+          <div className="flex gap-3">
+            <Button type="submit">Guardar</Button>
+            <Button variant="outline" type="button" onClick={() => void probar()}>Probar dispositivos</Button>
+          </div>
+        </form>
+      </Card>
 
       {devices.length > 0 && (
-        <table className="tabla" style={{ marginTop: 12 }}>
-          <thead><tr><th>ID del dispositivo</th><th>Modo</th><th>Sucursal/Caja</th><th></th><th></th></tr></thead>
-          <tbody>
+        <Table className="mt-3">
+          <TableHeader>
+            <TableRow>
+              <TableHead>ID del dispositivo</TableHead><TableHead>Modo</TableHead><TableHead>Sucursal/Caja</TableHead><TableHead></TableHead><TableHead></TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {devices.map((d) => (
-              <tr key={d.id}>
-                <td>{d.id}{deviceId === d.id ? ' ✓' : ''}</td>
-                <td>{d.operating_mode || '—'}</td>
-                <td>{d.store_id || d.pos_id ? `${d.store_id || '—'} / ${d.pos_id || '—'}` : '⚠ sin asociar'}</td>
-                <td>
-                  <button onClick={() => setDeviceId(d.id)}>Usar</button>
-                </td>
-                <td>
-                  <button onClick={() => void ponerModoPDV(d.id)}>Poner en PDV</button>
-                </td>
-              </tr>
+              <TableRow key={d.id}>
+                <TableCell>{d.id}{deviceId === d.id ? ' ✓' : ''}</TableCell>
+                <TableCell>{d.operating_mode || '—'}</TableCell>
+                <TableCell>{d.store_id || d.pos_id ? `${d.store_id || '—'} / ${d.pos_id || '—'}` : '⚠ sin asociar'}</TableCell>
+                <TableCell>
+                  <Button variant="outline" size="sm" onClick={() => setDeviceId(d.id)}>Usar</Button>
+                </TableCell>
+                <TableCell>
+                  <Button variant="outline" size="sm" onClick={() => void ponerModoPDV(d.id)}>Poner en PDV</Button>
+                </TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       )}
 
-      <p className="muted" style={{ marginTop: 12 }}>
+      <p className="mt-3 text-muted-foreground">
         En modo simulación los cobros se aprueban automáticamente (para pruebas sin
         terminal física). Para producción, desactiva simulación y configura tu Access
         Token y Device ID de Mercado Pago Point.

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Camera, Save } from 'lucide-react';
 import {
   actualizarEmpresa,
   guardarTicket,
@@ -12,6 +13,11 @@ import {
   type FormatoComprobante,
 } from './comprobante';
 import { TicketComprobante } from './TicketComprobante';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Alert } from '@/components/ui/alert';
+import { Card } from '@/components/ui/card';
 
 function aDiseno(d: Record<string, unknown>): DisenoComprobante {
   const s = (k: string, def: string): string => {
@@ -86,41 +92,49 @@ export function TicketView(): JSX.Element {
   }
 
   return (
-    <div className="cmp">
-      <div className="cmp__preview">
+    <div className="flex min-h-full flex-wrap items-start gap-6 bg-background p-5">
+      <div className="flex justify-center">
         <TicketComprobante diseno={diseno} venta={{ ...VENTA_EJEMPLO, empresa }} />
       </div>
 
-      <div className="cmp__panel">
-        <h2>Diseño de Comprobantes</h2>
-        {error && <p className="alert alert--error">{error}</p>}
-        {msg && <p className="alert alert--ok">{msg}</p>}
+      <Card className="flex w-full max-w-md flex-col gap-4 p-5">
+        <h2 className="text-xl font-bold">Diseño de Comprobantes</h2>
+        {error && <Alert variant="error">{error}</Alert>}
+        {msg && <Alert variant="success">{msg}</Alert>}
 
-        <p className="cmp__sub">Elige un formato de comprobante con el que trabajarás</p>
-        <div className="cmp__formatos">
-          <button
-            className={`cmp__fmt ${diseno.formato === 'TICKET' ? 'cmp__fmt--on' : ''}`}
+        <p className="text-sm text-muted-foreground">
+          Elige un formato de comprobante con el que trabajarás
+        </p>
+        <div className="flex gap-3">
+          <Button
+            type="button"
+            className="flex-1"
+            variant={diseno.formato === 'TICKET' ? 'default' : 'outline'}
             onClick={() => set('formato', 'TICKET')}
           >
             Ticket No Fiscal
-          </button>
-          <button
-            className={`cmp__fmt ${diseno.formato === 'FACTURA' ? 'cmp__fmt--on' : ''}`}
+          </Button>
+          <Button
+            type="button"
+            className="flex-1"
+            variant={diseno.formato === 'FACTURA' ? 'default' : 'outline'}
             onClick={() => set('formato', 'FACTURA')}
           >
             Factura - Boleta
-          </button>
+          </Button>
         </div>
 
-        <label className="cmp__logo-btn">
-          📷 {diseno.logo ? 'Cambiar logo' : 'Subir logo'}
-          <input type="file" accept="image/*" hidden onChange={subirLogo} />
-        </label>
+        <Button variant="outline" asChild>
+          <label className="cursor-pointer">
+            <Camera /> {diseno.logo ? 'Cambiar logo' : 'Subir logo'}
+            <input type="file" accept="image/*" hidden onChange={subirLogo} />
+          </label>
+        </Button>
 
-        <div className="cmp__campos">
-          <label>
-            Nombre del negocio
-            <input
+        <div className="flex flex-col gap-3">
+          <div className="grid gap-1.5">
+            <Label>Nombre del negocio</Label>
+            <Input
               value={empresa}
               placeholder="Mi Negocio S.A."
               onChange={(e) => {
@@ -128,26 +142,28 @@ export function TicketView(): JSX.Element {
                 setMsg(null);
               }}
             />
-          </label>
+          </div>
           {CAMPOS.map(([k, label]) => (
-            <label key={k}>
-              {label}
-              <input value={diseno[k]} onChange={(e) => set(k, e.target.value as never)} />
-            </label>
+            <div key={k} className="grid gap-1.5">
+              <Label>{label}</Label>
+              <Input value={diseno[k]} onChange={(e) => set(k, e.target.value as never)} />
+            </div>
           ))}
           {diseno.formato === 'FACTURA' && (
-            <label>
-              Datos fiscales (autorización, resolución…)
-              <input
+            <div className="grid gap-1.5">
+              <Label>Datos fiscales (autorización, resolución…)</Label>
+              <Input
                 value={diseno.datosFiscales}
                 onChange={(e) => set('datosFiscales', e.target.value)}
               />
-            </label>
+            </div>
           )}
         </div>
 
-        <button className="cmp__guardar" onClick={guardar}>Guardar</button>
-      </div>
+        <Button onClick={guardar}>
+          <Save /> Guardar
+        </Button>
+      </Card>
     </div>
   );
 }

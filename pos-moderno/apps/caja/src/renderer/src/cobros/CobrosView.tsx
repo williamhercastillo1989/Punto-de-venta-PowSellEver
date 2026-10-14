@@ -1,6 +1,26 @@
 import { useEffect, useState } from 'react';
+import { HandCoins } from 'lucide-react';
 import type { ClienteDTO } from '@pos/types';
 import { crearCobro, obtenerClientes, obtenerCobros } from '../api';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Alert } from '@/components/ui/alert';
+import { Card } from '@/components/ui/card';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 interface Props {
   idCaja: number;
@@ -47,34 +67,66 @@ export function CobrosView({ idCaja, idUsuario }: Props): JSX.Element {
   }
 
   return (
-    <main className="page">
-      <h2>Cobros (abonos)</h2>
-      {error && <p className="alert alert--error">{error}</p>}
-      {msg && <p className="alert alert--ok">{msg}</p>}
-      <form className="panel row" onSubmit={registrar}>
-        <select value={idCliente} onChange={(e) => setIdCliente(e.target.value ? Number(e.target.value) : '')}>
-          <option value="">— cliente —</option>
-          {clientes.map((c) => (
-            <option key={c.idCliente} value={c.idCliente}>{c.nombre} (saldo {c.saldo})</option>
-          ))}
-        </select>
-        <input type="number" step="0.01" placeholder="Monto" value={monto} onChange={(e) => setMonto(e.target.value)} />
-        <input placeholder="Detalle" value={detalle} onChange={(e) => setDetalle(e.target.value)} />
-        <button className="btn btn--primary" type="submit">Registrar</button>
-      </form>
-      <table className="tabla">
-        <thead><tr><th>#</th><th>Fecha</th><th>Detalle</th><th className="num">Monto</th></tr></thead>
-        <tbody>
+    <main className="min-h-full bg-background p-5">
+      <h2 className="mb-4 flex items-center gap-2 text-xl font-bold">
+        <HandCoins className="size-5" /> Cobros (abonos)
+      </h2>
+      {error && <Alert variant="error" className="mb-3">{error}</Alert>}
+      {msg && <Alert variant="success" className="mb-3">{msg}</Alert>}
+      <Card className="mb-5 p-4">
+        <form className="flex flex-wrap items-center gap-3" onSubmit={registrar}>
+          <Select
+            value={idCliente === '' ? undefined : String(idCliente)}
+            onValueChange={(v) => setIdCliente(v ? Number(v) : '')}
+          >
+            <SelectTrigger className="w-64">
+              <SelectValue placeholder="— cliente —" />
+            </SelectTrigger>
+            <SelectContent>
+              {clientes.map((c) => (
+                <SelectItem key={c.idCliente} value={String(c.idCliente)}>
+                  {c.nombre} (saldo {c.saldo})
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Input
+            className="max-w-[10rem]"
+            type="number"
+            step="0.01"
+            placeholder="Monto"
+            value={monto}
+            onChange={(e) => setMonto(e.target.value)}
+          />
+          <Input
+            className="max-w-xs"
+            placeholder="Detalle"
+            value={detalle}
+            onChange={(e) => setDetalle(e.target.value)}
+          />
+          <Button type="submit">Registrar</Button>
+        </form>
+      </Card>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>#</TableHead>
+            <TableHead>Fecha</TableHead>
+            <TableHead>Detalle</TableHead>
+            <TableHead className="text-right">Monto</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {cobros.map((c) => (
-            <tr key={String(c.idControlCobro)}>
-              <td>{String(c.idControlCobro)}</td>
-              <td>{c.fecha ? String(c.fecha).slice(0, 10) : ''}</td>
-              <td>{String(c.detalle ?? '')}</td>
-              <td className="num">{String(c.monto ?? '')}</td>
-            </tr>
+            <TableRow key={String(c.idControlCobro)}>
+              <TableCell>{String(c.idControlCobro)}</TableCell>
+              <TableCell>{c.fecha ? String(c.fecha).slice(0, 10) : ''}</TableCell>
+              <TableCell>{String(c.detalle ?? '')}</TableCell>
+              <TableCell className="text-right">{String(c.monto ?? '')}</TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </main>
   );
 }
